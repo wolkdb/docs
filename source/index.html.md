@@ -62,18 +62,6 @@ HTTP
 ```
 Import the library in your project.
 
-<!-- > Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside> -->
-
 # Configure
 
 Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
@@ -120,7 +108,7 @@ Open a connection by specifying the host and port of the SWARMDB node.  Specific
 var columns = [
   { "indextype": 2, "columnname": "email", "columntype": 2, "primary": 1 },
   { "indextype": 2, "columnname": "name", "columntype": 2, "primary": 0 },
-  { "indextype": 1, "columnname": "age", "columntype": 1, "primary": 0 }
+  { "indextype": 2, "columnname": "age", "columntype": 1, "primary": 0 }
 ];
 swarmdb.createTable("contacts", columns, 1, function (err, result) {
   if (err) {
