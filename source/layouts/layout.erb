@@ -29,6 +29,7 @@ under the License.
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= favicon_tag 'images/wolk_favicon.png' %>
     <title><%= current_page.data.title || "API Documentation" %></title>
 
     <style>
@@ -47,11 +48,11 @@ under the License.
     <a href="#" id="nav-button">
       <span>
         NAV
-        <%= image_tag('navbar.png') %>
+        <%= image_tag('navbar.png') %></center>
       </span>
     </a>
     <div class="toc-wrapper">
-      <%= image_tag "logo.png", class: 'logo' %>
+      <center><%= image_tag "logo.png", class: 'logo' %></center>
       <% if language_tabs.any? %>
         <div class="lang-selector">
           <% language_tabs.each do |lang| %>

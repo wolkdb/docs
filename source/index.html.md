@@ -2,14 +2,10 @@
 title: SWARMDB API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
-
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - javascript: Node.js
+  - go: Go
+  - shell: CLI
+  - http: HTTP
 
 includes:
   - errors
@@ -19,41 +15,54 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+SwarmDB is being developed by [Wolk Inc.](https://www.wolk.com/) to support decentralized database services.  
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This is a pre-alpha project under active development with Ethereum Swarm. To install the current version, please [README](https://github.com/wolktoken/swarm.wolk.com/blob/master/README.md). 
 
-# Authentication
+If you require further assistance, feel free to shoot us an email: services@wolk.com
 
-> To authorize, use this code:
+# Install
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```javascript
+$ npm install swarmdb.js --save
+// Note that since web3 module has some issues to be installed at a latest version, you need to install it manually right now.
+$ npm install web3@1.0.0-beta.26
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
+```go
+GO
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+CLI
 ```
+
+```http
+HTTP
+```
+
+To use SWARMDB API, you need to install the corresponding library.
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+var swarmdbAPI = require("swarmdb.js");
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+```go
+GO
+```
+
+```shell
+CLI
+```
+
+```http
+HTTP
+```
+Import the library in your project.
+
+<!-- > Make sure to replace `meowmeowmeow` with your API key.
 
 Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
@@ -63,177 +72,201 @@ Kittn expects for the API key to be included in all API requests to the server i
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+</aside> -->
 
-# Kittens
+# Configure
 
-## Get All Kittens
+Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```javascript
+$ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
 ```
 
-```python
-import kittn
+Set the private key associated with this user as an environment variable. 
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+```javascript
+$ export PROVIDER=YOUR_PROVIDER_LINK
+```
+
+(Optional) You can also specify an Ethereum provider instead of using the default http://localhost:8545
+
+# Connect
+```javascript
+// swarmdbAPI.createConnection(options)
+var swarmdb = swarmdbAPI.createConnection({
+    host: SWARMDB_HOST, //e.g. "localhost"
+    port: SWARMDB_PORT  //e.g. 2001
+});
+```
+
+```go
+GO
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+CLI
 ```
+
+```http
+HTTP
+```
+
+Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
+
+# Create Table
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+// swarmdb.createTable(table, columns, encrypted, callback)
+var columns = [
+  { "indextype": 2, "columnname": "email", "columntype": 2, "primary": 1 },
+  { "indextype": 2, "columnname": "name", "columntype": 2, "primary": 0 },
+  { "indextype": 1, "columnname": "age", "columntype": 1, "primary": 0 }
+];
+swarmdb.createTable("contacts", columns, 1, function (err, result) {
+  if (err) {
+    throw err;
   }
-]
+  console.log(result);
+});
 ```
 
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+```go
+GO
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+CLI
 ```
 
+```http
+HTTP
+```
+
+Create a table by specifying table name, column details and encrypted status.  
+
+Columns consist of the following parameters:  
+
+* **indextype**: enter the integer value corresponding with the desired indextype ([more details](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-column-types))  
+* **columnname**: enter the desired column name (no spaces allowed)  
+* **columntype**: enter the integer value corresponding with the desired columntype ([more details](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types))  
+* **primary**: enter 1 if the column is the primary key and 0 for any other column  
+
+For encrypted status, 1 means true and 0 means false.
+
+<aside class="notice">Table owner is not required in createTable method. It will fetch the Ethereum address associated with the user configured on the SWARMDB node and save it as tableowner in the table schema.</aside>
+
+# Read
+
+Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.
+
+Table owner, which is an Ethereum address without "0x", is required to read a row.
+
+## Get
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+// swarmdb.get(table, tableowner, key, callback)
+var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
+swarmdb.get("contacts", tableowner, "bertie@gmail.com", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+```go
+GO
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+CLI
 ```
 
+```http
+HTTP
+```
+Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
+
+## Select
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+// swarmdb.query(sqlQuery, tableowner, callback)
+var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
+swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", tableowner, function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
+```go
+GO
 ```
 
-This endpoint deletes a specific kitten.
+```shell
+CLI
+```
 
-### HTTP Request
+```http
+HTTP
+```
 
-`DELETE http://example.com/kittens/<ID>`
+Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
 
-### URL Parameters
+# Write
+Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT query.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Table owner, which is an Ethereum address without "0x", is required to read a row.
 
+## Put
+```javascript
+// swarmdb.put(table, tableowner, rows, callback)
+var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
+swarmdb.put("contacts", tableowner, [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ],  function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+```
+
+```go
+GO
+```
+
+```shell
+CLI
+```
+
+```http
+HTTP
+```
+
+Put calls allow for writing rows.
+
+<aside class="notice">The "rows" input consists of an array rows, where a row is a defined as a json object containing column/value pairs.  Each row must at least include a column/value pair for the primary key.</aside>
+
+## Insert
+```javascript
+// swarmdb.query(sqlQuery, tableowner, callback)
+var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
+swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);", tableowner, function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+```
+
+```go
+GO
+```
+
+```shell
+CLI
+```
+
+```http
+HTTP
+```
+
+Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.
