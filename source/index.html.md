@@ -15,6 +15,7 @@ search: true
 
 # Introduction
 
+
 SwarmDB is being developed by [Wolk Inc.](https://www.wolk.com/) to support decentralized database services.  
 
 Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  
