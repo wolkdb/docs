@@ -127,8 +127,6 @@ HTTP
 
 Create a database by specifying database name, owner and encrypted status.  
 
-Columns consist of the following parameters:  
-
 Owner should be a valid ENS domain.
 
 For encrypted status, 1 means true and 0 means false.
