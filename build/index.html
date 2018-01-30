@@ -202,7 +202,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;,&quot;go&quot;,&quot;shell&quot;,&quot;http&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;go&quot;,&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -214,8 +214,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">Node.js</a>
               <a href="#" data-language-name="go">Go</a>
-              <a href="#" data-language-name="shell">CLI</a>
-              <a href="#" data-language-name="http">HTTP</a>
+              <a href="#" data-language-name="shell">HTTP</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -239,6 +238,12 @@
           </li>
           <li>
             <a href="#create-table" class="toc-h1 toc-link" data-title="create-table">Create Table</a>
+          </li>
+          <li>
+            <a href="#opening-a-database" class="toc-h1 toc-link" data-title="opening-a-database">Opening a Database</a>
+          </li>
+          <li>
+            <a href="#opening-a-table" class="toc-h1 toc-link" data-title="opening-a-table">Opening a Table</a>
           </li>
           <li>
             <a href="#read" class="toc-h1 toc-link" data-title="read">Read</a>
@@ -281,15 +286,14 @@
 <h1 id='install'>Install</h1><pre class="highlight javascript tab-javascript"><code><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">save</span>
 <span class="c1">// Note that since web3 module has some issues to be installed at a latest version, you need to install it manually right now.</span>
 <span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">web3</span><span class="p">@</span><span class="nd">1</span><span class="p">.</span><span class="mf">0.0</span><span class="o">-</span><span class="nx">beta</span><span class="p">.</span><span class="mi">26</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="k">go</span><span class="x"> </span><span class="n">get</span><span class="x"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wolkdb</span><span class="o">/</span><span class="n">swarmdb</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>// Check that wolkdb is running and that you can <span class="k">do </span>curl calls
+<span class="gp">$ </span>ps aux | grep swarmdb
+<span class="gp">$ </span>curl https://www.google.com | wc
+</code></pre>
 <p>To use SWARMDB API, you need to install the corresponding library.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">swarmdbAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"swarmdb.js"</span><span class="p">);</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="s">"github.com/wolkdb/swarmdb"</span><span class="x">
 </span></code></pre>
 <p>Import the library in your project.</p>
 <h1 id='configure'>Configure</h1>
@@ -305,10 +309,14 @@
     <span class="na">host</span><span class="p">:</span> <span class="nx">SWARMDB_HOST</span><span class="p">,</span> <span class="c1">//e.g. "localhost"</span>
     <span class="na">port</span><span class="p">:</span> <span class="nx">SWARMDB_PORT</span>  <span class="c1">//e.g. 2001</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBDatabase) OpenConnection(options) </span><span class="x">
+</span><span class="n">options</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">SWARMDBConnectionOptions</span><span class="p">{</span><span class="s">"ip"</span><span class="o">:</span><span class="x"> </span><span class="n">SWARMDB_HOST</span><span class="p">,</span><span class="x"> </span><span class="s">"port"</span><span class="o">:</span><span class="x"> </span><span class="n">SWARMDB_PORT</span><span class="p">}</span><span class="x">
+</span><span class="n">conn</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdb</span><span class="o">.</span><span class="n">OpenConnection</span><span class="p">(</span><span class="n">options</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not open connection"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5.-HTTP-Interface#authentication
+</code></pre>
 <p>Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the <a href="https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file">SWARMDB configuration file</a>.</p>
 <h1 id='create-database'>Create Database</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.createDatabase(db, owner, encrypted, callback)</span>
 <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">createDatabase</span><span class="p">(</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"test.eth"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -317,10 +325,16 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBConnection) CreateDatabase(owner string, databaseName string)</span><span class="x">
+</span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">
+</span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
+</span><span class="n">db</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">CreateDatabase</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span><span class="x"> </span><span class="n">databaseName</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not create database"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST -d <span class="s1">'{ "requesttype":"CreateDatabase", "encrypted":0 }'</span>  <span class="se">\ </span>
+     <span class="s2">"http://localhost:8501/testdb.test.eth/"</span> 
+</code></pre>
 <p>Create a database by specifying database name, owner and encrypted status.  </p>
 
 <p>Owner should be a valid ENS domain.</p>
@@ -328,9 +342,9 @@
 <p>For encrypted status, 1 means true and 0 means false.</p>
 <h1 id='create-table'>Create Table</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.createTable(table, db, owner, columns, callback)</span>
 <span class="kd">var</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"bplus"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"hash"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"integer"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"bplus"</span> <span class="p">}</span>
 <span class="p">];</span>
 <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">createTable</span><span class="p">(</span><span class="s2">"contacts"</span><span class="p">,</span> <span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"test.eth"</span> <span class="nx">columns</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
@@ -338,10 +352,33 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBDatabase) CreateTable(tableName string, []Column)</span><span class="x">
+</span><span class="c">// Create Table</span><span class="x">
+</span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
+</span><span class="n">cols</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">([]</span><span class="n">swarmdb</span><span class="o">.</span><span class="n">Column</span><span class="p">,</span><span class="x"> </span><span class="m">3</span><span class="p">)</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnName</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"email"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="o">.</span><span class="n">Primary</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="m">1</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="o">.</span><span class="n">IndexType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"bplus"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"string"</span><span class="x">
+
+</span><span class="n">cols</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnName</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"name"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">.</span><span class="n">IndexType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"hash"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"string"</span><span class="x">
+
+</span><span class="n">cols</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnName</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"age"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">.</span><span class="n">IndexType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"bplus"</span><span class="x">
+</span><span class="n">cols</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="o">.</span><span class="n">ColumnType</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"integer"</span><span class="x">
+
+</span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">CreateTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">,</span><span class="x"> </span><span class="n">cols</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not create table"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST -d <span class="s1">'{ "requesttype":"CreateTable", "table":"contacts", \
+      "columns":[{ "columnName":"email", "ColumnType":"string", "Primary":1, "IndexType":”bplus” }, \ 
+                 { "columnname":"name", "columntype":"string", "IndexType":"hash" }, \
+                 { "columnname":"age", "columntype":"integer", "IndexType":"bplus" } ] }'</span> <span class="se">\</span>
+      <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
+</code></pre>
 <p>Create a table by specifying table name, database name, owner and column details.  </p>
 
 <p>Columns consist of the following parameters:  </p>
@@ -352,7 +389,26 @@
 <li><strong>columntype</strong>: enter the integer value corresponding with the desired columntype (<a href="https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types">more details</a>)<br></li>
 <li><strong>primary</strong>: enter 1 if the column is the primary key and 0 for any other column<br></li>
 </ul>
-<h1 id='read'>Read</h1>
+<h1 id='opening-a-database'>Opening a Database</h1>
+<p>In Go, a database object should be created using the connection.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// not required</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBConnection) Open(owner string, databaseName string)</span><span class="x">
+</span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">
+</span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
+</span><span class="n">db</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">OpenDatabase</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span><span class="x"> </span><span class="n">databaseName</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not create database"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><h1 id='opening-a-table'>Opening a Table</h1>
+<p>To open a table, a table object must be created using the database object.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// TBD</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (tbl *SWARMDBTable) Open(tableName string)</span><span class="x">
+</span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">tableName</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not open table"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>// not required
+</code></pre><h1 id='read'>Read</h1>
 <p>Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.</p>
 
 <p>Table owner, which is an Ethereum address without &quot;0x&quot;, is required to read a row.</p>
@@ -364,10 +420,14 @@
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (tbl *SWARMDBTable) Get(key string)</span><span class="x">
+</span><span class="n">row</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"bertie@gmail.com"</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Get row"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Row: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"</span>
+</code></pre>
 <p>Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.</p>
 <h2 id='select'>Select</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.query(sqlQuery, tableowner, callback)</span>
 <span class="kd">var</span> <span class="nx">tableowner</span> <span class="o">=</span> <span class="s2">"ADDRESS_IN_YOUR_CONFIG_FILE"</span><span class="p">;</span>
@@ -377,10 +437,19 @@
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBDatabase) Query(query string) (rows []Row, err error)</span><span class="x">
+</span><span class="n">query</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"SELECT email, name, age FROM contacts WHERE email=</span><span class="se">\"</span><span class="s">bertie@gmail.com</span><span class="se">\"</span><span class="s">"</span><span class="x">
+</span><span class="n">rows</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Get row"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">row</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">rows</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Row %d: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">row</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
+                   "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'</span> <span class="se">\</span>
+     <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
+</code></pre>
 <p>Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The <a href="https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands">supported query operands</a> are allowed to be used on both primary and secondary keys.</p>
 <h1 id='write'>Write</h1>
 <p>Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT query.</p>
@@ -394,10 +463,20 @@
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (table *SWARMDBTable) Put(row Row) (error err)</span><span class="x">
+</span><span class="k">var</span><span class="x"> </span><span class="n">r</span><span class="x"> </span><span class="n">swarmdb</span><span class="o">.</span><span class="n">Row</span><span class="x">
+</span><span class="n">r</span><span class="o">.</span><span class="n">Cells</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="nb">make</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{})</span><span class="x">
+</span><span class="n">r</span><span class="o">.</span><span class="n">Cells</span><span class="p">[</span><span class="s">"email"</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="x">
+</span><span class="n">r</span><span class="o">.</span><span class="n">Cells</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="x">
+</span><span class="n">r</span><span class="o">.</span><span class="n">Cells</span><span class="p">[</span><span class="s">"age"</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="m">7</span><span class="x">
+</span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Put row"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST -d <span class="s1">'{ "requesttype":"Put", \
+                   "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }'</span> <span class="se">\</span>
+     <span class="s2">"http://localhost:8501/testdb.test.eth/contacts"</span>
+</code></pre>
 <p>Put calls allow for writing rows.</p>
 
 <aside class="notice">The "rows" input consists of an array rows, where a row is a defined as a json object containing column/value pairs.  Each row must at least include a column/value pair for the primary key.</aside>
@@ -409,10 +488,16 @@
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="n">GO</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>CLI
-</code></pre><pre class="highlight http tab-http"><code><span class="err">HTTP
-</span></code></pre>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBConnection) Query(query string) (rows []Row, error)</span><span class="x">
+</span><span class="n">query</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7)"</span><span class="x">
+</span><span class="n">rows</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+   </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Get row"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
+                   "query":"INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7) " }'</span> <span class="se">\</span>
+     <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
+</code></pre>
 <p>Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
@@ -598,8 +683,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
           <div class="lang-selector">
                 <a href="#" data-language-name="javascript">Node.js</a>
                 <a href="#" data-language-name="go">Go</a>
-                <a href="#" data-language-name="shell">CLI</a>
-                <a href="#" data-language-name="http">HTTP</a>
+                <a href="#" data-language-name="shell">HTTP</a>
           </div>
       </div>
     </div>
