@@ -101,16 +101,11 @@ HTTP
 
 Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
 
-# Create Table
+# Create Database
 
 ```javascript
-// swarmdb.createTable(table, columns, encrypted, callback)
-var columns = [
-  { "indextype": 2, "columnname": "email", "columntype": 2, "primary": 1 },
-  { "indextype": 2, "columnname": "name", "columntype": 2, "primary": 0 },
-  { "indextype": 2, "columnname": "age", "columntype": 1, "primary": 0 }
-];
-swarmdb.createTable("contacts", columns, 1, function (err, result) {
+// swarmdb.createDatabase(db, owner, encrypted, callback)
+swarmdb.createDatabase("testdb", "test.eth", 1, function (err, result) {
   if (err) {
     throw err;
   }
@@ -130,7 +125,44 @@ CLI
 HTTP
 ```
 
-Create a table by specifying table name, column details and encrypted status.  
+Create a database by specifying database name, owner and encrypted status.  
+
+Columns consist of the following parameters:  
+
+Owner should be a valid ENS domain.
+
+For encrypted status, 1 means true and 0 means false.
+
+# Create Table
+
+```javascript
+// swarmdb.createTable(table, db, owner, columns, callback)
+var columns = [
+  { "indextype": 2, "columnname": "email", "columntype": 2, "primary": 1 },
+  { "indextype": 2, "columnname": "name", "columntype": 2, "primary": 0 },
+  { "indextype": 2, "columnname": "age", "columntype": 1, "primary": 0 }
+];
+swarmdb.createTable("contacts", "testdb", "test.eth" columns, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
+});
+```
+
+```go
+GO
+```
+
+```shell
+CLI
+```
+
+```http
+HTTP
+```
+
+Create a table by specifying table name, database name, owner and column details.  
 
 Columns consist of the following parameters:  
 
@@ -138,10 +170,6 @@ Columns consist of the following parameters:
 * **columnname**: enter the desired column name (no spaces allowed)  
 * **columntype**: enter the integer value corresponding with the desired columntype ([more details](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types))  
 * **primary**: enter 1 if the column is the primary key and 0 for any other column  
-
-For encrypted status, 1 means true and 0 means false.
-
-<aside class="notice">Table owner is not required in createTable method. It will fetch the Ethereum address associated with the user configured on the SWARMDB node and save it as tableowner in the table schema.</aside>
 
 # Read
 
