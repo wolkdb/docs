@@ -128,13 +128,13 @@ For encrypted status, 1 means true and 0 means false.
 # Create Table
 
 ```javascript
-// swarmdb.createTable(table, db, owner, columns, callback)
+// swarmdb.createTable(db, table, owner, columns, callback)
 var columns = [
   { "columnname": "email", "columntype": "string", "indextype": "bplus", "primary": 1 },
   { "columnname": "name", "columntype": "string", "indextype": "hash" },
   { "columnname": "age", "columntype": "integer", "indextype": "bplus" }
 ];
-swarmdb.createTable("contacts", "testdb", "test.eth" columns, function (err, result) {
+swarmdb.createTable("testdb", "contacts", "test.eth", columns, function (err, result) {
   if (err) {
     throw err;
   }
@@ -174,7 +174,7 @@ curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
       "http://localhost:8501/testdb.test.eth/"
 ```
 
-Create a table by specifying table name, database name, owner and column details.  
+Create a table by specifying database name, table name, owner and column details.  
 
 Columns consist of the following parameters:  
 
@@ -227,13 +227,10 @@ if err != nil {
 
 Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.
 
-Table owner, which is an Ethereum address without "0x", is required to read a row.
-
 ## Get
 ```javascript
-// swarmdb.get(table, tableowner, key, callback)
-var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
-swarmdb.get("contacts", tableowner, "bertie@gmail.com", function (err, result) {
+// swarmdb.get(db, table, owner, key, callback)
+swarmdb.get("testdb", "contacts", "test.eth", "bertie@gmail.com", function (err, result) {
     if (err) {
       throw err;
     }
@@ -257,9 +254,8 @@ Get calls allow for the retrieval of a single row by specifying the value of a r
 
 ## Select
 ```javascript
-// swarmdb.query(sqlQuery, tableowner, callback)
-var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
-swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", tableowner, function (err, result) {
+// swarmdb.query(sqlQuery, db, owner, callback)
+swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", "testdb", "test.eth" function (err, result) {
     if (err) {
       throw err;
     }
@@ -290,13 +286,10 @@ Select Query calls allow for the retrieval of rows by specifying a SELECT query 
 # Write
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT query.
 
-Table owner, which is an Ethereum address without "0x", is required to read a row.
-
 ## Put
 ```javascript
-// swarmdb.put(table, tableowner, rows, callback)
-var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
-swarmdb.put("contacts", tableowner, [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ],  function (err, result) {
+// swarmdb.put(db, table, owner, rows, callback)
+swarmdb.put("testdb", "contacts", "test.eth", [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ],  function (err, result) {
     if (err) {
       throw err;
     }
@@ -329,9 +322,8 @@ Put calls allow for writing rows.
 
 ## Insert
 ```javascript
-// swarmdb.query(sqlQuery, tableowner, callback)
-var tableowner = "ADDRESS_IN_YOUR_CONFIG_FILE";
-swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);", tableowner, function (err, result) {
+// swarmdb.query(sqlQuery, db, owner, callback)
+swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);", "testdb", "test.eth", function (err, result) {
     if (err) {
       throw err;
     }
