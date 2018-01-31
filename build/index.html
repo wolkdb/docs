@@ -340,13 +340,13 @@
 <p>Owner should be a valid ENS domain.</p>
 
 <p>For encrypted status, 1 means true and 0 means false.</p>
-<h1 id='create-table'>Create Table</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.createTable(table, db, owner, columns, callback)</span>
+<h1 id='create-table'>Create Table</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.createTable(db, table, owner, columns, callback)</span>
 <span class="kd">var</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"bplus"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
   <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"hash"</span> <span class="p">},</span>
   <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"integer"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"bplus"</span> <span class="p">}</span>
 <span class="p">];</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">createTable</span><span class="p">(</span><span class="s2">"contacts"</span><span class="p">,</span> <span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"test.eth"</span> <span class="nx">columns</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">createTable</span><span class="p">(</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"contacts"</span><span class="p">,</span> <span class="s2">"test.eth"</span><span class="p">,</span> <span class="nx">columns</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
   <span class="p">}</span>
@@ -379,7 +379,7 @@
                  { "columnname":"age", "columntype":"integer", "IndexType":"bplus" } ] }'</span> <span class="se">\</span>
       <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
 </code></pre>
-<p>Create a table by specifying table name, database name, owner and column details.  </p>
+<p>Create a table by specifying database name, table name, owner and column details.  </p>
 
 <p>Columns consist of the following parameters:  </p>
 
@@ -410,11 +410,8 @@
 </span></code></pre><pre class="highlight shell tab-shell"><code>// not required
 </code></pre><h1 id='read'>Read</h1>
 <p>Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.</p>
-
-<p>Table owner, which is an Ethereum address without &quot;0x&quot;, is required to read a row.</p>
-<h2 id='get'>Get</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.get(table, tableowner, key, callback)</span>
-<span class="kd">var</span> <span class="nx">tableowner</span> <span class="o">=</span> <span class="s2">"ADDRESS_IN_YOUR_CONFIG_FILE"</span><span class="p">;</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"contacts"</span><span class="p">,</span> <span class="nx">tableowner</span><span class="p">,</span> <span class="s2">"bertie@gmail.com"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<h2 id='get'>Get</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.get(db, table, owner, key, callback)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"contacts"</span><span class="p">,</span> <span class="s2">"test.eth"</span><span class="p">,</span> <span class="s2">"bertie@gmail.com"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">}</span>
@@ -429,9 +426,8 @@
 </span></code></pre><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"</span>
 </code></pre>
 <p>Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.</p>
-<h2 id='select'>Select</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.query(sqlQuery, tableowner, callback)</span>
-<span class="kd">var</span> <span class="nx">tableowner</span> <span class="o">=</span> <span class="s2">"ADDRESS_IN_YOUR_CONFIG_FILE"</span><span class="p">;</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">"SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'"</span><span class="p">,</span> <span class="nx">tableowner</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<h2 id='select'>Select</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.query(sqlQuery, db, owner, callback)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">"SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'"</span><span class="p">,</span> <span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"test.eth"</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">}</span>
@@ -453,11 +449,8 @@
 <p>Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The <a href="https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands">supported query operands</a> are allowed to be used on both primary and secondary keys.</p>
 <h1 id='write'>Write</h1>
 <p>Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT query.</p>
-
-<p>Table owner, which is an Ethereum address without &quot;0x&quot;, is required to read a row.</p>
-<h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.put(table, tableowner, rows, callback)</span>
-<span class="kd">var</span> <span class="nx">tableowner</span> <span class="o">=</span> <span class="s2">"ADDRESS_IN_YOUR_CONFIG_FILE"</span><span class="p">;</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s2">"contacts"</span><span class="p">,</span> <span class="nx">tableowner</span><span class="p">,</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">],</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.put(db, table, owner, rows, callback)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"contacts"</span><span class="p">,</span> <span class="s2">"test.eth"</span><span class="p">,</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">],</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">}</span>
@@ -480,9 +473,8 @@
 <p>Put calls allow for writing rows.</p>
 
 <aside class="notice">The "rows" input consists of an array rows, where a row is a defined as a json object containing column/value pairs.  Each row must at least include a column/value pair for the primary key.</aside>
-<h2 id='insert'>Insert</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.query(sqlQuery, tableowner, callback)</span>
-<span class="kd">var</span> <span class="nx">tableowner</span> <span class="o">=</span> <span class="s2">"ADDRESS_IN_YOUR_CONFIG_FILE"</span><span class="p">;</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">"INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);"</span><span class="p">,</span> <span class="nx">tableowner</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<h2 id='insert'>Insert</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.query(sqlQuery, db, owner, callback)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">"INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);"</span><span class="p">,</span> <span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"test.eth"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
     <span class="p">}</span>
@@ -500,10 +492,6 @@
 </code></pre>
 <p>Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.</p>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
 <p>The SWARMDB API uses the following error codes:</p>
 
 <table><thead>
