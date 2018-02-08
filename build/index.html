@@ -245,6 +245,9 @@
                   <li>
                     <a href="#list-databases" class="toc-h2 toc-link" data-title="list-databases">List Databases</a>
                   </li>
+                  <li>
+                    <a href="#list-tables" class="toc-h2 toc-link" data-title="list-tables">List Tables</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -258,9 +261,6 @@
                   </li>
                   <li>
                     <a href="#describe-table" class="toc-h2 toc-link" data-title="describe-table">Describe Table</a>
-                  </li>
-                  <li>
-                    <a href="#list-tables" class="toc-h2 toc-link" data-title="list-tables">List Tables</a>
                   </li>
               </ul>
           </li>
@@ -347,7 +347,7 @@
 </code></pre><pre class="highlight go tab-go"><code><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
 </span><span class="n">encrypted</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="kt">int</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="x">
 </span><span class="n">db</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">CreateDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">,</span><span class="x"> </span><span class="n">encrypted</span><span class="p">)</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Create a database named testdb, which is owned by test.eth.
+</span></code></pre><pre class="highlight shell tab-shell"><code>// Create an encrypted database named testdb, which is owned by test.eth.
 curl -X POST -d <span class="s1">'{ "requesttype":"CreateDatabase", "encrypted":1 }'</span>  <span class="se">\ </span>
      <span class="s2">"http://localhost:8501/testdb.test.eth/"</span> 
 </code></pre>
@@ -377,6 +377,16 @@ curl -X POST -d <span class="s1">'{ "requesttype":"CreateDatabase", "encrypted":
 </span></code></pre><pre class="highlight shell tab-shell"><code>// List the databases owned by test.eth.
 curl -X POST -d <span class="s1">'{ "requesttype":"ListDatabases" }'</span>  <span class="se">\ </span>
      <span class="s2">"http://localhost:8501/_.test.eth/"</span>
+</code></pre><h2 id='list-tables'>List Tables</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.listTables(callback)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">listTables</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre><pre class="highlight go tab-go"><code></code></pre><pre class="highlight plaintext"><code>// List the tables belonging to the testdb database (owned by test.eth)
+curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
+     "http://localhost:8501/testdb.test.eth/"
 </code></pre><h1 id='table'>Table</h1><h2 id='create-table'>Create Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.createTable(tableName, columns, callback)</span>
 <span class="kd">var</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"STRING"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"BPLUS"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
@@ -425,20 +435,10 @@ curl -X POST -d <span class="s1">'{ "requesttype":"CreateTable", "table":"contac
 In Go, a table object must be created using the database object.</p>
 <h2 id='describe-table'>Describe Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// TBD</span>
 </code></pre><pre class="highlight go tab-go"><code><span class="c">// TBD</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// List the column info <span class="k">for </span>a table named contacts which is part of the testdb database and owned by test.eth.
+</span></code></pre><pre class="highlight shell tab-shell"><code>// List the column info <span class="k">for </span>the contacts table <span class="o">(</span><span class="k">in </span>the testdb database owned by test.eth<span class="o">)</span>.
 curl -X POST -d <span class="s1">'{ "requesttype":"ListTables" }'</span>  <span class="se">\ </span>
      <span class="s2">"http://localhost:8501/testdb.test.eth/contacts"</span>
-</code></pre><h2 id='list-tables'>List Tables</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.listTables(callback)</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">listTables</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">// List the tables that are a part of the database named testdb and owned by test.eth.</span><span class="x">
-</span><span class="n">curl</span><span class="x"> </span><span class="o">-</span><span class="n">X</span><span class="x"> </span><span class="n">POST</span><span class="x"> </span><span class="o">-</span><span class="n">d</span><span class="x"> </span><span class="err">'</span><span class="p">{</span><span class="x"> </span><span class="s">"requesttype"</span><span class="o">:</span><span class="s">"ListTables"</span><span class="x"> </span><span class="p">}</span><span class="err">'</span><span class="x">  </span><span class="err">\</span><span class="x"> 
-     </span><span class="s">"http://localhost:8501/testdb.test.eth/"</span><span class="x">
-</span></code></pre><h1 id='read'>Read</h1>
+</code></pre><h1 id='read'>Read</h1>
 <p>Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.</p>
 <h2 id='get'>Get</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.get(key, callback)</span>
 <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"bertie@gmail.com"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -453,7 +453,7 @@ curl -X POST -d <span class="s1">'{ "requesttype":"ListTables" }'</span>  <span 
    </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Get row"</span><span class="p">)</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Row: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Retrieve the record with the primary key value of bertie@gmail.com from the contacts table <span class="o">(</span>part of the testdb database, owned by test.eth owner ENS<span class="o">)</span>
+</span></code></pre><pre class="highlight shell tab-shell"><code>// Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table <span class="o">(</span><span class="k">in </span>the testdb database, owned by test.eth<span class="o">)</span>
 curl -X POST <span class="s2">"http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"</span>
 </code></pre>
 <p>Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.</p>
@@ -498,7 +498,7 @@ curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
    </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Put row"</span><span class="p">)</span><span class="x">
 </span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Insert or Update a record where the primary key value is bertie@gmail.com into the contacts table <span class="o">(</span>part of the testdb database, owned by test.eth owner ENS<span class="o">)</span>
+</span></code></pre><pre class="highlight shell tab-shell"><code>// Insert into or Update the contacts table <span class="o">(</span><span class="k">in </span>the testdb database, owned by test.eth<span class="o">)</span> with the row <span class="o">{</span><span class="s2">"email"</span>:<span class="s2">"bertie@gmail.com"</span>, <span class="s2">"name"</span>:<span class="s2">"Bertie Basset"</span>, <span class="s2">"age"</span>:7<span class="o">}</span> 
 curl -X POST -d <span class="s1">'{ "requesttype":"Put", \
                    "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }'</span> <span class="se">\</span>
      <span class="s2">"http://localhost:8501/testdb.test.eth/contacts"</span>
@@ -519,9 +519,9 @@ curl -X POST -d <span class="s1">'{ "requesttype":"Put", \
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
    </span><span class="nb">panic</span><span class="p">(</span><span class="s">"could not Get row"</span><span class="p">)</span><span class="x">
 </span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Query <span class="o">(</span>Insert<span class="o">)</span> the testdb database <span class="o">(</span>owned by test.eth owner ENS<span class="o">)</span>
+</span></code></pre><pre class="highlight shell tab-shell"><code>// Query <span class="o">(</span>Insert<span class="o">)</span> a row into the contacts table <span class="o">(</span><span class="k">in </span>the testdb database, owned by test.eth<span class="o">)</span>
 curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
-                   "query":"INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7) " }'</span> <span class="se">\</span>
+                   "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }'</span> <span class="se">\</span>
      <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
 </code></pre>
 <p>Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.</p>
@@ -532,6 +532,10 @@ curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
+</code></pre><pre class="highlight go tab-go"><code></code></pre><pre class="highlight shell tab-shell"><code>// Query <span class="o">(</span>Update<span class="o">)</span> a row <span class="k">in </span>the contacts table <span class="o">(</span>owned by test.eth owner ENS<span class="o">)</span>, setting the age to 8, where the <span class="nv">email</span><span class="o">=</span><span class="s1">'bertie@gmail.com'</span>
+curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
+                   "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }'</span> <span class="se">\</span>
+     <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
 </code></pre>
 <p>Update Query calls allow for the update on non-primary key using standard SQL.</p>
 <h1 id='errors'>Errors</h1>
