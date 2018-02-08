@@ -391,7 +391,8 @@
 </ul>
 <h1 id='opening-a-database'>Opening a Database</h1>
 <p>In Go, a database object should be created using the connection.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">// not required</span>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.openDatabase(owner, db)</span>
+<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">openDatabase</span><span class="p">(</span><span class="s2">"test.eth"</span><span class="p">,</span> <span class="s2">"otherdb"</span><span class="p">);</span>
 </code></pre><pre class="highlight go tab-go"><code><span class="c">// (db *SWARMDBConnection) Open(owner string, databaseName string)</span><span class="x">
 </span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">
 </span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
