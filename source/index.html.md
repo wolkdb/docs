@@ -239,7 +239,7 @@ In Go, a table object must be created using the database object.
 ```
 
 ```go
-// TBD
+//TBD
 ```
 
 ```shell
