@@ -188,7 +188,8 @@ Columns consist of the following parameters:
 In Go, a database object should be created using the connection.
 
 ```javascript
-// not required
+// swarmdb.openDatabase(owner, db)
+swarmdb.openDatabase("test.eth", "otherdb");
 ```
 
 ```go
