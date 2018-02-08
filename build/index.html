@@ -220,7 +220,7 @@
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
-      <div id="toc" class="toc-list-h1">
+      <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
           </li>
@@ -292,7 +292,7 @@
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
-      </div>
+      </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
@@ -309,7 +309,7 @@
 <span class="c1">// Note that since web3 module might have some issues to be installed at a latest version, you had better install it manually right now.</span>
 <span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">web3</span><span class="p">@</span><span class="nd">1</span><span class="p">.</span><span class="mf">0.0</span><span class="o">-</span><span class="nx">beta</span><span class="p">.</span><span class="mi">26</span>
 </code></pre><pre class="highlight go tab-go"><code><span class="k">go</span><span class="x"> </span><span class="n">get</span><span class="x"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wolkdb</span><span class="o">/</span><span class="n">swarmdb</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Check that wolkdb is running and that you can <span class="k">do </span>curl calls
+</span></code></pre><pre class="highlight shell tab-shell"><code>//Check that wolkdb is running and that you can <span class="k">do </span>curl calls
 <span class="gp">$ </span>ps aux | grep swarmdb
 <span class="gp">$ </span>curl https://www.google.com | wc
 </code></pre>

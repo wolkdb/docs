@@ -35,7 +35,7 @@ go get github.com/wolkdb/swarmdb
 ```
 
 ```shell
-// Check that wolkdb is running and that you can do curl calls
+//Check that wolkdb is running and that you can do curl calls
 $ ps aux | grep swarmdb
 $ curl https://www.google.com | wc
 ```
