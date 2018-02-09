@@ -114,6 +114,7 @@ db, err := conn.CreateDatabase(databaseName, encrypted)
 // Create an encrypted database named testdb, which is owned by test.eth.
 curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \ 
      "http://localhost:8501/testdb.test.eth/" 
+// Output: {"affectedrowcount":1}
 ```
 
 Create a database by specifying owner, database name and encrypted status.  
@@ -164,6 +165,7 @@ db, err  := conn.OpenDatabase(databaseName, encrypted)
 // List the databases owned by test.eth.
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  \ 
      "http://localhost:8501/_.test.eth/"
+// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
 # Table
@@ -207,6 +209,7 @@ curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
                  { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, \
                  { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' \
       "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
 ```
 
 Create a table by specifying table name and column details.  
@@ -258,6 +261,7 @@ swarmdb.describeTable("contacts", function (err, result) {
 // List the column info for the contacts table (in the testdb database owned by test.eth).
 curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
      "http://localhost:8501/testdb.test.eth/contacts"
+// Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
 ```
 
 ## List Tables
@@ -280,6 +284,7 @@ swarmdb.listTables(function (err, result) {
 // List the tables belonging to the testdb database (owned by test.eth)
 curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
 ```
 
 # Read
@@ -312,6 +317,7 @@ fmt.Printf("Row: %v\n")
 ```shell
 // Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
 curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
 
@@ -344,6 +350,7 @@ for i, row := range rows {
 curl -X POST -d '{ "requesttype":"Query", \
                    "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
@@ -384,6 +391,7 @@ if err != nil {
 curl -X POST -d '{ "requesttype":"Put", \
                    "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' \
      "http://localhost:8501/testdb.test.eth/contacts"
+// Output: {"affectedrowcount":1}
 ```
 
 Put calls allow for writing rows.
@@ -416,6 +424,7 @@ if err != nil {
 curl -X POST -d '{ "requesttype":"Query", \
                    "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }' \
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
 ```
 
 Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.
@@ -440,5 +449,6 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
 curl -X POST -d '{ "requesttype":"Query", \
                    "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' \
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
 ```
 Update Query calls allow for the update on non-primary key using standard SQL.
