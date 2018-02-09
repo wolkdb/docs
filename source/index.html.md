@@ -101,6 +101,7 @@ swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
   }
   console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -150,6 +151,7 @@ swarmdb.listDatabases(function (err, result) {
     }
     console.log(result);
 });
+// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
 ```go
@@ -164,26 +166,6 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  \
      "http://localhost:8501/_.test.eth/"
 ```
 
-## List Tables
-
-```javascript
-// swarmdb.listTables(callback)
-swarmdb.listTables(function (err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result);
-});
-```
-
-```go
-```
-
-```
-// List the tables belonging to the testdb database (owned by test.eth)
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/"
-```
 # Table
 
 ## Create Table
@@ -192,8 +174,8 @@ curl -X POST -d '{ "requesttype":"ListTables" }'  \
 // swarmdb.createTable(tableName, columns, callback)
 var columns = [
   { "columnname": "email", "columntype": "STRING", "indextype": "BPLUS", "primary": 1 },
-  { "columnname": "name", "columntype": "STRING", "indextype": "HASH" },
-  { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS" }
+  { "columnname": "name", "columntype": "STRING", "indextype": "HASH", "primary": 0 },
+  { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS", "primary": 0 }
 ];
 swarmdb.createTable("contacts", columns, function (err, result) {
   if (err) {
@@ -201,6 +183,7 @@ swarmdb.createTable("contacts", columns, function (err, result) {
   }
   console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -226,12 +209,12 @@ curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
 
 Create a table by specifying table name and column details.  
 
-Columns consist of the following parameters:  
+Columns consist of the following parameters:
 
-* **indextype**: enter the integer value corresponding with the desired indextype ([more details](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types))  
-* **columnname**: enter the desired column name (no spaces allowed)  
-* **columntype**: enter the integer value corresponding with the desired columntype ([more details](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types))  
-* **primary**: enter 1 if the column is the primary key
+* **indextype**: enter the desired indextype, defined [HERE](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types)
+* **columnname**: enter the desired column name (no spaces allowed)
+* **columntype**: enter the desired columntype, defined [HERE](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-column-types)
+* **primary**: enter 1 if the column is the primary key and 0 for any other column.
 
 ## Open Table 
 
@@ -255,7 +238,14 @@ In Go, a table object must be created using the database object.
 ## Describe Table
 
 ```javascript
-//TBD
+// swarmdb.describeTable(tableName, callback)
+swarmdb.describeTable("contacts", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+// Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
 ```
 
 ```go
@@ -268,6 +258,27 @@ curl -X POST -d '{ "requesttype":"ListTables" }'  \
      "http://localhost:8501/testdb.test.eth/contacts"
 ```
 
+## List Tables
+
+```javascript
+// swarmdb.listTables(callback)
+swarmdb.listTables(function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+// Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
+```
+
+```go
+```
+
+```shell
+// List the tables belonging to the testdb database (owned by test.eth)
+curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
+     "http://localhost:8501/testdb.test.eth/"
+```
 
 # Read
 
@@ -282,6 +293,7 @@ swarmdb.get("bertie@gmail.com", function (err, result) {
     }
     console.log(result);
 });
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 ```go
@@ -308,6 +320,7 @@ swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail
     }
     console.log(result);
 });
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 ```go
@@ -343,6 +356,7 @@ swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" 
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -378,6 +392,7 @@ swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com',
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -407,6 +422,7 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
