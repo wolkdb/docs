@@ -110,7 +110,7 @@ db, err := conn.CreateDatabase(databaseName, encrypted)
 ```
 
 ```shell
-// Create a database named testdb, which is owned by test.eth.
+// Create an encrypted database named testdb, which is owned by test.eth.
 curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \ 
      "http://localhost:8501/testdb.test.eth/" 
 ```
@@ -164,6 +164,26 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  \
      "http://localhost:8501/_.test.eth/"
 ```
 
+## List Tables
+
+```javascript
+// swarmdb.listTables(callback)
+swarmdb.listTables(function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+```
+
+```go
+```
+
+```
+// List the tables belonging to the testdb database (owned by test.eth)
+curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
+     "http://localhost:8501/testdb.test.eth/"
+```
 # Table
 
 ## Create Table
@@ -243,28 +263,11 @@ In Go, a table object must be created using the database object.
 ```
 
 ```shell
-// List the column info for a table named contacts which is part of the testdb database and owned by test.eth.
+// List the column info for the contacts table (in the testdb database owned by test.eth).
 curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
      "http://localhost:8501/testdb.test.eth/contacts"
 ```
 
-## List Tables
-
-```javascript
-// swarmdb.listTables(callback)
-swarmdb.listTables(function (err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result);
-});
-```
-
-```go
-// List the tables that are a part of the database named testdb and owned by test.eth.
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/"
-```
 
 # Read
 
@@ -291,7 +294,7 @@ fmt.Printf("Row: %v\n")
 ```
 
 ```shell
-// Retrieve the record with the primary key value of bertie@gmail.com from the contacts table (part of the testdb database, owned by test.eth owner ENS)
+// Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
 curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
 ```
 Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
@@ -356,7 +359,7 @@ if err != nil {
 ```
 
 ```shell
-// Insert or Update a record where the primary key value is bertie@gmail.com into the contacts table (part of the testdb database, owned by test.eth owner ENS)
+// Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
 curl -X POST -d '{ "requesttype":"Put", \
                    "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' \
      "http://localhost:8501/testdb.test.eth/contacts"
@@ -387,9 +390,9 @@ if err != nil {
 ```
 
 ```shell
-// Query (Insert) the testdb database (owned by test.eth owner ENS)
+// Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
 curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7) " }' \
+                   "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }' \
      "http://localhost:8501/testdb.test.eth/"
 ```
 
@@ -406,4 +409,13 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
 });
 ```
 
+```go
+```
+
+```shell
+// Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
+curl -X POST -d '{ "requesttype":"Query", \
+                   "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' \
+     "http://localhost:8501/testdb.test.eth/"
+```
 Update Query calls allow for the update on non-primary key using standard SQL.
