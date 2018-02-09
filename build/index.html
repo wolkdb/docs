@@ -433,8 +433,8 @@ curl -X POST -d <span class="s1">'{ "requesttype":"CreateTable", "table":"contac
 </code></pre>
 <p>Open a table by specifying table name. 
 In Go, a table object must be created using the database object.</p>
-<h2 id='describe-table'>Describe Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// TBD</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">// TBD</span><span class="x">
+<h2 id='describe-table'>Describe Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//TBD</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="c">//TBD</span><span class="x">
 </span></code></pre><pre class="highlight shell tab-shell"><code>// List the column info <span class="k">for </span>the contacts table <span class="o">(</span><span class="k">in </span>the testdb database owned by test.eth<span class="o">)</span>.
 curl -X POST -d <span class="s1">'{ "requesttype":"ListTables" }'</span>  <span class="se">\ </span>
      <span class="s2">"http://localhost:8501/testdb.test.eth/contacts"</span>
