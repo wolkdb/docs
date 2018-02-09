@@ -255,7 +255,7 @@ In Go, a table object must be created using the database object.
 ## Describe Table
 
 ```javascript
-// TBD
+//TBD
 ```
 
 ```go
