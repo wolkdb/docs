@@ -456,6 +456,8 @@ curl -X POST -d <span class="s1">'{ "requesttype":"ListTables" }'</span>  <span 
 // Output: <span class="o">{</span><span class="s2">"data"</span>:[<span class="o">{</span><span class="s2">"table"</span>:<span class="s2">"contacts"</span><span class="o">}]</span>,<span class="s2">"matchedrowcount"</span>:1<span class="o">}</span>
 </code></pre><h1 id='read'>Read</h1>
 <p>Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.</p>
+
+<p>In Node.js, either createTable or openTable should be called prior to Read calls.</p>
 <h2 id='get'>Get</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.get(key, callback)</span>
 <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"bertie@gmail.com"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
@@ -501,6 +503,8 @@ curl -X POST -d <span class="s1">'{ "requesttype":"Query", \
 <p>Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The <a href="https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands">supported query operands</a> are allowed to be used on both primary and secondary keys.</p>
 <h1 id='write'>Write</h1>
 <p>Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.</p>
+
+<p>In Node.js, either createTable or openTable should be called prior to Write calls.</p>
 <h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// swarmdb.put(rows, callback)</span>
 <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">],</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
