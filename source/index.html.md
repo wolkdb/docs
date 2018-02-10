@@ -31,7 +31,7 @@ $ npm install web3@1.0.0-beta.26
 ```
 
 ```go
-go get github.com/wolkdb/swarmdb
+go get github.com/wolkdb/swarmdblib/
 ```
 
 ```shell
@@ -47,7 +47,7 @@ var swarmdbAPI = require("swarmdb.js");
 ```
 
 ```go
-import "github.com/wolkdb/swarmdb"
+import "github.com/wolkdb/swarmdblib"
 ```
 
 Import the library in your project.
@@ -80,7 +80,8 @@ var swarmdb = swarmdbAPI.createConnection({
 ```go
 ip := "127.0.0.1"
 port := int(2001)
-conn, err := NewSWARMDBConnection(ip, port)
+owner := testowner.eth
+conn, err := NewSWARMDBConnection(ip, port, owner)
 ```
 
 ```shell
@@ -88,6 +89,10 @@ For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5
 ```
 
 Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
+Owner should be a valid ENS domain.
+
+For Go API, if no IP, no port, or no owner address are defined (ip = 0, port = "", owner = "") then they will be pulled from the SwarmDB config file.  Using the config file assumes the node is running locally.
+
 
 # Database
 
@@ -104,9 +109,9 @@ swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
 ```
 
 ```go
-databaseName := "testdb"
+name := "reallysmartdogs"
 encrypted := int(1)
-db, err := conn.CreateDatabase(databaseName, encrypted)
+db, err := conn.CreateDatabase(name, encrypted)
 ```
 
 ```shell
@@ -115,9 +120,7 @@ curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \
      "http://localhost:8501/testdb.test.eth/" 
 ```
 
-Create a database by specifying owner, database name and encrypted status.  
-
-Owner should be a valid ENS domain.
+Create a database by specifying database name and encrypted status.  
 
 For encrypted status, 1 means true and 0 means false.
 
@@ -129,16 +132,17 @@ swarmdb.openDatabase("test.eth", "testdb");
 ```
 
 ```go
-databaseName := "testdb"
-encrypted := int(0)
-db, err  := conn.OpenDatabase(databaseName, encrypted)
+name := "smartdogs"
+db, err  := conn.OpenDatabase(name)
 ```
 
 ```shell
 // not required
 ```
 
-Open a database by specifying owner and database name.
+Open an existing database by specifying owner and database name.
+
+For Go API, owner will be the connection Object owner.
 
 ## List Databases
 
@@ -153,9 +157,13 @@ swarmdb.listDatabases(function (err, result) {
 ```
 
 ```go
-databaseName := "testdb"
-encrypted := int(0)
-db, err  := conn.OpenDatabase(databaseName, encrypted)
+dblist, err := conn.ListDatabases()
+
+//dblist contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"database": "smartdogs"},
+  swarmdblib.Row{"database": "reallysmartdogs"},
+}
 ```
 
 ```shell
@@ -163,6 +171,8 @@ db, err  := conn.OpenDatabase(databaseName, encrypted)
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  \ 
      "http://localhost:8501/_.test.eth/"
 ```
+
+Lists the Databases associated with a Connection.
 
 # Table
 
@@ -184,10 +194,23 @@ swarmdb.createTable("contacts", columns, function (err, result) {
 ```
 
 ```go
-tableName := "contacts"
-cols := [{ "columnName": "email", "columnType": "STRING", "indexType": "BPLUS", "primary": 1 }, { "columnName": "name", "columnType": "STRING", "indexType": "HASH" }, { "columnName": "age", "columnType": "INTEGER", "indexType": "BPLUS" }]
-
-tbl, err := db.CreateTable(tableName, cols)
+columns :=
+  []swarmdblib.Column{
+    swarmdblib.Column{
+      ColumnName: "email",
+      ColumnType: CT_STRING,
+      IndexType: IT_BPLUSTREE,
+      Primary: 1
+    },
+    swarmdblib.Column{
+      ColumnName: "age",
+      ColumnType: CT_INTEGER,
+      IndexType: IT_BPLUSTREE,
+      Primary: 0
+    },
+}
+name := "softwareengineerdogs"
+tbl, err := db.CreateTable(name, columns)
 ```
 
 ```shell
@@ -221,8 +244,8 @@ swarmdb.openTable("contacts");
 ```
 
 ```go
-tableName := "contacts"
-tbl, err := db.OpenTable(tableName)
+name := "accountantdogs"
+tbl, err := db.OpenTable(name)
 ```
 
 ```shell
@@ -239,14 +262,26 @@ In Go, a table object must be created using the database object.
 ```
 
 ```go
-//TBD
-```
+description, err := db.DescribeDatabase()
 
-```shell
-// List the column info for a table named contacts which is part of the testdb database and owned by test.eth.
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/contacts"
+//description contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{
+    "ColumnName": "email",
+    "ColumnType": CT_STRING,
+    "IndexType":  IT_BPLUSTREE,
+    "Primary":    float64(1)
+  },
+  swarmdblib.Row{
+    "ColumnName": "age",
+    "ColumnType": CT_INTEGER,
+    "IndexType":  IT_BPLUSTREE,
+    "Primary":    float64(0)
+  },
+}
 ```
+Shows the Columns of an existing Table.
+
 
 ## List Tables
 
@@ -261,14 +296,20 @@ swarmdb.listTables(function (err, result) {
 ```
 
 ```go
-// List the tables that are a part of the database named testdb and owned by test.eth.
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/"
+list, err := db.ListTables()
+
+//list contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"table": "accountantdogs"},
+  swarmdblib.Row{"table": "softwareengineerdogs"},
+}
 ```
+
+Lists the existing Tables in the specified Database.
 
 # Read
 
-Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.
+Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a Select query.
 
 ## Get
 ```javascript
@@ -282,19 +323,20 @@ swarmdb.get("bertie@gmail.com", function (err, result) {
 ```
 
 ```go
-// (tbl *SWARMDBTable) Get(key string)
-row, err := tbl.Get("bertie@gmail.com")
-if err != nil {
-   panic("could not Get row")
+rowgotten = tbl.Get("peanut@dogs.com")
+
+//rowgotten contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"age": 12, "email": "peanut@dogs.com"},
 }
-fmt.Printf("Row: %v\n")
+
 ```
 
 ```shell
 // Retrieve the record with the primary key value of bertie@gmail.com from the contacts table (part of the testdb database, owned by test.eth owner ENS)
 curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
 ```
-Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
+Get allows for the retrieval of a single row by specifying the value of a row's primary key.
 
 ## Select
 ```javascript
@@ -308,14 +350,12 @@ swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail
 ```
 
 ```go
-// (db *SWARMDBDatabase) Query(query string) (rows []Row, err error)
-query := "SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\""
-rows, err := db.Query(query)
-if err != nil {
-   panic("could not Get row")
-}
-for i, row := range rows {
-    fmt.Printf("Row %d: %v\n", i, row)
+rowsgotten, err = tbl.Query("select email, age from testtable where age < 10")
+
+//rowsgotten contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
+  swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
 }
 ```
 
@@ -343,16 +383,14 @@ swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" 
 ```
 
 ```go
-// (table *SWARMDBTable) Put(row Row) (error err)
-var r swarmdb.Row
-r.Cells = make(map[string]interface{})
-r.Cells["email"] = "bertie@gmail.com"
-r.Cells["name"] = "Bertie Basset"
-r.Cells["age"] = 7
-err := tbl.Put(row)
-if err != nil {
-   panic("could not Put row")
-}
+rowtoadd := Row{"email": "peanut@dogs.com", "age": 12}
+rowstoadd :=
+  []swarmdblib.Row{
+    swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
+    swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
+  }
+err = tbl.Put(rowtoadd)
+err = tbl.Put(rowstoadd)
 ```
 
 ```shell
@@ -378,12 +416,6 @@ swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com',
 ```
 
 ```go
-// (db *SWARMDBConnection) Query(query string) (rows []Row, error)
-query := "INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7)"
-rows, err := db.Query(query)
-if err != nil {
-   panic("could not Get row")
-}
 ```
 
 ```shell
