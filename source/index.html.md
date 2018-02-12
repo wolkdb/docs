@@ -106,6 +106,7 @@ swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
   }
   console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -115,9 +116,10 @@ db, err := conn.CreateDatabase(name, encrypted)
 ```
 
 ```shell
-// Create a database named testdb, which is owned by test.eth.
+// Create an encrypted database named testdb, which is owned by test.eth.
 curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \ 
      "http://localhost:8501/testdb.test.eth/" 
+// Output: {"affectedrowcount":1}
 ```
 
 Create a database by specifying database name and encrypted status.  
@@ -154,6 +156,7 @@ swarmdb.listDatabases(function (err, result) {
     }
     console.log(result);
 });
+// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
 ```go
@@ -170,11 +173,14 @@ dblist, err := conn.ListDatabases()
 // List the databases owned by test.eth.
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  \ 
      "http://localhost:8501/_.test.eth/"
+// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
 Lists the Databases associated with a Connection.
 
 # Table
+
+In Node.js, either createDatabase or openDatabase should be called prior to table method calls.
 
 ## Create Table
 
@@ -182,8 +188,8 @@ Lists the Databases associated with a Connection.
 // swarmdb.createTable(tableName, columns, callback)
 var columns = [
   { "columnname": "email", "columntype": "STRING", "indextype": "BPLUS", "primary": 1 },
-  { "columnname": "name", "columntype": "STRING", "indextype": "HASH" },
-  { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS" }
+  { "columnname": "name", "columntype": "STRING", "indextype": "HASH", "primary": 0 },
+  { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS", "primary": 0 }
 ];
 swarmdb.createTable("contacts", columns, function (err, result) {
   if (err) {
@@ -191,6 +197,7 @@ swarmdb.createTable("contacts", columns, function (err, result) {
   }
   console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -225,16 +232,17 @@ curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
                  { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, \
                  { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' \
       "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
 ```
 
 Create a table by specifying table name and column details.  
 
-Columns consist of the following parameters:  
+Columns consist of the following parameters:
 
-* **indextype**: enter the integer value corresponding with the desired indextype ([more details](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types))  
-* **columnname**: enter the desired column name (no spaces allowed)  
-* **columntype**: enter the integer value corresponding with the desired columntype ([more details](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types))  
-* **primary**: enter 1 if the column is the primary key
+* **indextype**: enter the desired indextype, defined [HERE](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types)
+* **columnname**: enter the desired column name (no spaces allowed)
+* **columntype**: enter the desired columntype, defined [HERE](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-column-types)
+* **primary**: enter 1 if the column is the primary key and 0 for any other column.
 
 ## Open Table 
 
@@ -258,7 +266,14 @@ In Go, a table object must be created using the database object.
 ## Describe Table
 
 ```javascript
-// TBD
+// swarmdb.describeTable(tableName, callback)
+swarmdb.describeTable("contacts", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+// Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
 ```
 
 ```go
@@ -282,7 +297,6 @@ description, err := db.DescribeDatabase()
 ```
 Shows the Columns of an existing Table.
 
-
 ## List Tables
 
 ```javascript
@@ -293,9 +307,11 @@ swarmdb.listTables(function (err, result) {
     }
     console.log(result);
 });
+// Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
 ```
 
 ```go
+
 list, err := db.ListTables()
 
 //list contains:
@@ -303,6 +319,7 @@ list, err := db.ListTables()
   swarmdblib.Row{"table": "accountantdogs"},
   swarmdblib.Row{"table": "softwareengineerdogs"},
 }
+
 ```
 
 Lists the existing Tables in the specified Database.
@@ -310,6 +327,8 @@ Lists the existing Tables in the specified Database.
 # Read
 
 Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a Select query.
+
+In Node.js, either createTable or openTable should be called prior to Read calls.
 
 ## Get
 ```javascript
@@ -320,6 +339,7 @@ swarmdb.get("bertie@gmail.com", function (err, result) {
     }
     console.log(result);
 });
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 ```go
@@ -333,8 +353,9 @@ rowgotten = tbl.Get("peanut@dogs.com")
 ```
 
 ```shell
-// Retrieve the record with the primary key value of bertie@gmail.com from the contacts table (part of the testdb database, owned by test.eth owner ENS)
+// Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
 curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 Get allows for the retrieval of a single row by specifying the value of a row's primary key.
 
@@ -347,6 +368,7 @@ swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail
     }
     console.log(result);
 });
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 ```go
@@ -364,12 +386,16 @@ rowsgotten, err = tbl.Query("select email, age from testtable where age < 10")
 curl -X POST -d '{ "requesttype":"Query", \
                    "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
 Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
 
 # Write
+
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.
+
+In Node.js, either createTable or openTable should be called prior to Write calls.
 
 ## Put
 ```javascript
@@ -380,6 +406,7 @@ swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" 
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -394,10 +421,11 @@ err = tbl.Put(rowstoadd)
 ```
 
 ```shell
-// Insert or Update a record where the primary key value is bertie@gmail.com into the contacts table (part of the testdb database, owned by test.eth owner ENS)
+// Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
 curl -X POST -d '{ "requesttype":"Put", \
                    "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' \
      "http://localhost:8501/testdb.test.eth/contacts"
+// Output: {"affectedrowcount":1}
 ```
 
 Put calls allow for writing rows.
@@ -413,16 +441,18 @@ swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com',
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
 ```
 
 ```shell
-// Query (Insert) the testdb database (owned by test.eth owner ENS)
+// Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
 curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"INSERT INTO contacts(email, name, age) VALUES(‘bertie@gmail.com’,’Bertie Basset’,7) " }' \
+                   "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }' \
      "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
 ```
 
 Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.
@@ -436,6 +466,17 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
     }
     console.log(result);
 });
+// Output: {"affectedrowcount":1}
 ```
 
+```go
+```
+
+```shell
+// Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
+curl -X POST -d '{ "requesttype":"Query", \
+                   "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' \
+     "http://localhost:8501/testdb.test.eth/"
+// Output: {"affectedrowcount":1}
+```
 Update Query calls allow for the update on non-primary key using standard SQL.
