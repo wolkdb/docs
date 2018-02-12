@@ -170,6 +170,8 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  \
 
 # Table
 
+In Node.js, either createDatabase or openDatabase should be called prior to table method calls.
+
 ## Create Table
 
 ```javascript
@@ -285,6 +287,8 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 
 Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.
 
+In Node.js, either createTable or openTable should be called prior to Read calls.
+
 ## Get
 ```javascript
 // swarmdb.get(key, callback)
@@ -348,7 +352,10 @@ curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM 
 Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
 
 # Write
+
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.
+
+In Node.js, either createTable or openTable should be called prior to Write calls.
 
 ## Put
 ```javascript
