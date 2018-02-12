@@ -20,7 +20,18 @@ Prospective database users can use our NoSQL interfaces to store and retrieve da
 
 This is a pre-alpha project under active development with Ethereum Swarm. To install the current version, please [README](https://github.com/wolktoken/swarm.wolk.com/blob/master/README.md). 
 
-If you require further assistance, feel free to shoot us an email: services@wolk.com
+If you require further assistance, feel free to shoot us an email: [services@wolk.com](mailto:services@wolk.com)
+
+# Configure
+
+Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
+
+```javascript
+// example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
+$ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
+```
+
+For Node.js API, you need to set the private key associated with this user as an environment variable in the terminal. 
 
 # Install
 
@@ -40,7 +51,8 @@ $ ps aux | grep swarmdb
 $ curl https://www.google.com | wc
 ```
 
-To use SWARMDB API, you need to install the corresponding library.
+To use SWARMDB API, you need to install the corresponding library.  
+If you are using Node Shell in SwarmDB docker image, you can skip the install step.
 
 ```javascript
 var swarmdbAPI = require("swarmdb.js");
@@ -50,23 +62,7 @@ var swarmdbAPI = require("swarmdb.js");
 import "github.com/wolkdb/swarmdblib"
 ```
 
-Import the library in your project.
-
-# Configure
-
-Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
-
-```javascript
-$ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
-```
-
-Set the private key associated with this user as an environment variable. 
-
-```javascript
-$ export PROVIDER=YOUR_PROVIDER_LINK
-```
-
-(Optional) You can also specify an Ethereum provider instead of using the default http://localhost:8545
+Import the library
 
 # Connect
 ```javascript
@@ -180,7 +176,7 @@ Lists the Databases associated with a Connection.
 
 # Table
 
-In Node.js, either createDatabase or openDatabase should be called prior to table method calls.
+For Node.js API, either createDatabase or openDatabase should be called prior to table method calls.
 
 ## Create Table
 
@@ -324,78 +320,11 @@ list, err := db.ListTables()
 
 Lists the existing Tables in the specified Database.
 
-# Read
-
-Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a Select query.
-
-In Node.js, either createTable or openTable should be called prior to Read calls.
-
-## Get
-```javascript
-// swarmdb.get(key, callback)
-swarmdb.get("bertie@gmail.com", function (err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result);
-});
-// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-```
-
-```go
-rowgotten = tbl.Get("peanut@dogs.com")
-
-//rowgotten contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"age": 12, "email": "peanut@dogs.com"},
-}
-
-```
-
-```shell
-// Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
-curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
-// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-```
-Get allows for the retrieval of a single row by specifying the value of a row's primary key.
-
-## Select
-```javascript
-// swarmdb.query(sqlQuery, callback)
-swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", function (err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result);
-});
-// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-```
-
-```go
-rowsgotten, err = tbl.Query("select email, age from testtable where age < 10")
-
-//rowsgotten contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
-  swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
-}
-```
-
-```shell
-// Query the testdb database (owned by test.eth owner ENS)
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
-     "http://localhost:8501/testdb.test.eth/"
-// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-```
-
-Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
-
 # Write
 
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.
 
-In Node.js, either createTable or openTable should be called prior to Write calls.
+For Node.js API, either createTable or openTable should be called prior to Write calls.
 
 ## Put
 ```javascript
@@ -480,3 +409,72 @@ curl -X POST -d '{ "requesttype":"Query", \
 // Output: {"affectedrowcount":1}
 ```
 Update Query calls allow for the update on non-primary key using standard SQL.
+
+# Read
+
+Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a Select query.
+
+For Node.js API, either createTable or openTable should be called prior to Read calls.
+
+## Get
+```javascript
+// swarmdb.get(key, callback)
+swarmdb.get("bertie@gmail.com", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
+```
+
+```go
+rowgotten = tbl.Get("peanut@dogs.com")
+
+//rowgotten contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"age": 12, "email": "peanut@dogs.com"},
+}
+
+```
+
+```shell
+// Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
+curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
+```
+Get allows for the retrieval of a single row by specifying the value of a row's primary key.
+
+## Select
+```javascript
+// swarmdb.query(sqlQuery, callback)
+swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+});
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
+```
+
+```go
+rowsgotten, err = tbl.Query("select email, age from testtable where age < 10")
+
+//rowsgotten contains:
+[]swarmdblib.Row{
+  swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
+  swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
+}
+```
+
+```shell
+// Query the testdb database (owned by test.eth owner ENS)
+curl -X POST -d '{ "requesttype":"Query", \
+                   "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
+     "http://localhost:8501/testdb.test.eth/"
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
+```
+
+Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
+
+
