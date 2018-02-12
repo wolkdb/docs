@@ -4,7 +4,7 @@ title: SWARMDB API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript: Node.js
   - go: Go
-  - shell: HTTP
+  - http: HTTP
 
 includes:
   - errors
@@ -34,7 +34,7 @@ $ npm install web3@1.0.0-beta.26
 go get github.com/wolkdb/swarmdb
 ```
 
-```shell
+```http
 //Check that wolkdb is running and that you can do curl calls
 $ ps aux | grep swarmdb
 $ curl https://www.google.com | wc
@@ -83,7 +83,7 @@ port := int(2001)
 conn, err := NewSWARMDBConnection(ip, port)
 ```
 
-```shell
+```http
 For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5.-HTTP-Interface#authentication
 ```
 
@@ -110,7 +110,7 @@ encrypted := int(1)
 db, err := conn.CreateDatabase(databaseName, encrypted)
 ```
 
-```shell
+```http
 // Create an encrypted database named testdb, which is owned by test.eth.
 curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \ 
      "http://localhost:8501/testdb.test.eth/" 
@@ -136,7 +136,7 @@ encrypted := int(0)
 db, err  := conn.OpenDatabase(databaseName, encrypted)
 ```
 
-```shell
+```http
 // not required
 ```
 
@@ -161,7 +161,7 @@ encrypted := int(0)
 db, err  := conn.OpenDatabase(databaseName, encrypted)
 ```
 
-```shell
+```http
 // List the databases owned by test.eth.
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  \ 
      "http://localhost:8501/_.test.eth/"
@@ -195,18 +195,14 @@ cols := [{ "columnName": "email", "columnType": "STRING", "indexType": "BPLUS", 
 tbl, err := db.CreateTable(tableName, cols)
 ```
 
-```shell
+```http
 // Create a table named contacts, which belongs to the database named testdb, which is owned by test.eth.
 // The contacts table has 3 columns
 // 1) email is the primary key and is of type STRING and uses the BPLUS index
 // 2) name is of type STRING and uses the HASH index
 // 3) age is of type INTEGER and uses the BPLUS index
 
-curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
-      "columns":[{ "columnName":"email", "ColumnType":"STRING", "Primary":1, "IndexType":BPLUS }, \ 
-                 { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, \
-                 { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' \
-      "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", "columns":[{ "columnName":"email", "ColumnType":"STRING", "Primary":1, "IndexType":"BPLUS" }, { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' "http://localhost:8501/testdb.test.eth/"
 // Output: {"affectedrowcount":1}
 ```
 
@@ -231,7 +227,7 @@ tableName := "contacts"
 tbl, err := db.OpenTable(tableName)
 ```
 
-```shell
+```http
 // not required
 ```
 
@@ -255,10 +251,10 @@ swarmdb.describeTable("contacts", function (err, result) {
 //TBD
 ```
 
-```shell
+```http
 // List the column info for the contacts table (in the testdb database owned by test.eth).
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/contacts"
+curl -X POST -d '{ "requesttype":"ListTables" }'  "http://localhost:8501/testdb.test.eth/contacts"
+
 // Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
 ```
 
@@ -278,10 +274,10 @@ swarmdb.listTables(function (err, result) {
 ```go
 ```
 
-```shell
+```http
 // List the tables belonging to the testdb database (owned by test.eth)
-curl -X POST -d '{ "requesttype":"ListTables" }'  \ 
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
 ```
 
@@ -310,9 +306,10 @@ if err != nil {
 fmt.Printf("Row: %v\n")
 ```
 
-```shell
+```http
 // Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
-curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+
 // Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
@@ -341,11 +338,10 @@ for i, row := range rows {
 }
 ```
 
-```shell
+```http
 // Query the testdb database (owned by test.eth owner ENS)
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
@@ -379,11 +375,10 @@ if err != nil {
 }
 ```
 
-```shell
+```http
 // Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
-curl -X POST -d '{ "requesttype":"Put", \
-                   "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' \
-     "http://localhost:8501/testdb.test.eth/contacts"
+curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' "http://localhost:8501/testdb.test.eth/contacts"
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -412,11 +407,10 @@ if err != nil {
 }
 ```
 
-```shell
+```http
 // Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }'  "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -437,11 +431,10 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
 ```go
 ```
 
-```shell
+```http
 // Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"affectedrowcount":1}
 ```
 Update Query calls allow for the update on non-primary key using standard SQL.
