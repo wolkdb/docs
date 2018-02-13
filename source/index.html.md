@@ -392,7 +392,7 @@ swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" 
 ```
 
 ```go
-//func (db *SWARMDBDatabase) ListTables() (tables []Row, err error)
+//func (tbl *SWARMDBTable) Put(row interface{}) error
 
 rowtoadd := Row{"email": "peanut@dogs.com", "age": 12}
 rowstoadd :=
@@ -402,6 +402,7 @@ rowstoadd :=
   }
 err = tbl.Put(rowtoadd)
 err = tbl.Put(rowstoadd)
+
 ```
 
 ```plaintext
@@ -428,6 +429,10 @@ swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com',
 ```
 
 ```go
+//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)
+
+_, err = tbl.Query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);")
+
 ```
 
 ```plaintext
@@ -452,6 +457,10 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
 ```
 
 ```go
+//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)
+
+_, err = tbl.Query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'")
+
 ```
 
 ```plaintext
@@ -528,7 +537,7 @@ rowsgotten = []Row {
 }
 ```
 
-```shell
+```plaintext
 // Query the testdb database (owned by test.eth owner ENS)
 curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
 
