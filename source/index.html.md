@@ -31,7 +31,7 @@ $ npm install web3@1.0.0-beta.26
 ```
 
 ```go
-go get github.com/wolkdb/swarmdblib/
+go get github.com/wolkdb/swarmdblib
 ```
 
 ```shell
@@ -78,10 +78,11 @@ var swarmdb = swarmdbAPI.createConnection({
 ```
 
 ```go
-ip := "127.0.0.1"
-port := int(2001)
-owner := testowner.eth
-conn, err := NewSWARMDBConnection(ip, port, owner)
+ip := "127.0.0.1" //your SWARMDB node IP
+port := int(2001) //your SWARMDB node Port number
+owner := "db4db066584dea75f4838c08ddfadc195225dd80" //your SWARMDB node owner address
+privateKey := "98b5321e784dde6357896fd20f13ac6731e9b1ea0058c8529d55dde276e45624" //your SWARMDB node private key
+conn, err := NewSWARMDBConnection(ip, port, owner, privateKey)
 ```
 
 ```shell
@@ -90,8 +91,6 @@ For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5
 
 Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
 Owner should be a valid ENS domain.
-
-For Go API, if no IP, no port, or no owner address are defined (ip = 0, port = "", owner = "") then they will be pulled from the SwarmDB config file.  Using the config file assumes the node is running locally.
 
 
 # Database
@@ -270,13 +269,13 @@ description, err := db.DescribeDatabase()
     "ColumnName": "email",
     "ColumnType": CT_STRING,
     "IndexType":  IT_BPLUSTREE,
-    "Primary":    float64(1)
+    "Primary":    int(1)
   },
   swarmdblib.Row{
     "ColumnName": "age",
     "ColumnType": CT_INTEGER,
     "IndexType":  IT_BPLUSTREE,
-    "Primary":    float64(0)
+    "Primary":    int(0)
   },
 }
 ```
