@@ -63,12 +63,12 @@ By default, the config file can be found at: `/usr/local/swarmdb/etc/swarmdb.con
 ```plaintext
 Note: for sending HTTP requests, please follow the URL path construction conventions detailed below:
 
-http://[HOST]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
+http://[HOST]:[PORT]/[DATABASENAME].[OWNERENS]/[TABLE]
 - [HOST]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
 - [PORT]: 8501 is the default PORT
-- [DBNAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DBNAME] portion, as well as the trailing "." should be left off
-- [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
-- [TABLE]: The table, belonging to the database noted, which is owned by the Owner ENS noted that is to be manipulated or accessed
+- [DATABASENAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DATABASENAME] portion, as well as the trailing "." should be left of- [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
+- [OWNER]: The "Owner ENS" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
+- [TABLE]: The table, belonging to the database noted, which is owned by the Owner noted that is to be manipulated or accessed
 ```
 
 ```javascript
@@ -85,7 +85,7 @@ For Node.js API, you need to set the private key associated with this user as an
 //Connecting to SWARMDB node
 var SWARMDB_HOST = "localhost"
 var SWARMDB_PORT = 2001
-var swarmdb = swarmdbAPI.createConnection({
+var conn = swarmdbAPI.createConnection({
     host: SWARMDB_HOST,
     port: SWARMDB_PORT
 });
@@ -100,7 +100,7 @@ conn, err := NewSWARMDBConnection(host, port, owner)
 ```
 
 ```plaintext
-For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5.-HTTP-Interface#authentication
+For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#http-authentication
 ```
 
 Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
@@ -118,7 +118,7 @@ For Go API, if no IP, no port, or no owner address are defined (ip = 0, port = "
 var owner = "test.eth"
 var databaseName= "testdb"
 var encrypted = 1
-swarmdb.createDatabase(owner, databaseName, encrypted, function (err, result) {
+conn.createDatabase(owner, databaseName, encrypted, function (err, result) {
   if (err) {
     throw err;
   }
@@ -129,7 +129,7 @@ swarmdb.createDatabase(owner, databaseName, encrypted, function (err, result) {
 
 ```go
 //Creating Database
-databaseName := "reallysmartdogs"
+databaseName := "testdb"
 encrypted := int(1)
 db, err := conn.CreateDatabase(databaseName, encrypted)
 ```
@@ -151,12 +151,12 @@ For encrypted status, 1 means true and 0 means false.
 //Open Darabase
 var owner = "test.eth"
 var databaseName= "testdb"
-swarmdb.openDatabase(owner, databaseName);
+conn.openDatabase(owner, databaseName);
 ```
 
 ```go
 //Open Darabase
-databaseName := "smartdogs"
+databaseName := "testdb"
 db, err  := conn.OpenDatabase(databaseName)
 ```
 
@@ -172,23 +172,27 @@ For Go API, owner will be the connection Object owner.
 
 ```javascript
 //List Databases
-swarmdb.listDatabases(function (err, dblist) {
+conn.listDatabases(function (err, dblist) {
     if (err) {
       throw err;
     }
     console.log(dblist);
 });
-// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
+
+// Output: {"data":[{"database":"testdb"},{"database":"olddb"}],"matchedrowcount":2}
 ```
 
 ```go
 //List Databases
 dblist, err := conn.ListDatabases()
+if err != nil {
+    fmt.Printf(err.Error())
+}
 
 //dblist contains:
 []swarmdblib.Row{
-  swarmdblib.Row{"database": "smartdogs"},
-  swarmdblib.Row{"database": "reallysmartdogs"},
+  swarmdblib.Row{"database": "testdb"},
+  swarmdblib.Row{"database": "olddb"},
 }
 ```
 
@@ -196,7 +200,7 @@ dblist, err := conn.ListDatabases()
 // List the databases owned by test.eth.
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test.eth/"
 
-// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
+// Output: {"data":[{"database":"testdb"},{"database":"olddb"}],"matchedrowcount":2}
 ```
 
 Lists the Databases associated with a Connection.
@@ -208,18 +212,19 @@ For Node.js API, either createDatabase or openDatabase should be called prior to
 ## Create Table
 
 ```javascript
-// swarmdb.createTable(tableName, columns, callback)
+// conn.createTable(tableName, columns, callback)
 var columns = [
   { "columnname": "email", "columntype": "STRING", "indextype": "BPLUS", "primary": 1 },
   { "columnname": "name", "columntype": "STRING", "indextype": "HASH", "primary": 0 },
   { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS", "primary": 0 }
 ];
-swarmdb.createTable("contacts", columns, function (err, result) {
+conn.createTable("contacts", columns, function (err, tbl) {
   if (err) {
     throw err;
   }
-  console.log(result);
+  console.log(tbl);
 });
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -239,8 +244,11 @@ columns :=
       Primary: 0
     },
 }
-name := "softwareengineerdogs"
-tbl, err := db.CreateTable(name, columns)
+tableName := "contacts"
+tbl, err := db.CreateTable(tableName, columns)
+if err != nil {
+    fmt.Printf( err.Error() )
+}
 ```
 
 ```plaintext
@@ -266,13 +274,13 @@ Columns consist of the following parameters:
 ## Open Table 
 
 ```javascript
-// swarmdb.openTable(tableName)
-swarmdb.openTable("contacts");
+// conn.openTable(tableName)
+conn.openTable("contacts");
 ```
 
 ```go
-name := "accountantdogs"
-tbl, err := db.OpenTable(name)
+tableName := "contacts"
+tbl, err := db.OpenTable(tableName)
 ```
 
 ```plaintext
@@ -285,18 +293,22 @@ In Go, a table object must be created using the database object.
 ## Describe Table
 
 ```javascript
-// swarmdb.describeTable(tableName, callback)
-swarmdb.describeTable("contacts", function (err, result) {
+// conn.describeTable(tableName, callback)
+conn.describeTable("contacts", function (err, description) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(description);
 });
+
 // Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
 ```
 
 ```go
-description, err := db.DescribeDatabase()
+description, err := db.DescribeTable()
+if err != nil {
+    fmt.Printf(err.Error())
+}
 
 //description contains:
 []swarmdblib.Row{
@@ -326,22 +338,26 @@ Shows the Columns of an existing Table.
 ## List Tables
 
 ```javascript
-// swarmdb.listTables(callback)
-swarmdb.listTables(function (err, result) {
+// conn.listTables(callback)
+conn.listTables(function (err, tblList) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(tblList);
 });
+
 // Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
 ```
 
 ```go
-list, err := db.ListTables()
+tblList, err := db.ListTables()
+if err != nil {
+    fmt.Printf(err.Error())
+}
+
 //list contains:
 []swarmdblib.Row{
-  swarmdblib.Row{"table": "accountantdogs"},
-  swarmdblib.Row{"table": "softwareengineerdogs"},
+  swarmdblib.Row{"table": "contacts"},
 }
 ```
 
@@ -356,29 +372,49 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.
 
+Note: The PUT statement overwrites the existing row with the exact value specified if the primary key value already exists
+
 For Node.js API, either createTable or openTable should be called prior to Write calls.
 
 ## Put
 ```javascript
-// swarmdb.put(rows, callback)
-swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ],  function (err, result) {
+//Add / Update a single row 
+var rowToAdd = '[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ]';
+conn.put( rowToAdd,  function (err, rowAdded) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(rowAdded);
 });
 // Output: {"affectedrowcount":1}
+
+//Add / Update multiple rows 
+var rowsToAdd = '[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" }, {"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"} ]'
+conn.put( rowsToAdd,  function (err, rowsAdded) {
+    if (err) {
+      throw err;
+    }
+    console.log(rowsAdded);
+});
+// Output: {"affectedrowcount":2}
 ```
 
 ```go
-rowtoadd := Row{"email": "peanut@dogs.com", "age": 12}
-rowstoadd :=
+rowToAdd := Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"}
+err = tbl.Put(rowToAdd)
+if err != nil {
+    fmt.Printf(err.Error())
+}
+
+rowsToAdd :=
   []swarmdblib.Row{
-    swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
-    swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
+    swarmdblib.Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"},
+    swarmdblib.Row{"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"},
   }
-err = tbl.Put(rowtoadd)
-err = tbl.Put(rowstoadd)
+err = tbl.Put(rowsToAdd)
+if err != nil {
+    fmt.Printf(err.Error())
+}
 ```
 
 ```plaintext
@@ -394,13 +430,14 @@ Put calls allow for writing rows.
 
 ## Insert
 ```javascript
-// swarmdb.query(sqlQuery, callback)
-swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);", function (err, result) {
+// conn.query(sqlQuery, callback)
+conn.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);", function (err, result) {
     if (err) {
       throw err;
     }
     console.log(result);
 });
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -418,8 +455,8 @@ Insert Query calls allow for the insertion of rows by specifying an INSERT query
 
 ## Update
 ```javascript
-// swarmdb.query(sqlQuery, callback)
-swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", function (err, result) {
+// conn.query(sqlQuery, callback)
+conn.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", function (err, result) {
     if (err) {
       throw err;
     }
@@ -449,12 +486,12 @@ In Node.js, either createTable or openTable should be called prior to Read calls
 
 ## Get
 ```javascript
-// swarmdb.get(key, callback)
-swarmdb.get("bertie@gmail.com", function (err, result) {
+// conn.get(key, callback)
+conn.get("bertie@gmail.com", function (err, row) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(row);
 });
 // Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
@@ -465,7 +502,7 @@ row, err := tbl.Get("bertie@gmail.com")
 if err != nil {
    panic("could not Get row")
 }
-fmt.Printf("Row: %v\n")
+fmt.Printf("Output: %v\n")
 ```
 
 ```plaintext
@@ -478,8 +515,8 @@ Get calls allow for the retrieval of a single row by specifying the value of a r
 
 ## Select
 ```javascript
-// swarmdb.query(sqlQuery, callback)
-swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", function (err, result) {
+// conn.query(sqlQuery, callback)
+conn.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'", function (err, result) {
     if (err) {
       throw err;
     }
