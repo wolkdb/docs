@@ -30,11 +30,12 @@ The default location for this file is: /usr/local/swarmdb/etc/swarmdb.conf
 ```plaintext
 Note: for sending HTTP requests, please follow the URL path construction conventions detailed below:
 
-http://[IP]:[PORT]/[DBNAME].[OWNERENS]/
+http://[IP]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
 - [IP]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
 - [PORT]: 8501 is the default PORT
 - [DBNAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DBNAME] portion, as well as the trailing "." should be left off
 - [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
+- [TABLE]: The table, belonging to the database noted, which is owned by the Owner ENS noted that is to be manipulated or accessed
 ```
 
 ```javascript
