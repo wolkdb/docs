@@ -570,7 +570,7 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
 <span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//func (db *SWARMDBDatabase) ListTables() (tables []Row, err error)</span><span class="x">
+</code></pre><pre class="highlight go tab-go"><code><span class="c">//func (tbl *SWARMDBTable) Put(row interface{}) error</span><span class="x">
 
 </span><span class="n">rowtoadd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"peanut@dogs.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">12</span><span class="p">}</span><span class="x">
 </span><span class="n">rowstoadd</span><span class="x"> </span><span class="o">:=</span><span class="x">
@@ -580,6 +580,7 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
   </span><span class="p">}</span><span class="x">
 </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowtoadd</span><span class="p">)</span><span class="x">
 </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowstoadd</span><span class="p">)</span><span class="x">
+
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
 curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' "http://localhost:8501/testdb.test.eth/contacts"
 
@@ -596,7 +597,11 @@ curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "nam
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
 <span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
+</code></pre><pre class="highlight go tab-go"><code><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
+
+</span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="s">"INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com','Bertie',7);"</span><span class="p">)</span><span class="x">
+
+</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
 curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }'  "http://localhost:8501/testdb.test.eth/"
 
 // Output: {"affectedrowcount":1}
@@ -610,7 +615,11 @@ curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, n
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">});</span>
 <span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
+</code></pre><pre class="highlight go tab-go"><code><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
+
+</span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="s">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'"</span><span class="p">)</span><span class="x">
+
+</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
 curl -X POST -d '{ "requesttype":"Query", "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' "http://localhost:8501/testdb.test.eth/"
 
 // Output: {"affectedrowcount":1}
@@ -662,10 +671,10 @@ curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
   </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"ralph@dogdog.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">},</span><span class="x">
   </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"nori@dogs.uk"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="p">},</span><span class="x">
 </span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code>// Query the testdb database <span class="o">(</span>owned by test.eth owner ENS<span class="o">)</span>
-curl -X POST -d <span class="s1">'{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'</span>  <span class="s2">"http://localhost:8501/testdb.test.eth/"</span>
+</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query the testdb database (owned by test.eth owner ENS)
+curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
 
-// Output: <span class="o">{</span><span class="s2">"data"</span>:[<span class="o">{</span><span class="s2">"email"</span>:<span class="s2">"bertie@gmail.com"</span>,<span class="s2">"name"</span>:<span class="s2">"Bertie Basset"</span>,<span class="s2">"age"</span>:7<span class="o">}]}</span>
+// Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 </code></pre>
 <p>Lists the existing Tables in the specified Database.</p>
 <h1 id='remove'>Remove</h1>
