@@ -4,7 +4,7 @@ title: SWARMDB API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript: Node.js
   - go: Go
-  - shell: HTTP
+  - plaintext: HTTP
 
 includes:
   - errors
@@ -18,60 +18,79 @@ SwarmDB is being developed by [Wolk Inc.](https://www.wolk.com/) to support dece
 
 Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  
 
-This is a pre-alpha project under active development with Ethereum Swarm. To install the current version, please [README](https://github.com/wolktoken/swarm.wolk.com/blob/master/README.md). 
+This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see [README](https://github.com/wolkdb/swarm.wolk.com/blob/master/README.md). 
 
 If you require further assistance, feel free to shoot us an email: [services@wolk.com](mailto:services@wolk.com)
 
-# Configure
-
-Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
-
-```javascript
-//example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
-$ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
-```
-
-For Node.js API, you need to set the private key associated with this user as an environment variable in the terminal. 
-
 # Install
 
-```javascript
-$ npm install swarmdb.js --save
-// Note that since web3 module might have some issues to be installed at a latest version, you had better install it manually right now.
-$ npm install web3@1.0.0-beta.26
-```
+To use SWARMDB API, you need to install the corresponding library.
+If you are using Node Shell in SwarmDB docker image, the packages are already installed. You can skip this step and move onto next section.
 
+```javascript
+//Getting swarmdb and web3 package
+$ npm install swarmdb.js --save
+$ npm install web3@1.0.0-beta.26
+
+//Using the package
+var swarmdbAPI = require("swarmdb.js");
+
+/* Note:
+Some users have experienced problems with auto-installing the latest web3 package.
+In case you have similar issue, we recommed you to do a clean web3 install manually. */
+
+
+```
 ```go
 //package installation
 go get github.com/wolkdb/swarmdblib
 ```
 
-```shell
-//Check that wolkdb is running and that you can do curl calls
+```plaintext
+//Verifying that wolkdb is running
 $ ps aux | grep swarmdb
 $ curl https://www.google.com | wc
 ```
 
-To use SWARMDB API, you need to install the corresponding library.  
-If you are using Node Shell in SwarmDB docker image, you can skip the install step.
+# Configure
 
-```javascript
-var swarmdbAPI = require("swarmdb.js");
+Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolkdb/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file). 
+By default, the config file can be found at: `/usr/local/swarmdb/etc/swarmdb.conf`
+
+```plaintext
+Note: for sending HTTP requests, please follow the URL path construction conventions detailed below:
+
+http://[HOST]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
+- [HOST]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
+- [PORT]: 8501 is the default PORT
+- [DBNAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DBNAME] portion, as well as the trailing "." should be left off
+- [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
+- [TABLE]: The table, belonging to the database noted, which is owned by the Owner ENS noted that is to be manipulated or accessed
 ```
+
 
 ```go
 //import this library
 import "github.com/wolkdb/swarmdblib"
 ```
 
-Import the library
+```javascript
+//Setting private key as environment variable
+$ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
+//example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
+```
+
+For Node.js API, you need to set the private key associated with this user as an environment variable in the terminal. 
+
 
 # Connect
 ```javascript
-// swarmdbAPI.createConnection(options)
+//Connecting to SWARMDB node
+var SWARMDB_HOST = "localhost"
+var SWARMDB_PORT = 2001
 var swarmdb = swarmdbAPI.createConnection({
-    host: SWARMDB_HOST, //e.g. "localhost"
-    port: SWARMDB_PORT  //e.g. 2001
+    host: SWARMDB_HOST,
+    port: SWARMDB_PORT
 });
 ```
 
@@ -86,11 +105,11 @@ privateKey := "98b5321e784dde6357896fd20f13ac6731e9b1ea0058c8529d55dde276e45624"
 conn, err := NewSWARMDBConnection(ip, port, owner, privateKey)
 ```
 
-```shell
+```plaintext
 For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5.-HTTP-Interface#authentication
 ```
 
-Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
+Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
 Owner should be a valid ENS domain.
 
 
@@ -99,8 +118,11 @@ Owner should be a valid ENS domain.
 ## Create Database
 
 ```javascript
-// swarmdb.createDatabase(owner, databaseName, encrypted, callback)
-swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
+//Creating Database
+var owner = "test.eth"
+var databaseName= "testdb"
+var encrypted = 1
+swarmdb.createDatabase(owner, databaseName, encrypted, function (err, result) {
   if (err) {
     throw err;
   }
@@ -117,10 +139,10 @@ encrypted := int(1)
 db, err := conn.CreateDatabase(name, encrypted)
 ```
 
-```shell
+```plaintext
 // Create an encrypted database named testdb, which is owned by test.eth.
-curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'  \ 
-     "http://localhost:8501/testdb.test.eth/" 
+curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'   "http://localhost:8501/testdb.test.eth/" 
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -131,8 +153,10 @@ For encrypted status, 1 means true and 0 means false.
 ## Open Database 
 
 ```javascript
-// swarmdb.openDatabase(owner, databaseName)
-swarmdb.openDatabase("test.eth", "testdb");
+//Open Database
+var owner = "test.eth"
+var databaseName= "testdb"
+swarmdb.openDatabase(owner, databaseName);
 ```
 
 ```go
@@ -142,7 +166,7 @@ name := "smartdogs"
 db, err  := conn.OpenDatabase(name)
 ```
 
-```shell
+```plaintext
 // not required
 ```
 
@@ -153,12 +177,12 @@ For Go API, owner will be the connection Object owner.
 ## List Databases
 
 ```javascript
-// swarmdb.listDatabases(callback)
-swarmdb.listDatabases(function (err, result) {
+//List Databases
+swarmdb.listDatabases(function (err, dblist) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(dblist);
 });
 // Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
@@ -176,10 +200,10 @@ dblist = []Row{
 }
 ```
 
-```shell
+```plaintext
 // List the databases owned by test.eth.
-curl -X POST -d '{ "requesttype":"ListDatabases" }'  \ 
-     "http://localhost:8501/_.test.eth/"
+curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test.eth/"
+
 // Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
@@ -227,20 +251,17 @@ columns :=
 }
 name := "softwareengineerdogs"
 tbl, err := db.CreateTable(name, columns)
+
 ```
 
-```shell
+```plaintext
 // Create a table named contacts, which belongs to the database named testdb, which is owned by test.eth.
 // The contacts table has 3 columns
 // 1) email is the primary key and is of type STRING and uses the BPLUS index
 // 2) name is of type STRING and uses the HASH index
 // 3) age is of type INTEGER and uses the BPLUS index
 
-curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", \
-      "columns":[{ "columnName":"email", "ColumnType":"STRING", "Primary":1, "IndexType":BPLUS }, \ 
-                 { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, \
-                 { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' \
-      "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", "columns":[{ "columnName":"email", "ColumnType":"STRING", "Primary":1, "IndexType":"BPLUS" }, { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' "http://localhost:8501/testdb.test.eth/"
 // Output: {"affectedrowcount":1}
 ```
 
@@ -267,7 +288,7 @@ name := "accountantdogs"
 tbl, err := db.OpenTable(name)
 ```
 
-```shell
+```plaintext
 // not required
 ```
 
@@ -310,6 +331,13 @@ description =
     },
   }
 ```
+
+```plaintext
+// List the column info for the contacts table (in the testdb database owned by test.eth).
+curl -X POST -d '{ "requesttype":"DescribeTable" }'  "http://localhost:8501/testdb.test.eth/contacts"
+
+// Output: {"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
+```
 Shows the Columns of an existing Table.
 
 ## List Tables
@@ -336,10 +364,14 @@ list = []Row{
   Row{"table": "accountantdogs"},
   Row{"table": "softwareengineerdogs"},
 }
-
 ```
 
-Lists the existing Tables in the specified Database.
+```plaintext
+// List the tables belonging to the testdb database (owned by test.eth)
+curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.test.eth/"
+
+// Output: {"data":[{"table":"contacts"}],"matchedrowcount":1}
+```
 
 # Write
 
@@ -372,11 +404,10 @@ err = tbl.Put(rowtoadd)
 err = tbl.Put(rowstoadd)
 ```
 
-```shell
+```plaintext
 // Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
-curl -X POST -d '{ "requesttype":"Put", \
-                   "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' \
-     "http://localhost:8501/testdb.test.eth/contacts"
+curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' "http://localhost:8501/testdb.test.eth/contacts"
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -399,11 +430,10 @@ swarmdb.query("INSERT INTO contacts(email, name, age) VALUES('bertie@gmail.com',
 ```go
 ```
 
-```shell
+```plaintext
 // Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, name, age) VALUES(\"bertie@gmail.com\",\"Bertie Basset\",7) " }'  "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"affectedrowcount":1}
 ```
 
@@ -424,20 +454,21 @@ swarmdb.query("UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';", funct
 ```go
 ```
 
-```shell
+```plaintext
 // Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"affectedrowcount":1}
 ```
 Update Query calls allow for the update on non-primary key using standard SQL.
 
+
+
 # Read
 
-Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a Select query.
+Reading a row (or rows) from SWARMDB tables may be done via the GET call or running a SQL Select query.
 
-For Node.js API, either createTable or openTable should be called prior to Read calls.
+In Node.js, either createTable or openTable should be called prior to Read calls.
 
 ## Get
 ```javascript
@@ -462,15 +493,15 @@ rowgotten =
   []Row{
     Row{"age": 12, "email": "peanut@dogs.com"},
   }
-
 ```
 
-```shell
+```plaintext
 // Try to retrieve a row with the primary key value bertie@gmail.com from the contacts table (in the testdb database, owned by test.eth)
-curl -X POST "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
+
 // Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
-Get allows for the retrieval of a single row by specifying the value of a row's primary key.
+Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.
 
 ## Select
 ```javascript
@@ -499,14 +530,12 @@ rowsgotten = []Row {
 
 ```shell
 // Query the testdb database (owned by test.eth owner ENS)
-curl -X POST -d '{ "requesttype":"Query", \
-                   "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }' \
-     "http://localhost:8501/testdb.test.eth/"
+curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
+
 // Output: {"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
 ```
 
-Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
-
+Lists the existing Tables in the specified Database.
 
 # Remove
 
