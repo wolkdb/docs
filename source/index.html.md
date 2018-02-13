@@ -32,21 +32,14 @@ If you are using Node Shell in SwarmDB docker image, the packages are already in
 $ npm install swarmdb.js --save
 $ npm install web3@1.0.0-beta.26
 
-//Using the package
-var swarmdbAPI = require("swarmdb.js");
-
 /* Note:
 Some users have experienced problems with auto-installing the latest web3 package.
 In case you have similar issue, we recommed you to do a clean web3 install manually. */
-
-
 ```
+
 ```go
 //Getting swarmdblib package
 go get github.com/wolkdb/swarmdblib
-
-//Using the package
-import "github.com/wolkdb/swarmdblib"
 ```
 
 ```plaintext
@@ -89,6 +82,12 @@ For Node.js API, you need to set the private key associated with this user as an
 
 # Connect
 ```javascript
+//starting nodejs console
+$ node 
+
+//Using swarmdb package
+var swarmdbAPI = require("swarmdb.js");
+
 //Connecting to SWARMDB node
 var SWARMDB_HOST = "localhost"
 var SWARMDB_PORT = 2001
@@ -102,6 +101,10 @@ var conn = swarmdbAPI.createConnection({
 ```
 
 ```go
+
+//Using swarmdblib package
+import "github.com/wolkdb/swarmdblib"
+
 //Connecting to SWARMDB node
 //func NewSWARMDBConnection(ip string, port int, owner string, privateKey string) (dbc SWARMDBConnection, err error)
 
@@ -109,7 +112,7 @@ host := "localhost"             //your SWARMDB node IP
 port := int(2001)               //your SWARMDB node Port number
 owner := "test.eth"             //your SWARMDB node owner address
 privateKey := "YOURPRIVATEKEY"  //your SWARMDB node private key
-conn, err := swarmdb.NewSWARMDBConnection(host, port, owner, privateKey)
+conn, err := swarmdblib.NewSWARMDBConnection(host, port, owner, privateKey)
 
 //Note: private key and other settings can be found at '/usr/local/swarmdb/etc/swarmdb.conf'
 
@@ -132,11 +135,7 @@ Owner should be a valid ENS domain.
 var owner = "test.eth"
 var databaseName= "testdb"
 var encrypted = 1
-<<<<<<< HEAD
 conn.createDatabase(owner, databaseName, encrypted, function (err, db) {
-=======
-conn.createDatabase(owner, databaseName, encrypted, function (err, result) {
->>>>>>> origin/master
   if (err) {
     throw err;
   }
@@ -177,34 +176,17 @@ var owner = "test.eth"
 var databaseName= "testdb"
 conn.openDatabase(owner, databaseName);
 
-<<<<<<< HEAD
 // Output: No return value
-=======
-//Output: No return values currently
->>>>>>> origin/master
 ```
 
 ```go
 //Open Database
-<<<<<<< HEAD
 //func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)
 
 databaseName := "testdb"
 db, err  := conn.OpenDatabase(databaseName)
 if err != nil {
     fmt.Printf(err.Error())
-=======
-databaseName := "testdb"
-db, err  := conn.OpenDatabase(databaseName)
-if err != nil {
-    fmt.Printf(err.Error())
-}
-
-//func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)
-db, err  := conn.OpenDatabase(databaseName)
-if err != nil {
-    fmt.Printf( err.Error() )
->>>>>>> origin/master
 }
 ```
 
@@ -227,12 +209,8 @@ conn.listDatabases(function (err, dblist) {
     console.log(dblist);
 });
 
-<<<<<<< HEAD
 // Output:
 {"data":[{"database":"testdb"}],"matchedrowcount":1}
-=======
-// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
->>>>>>> origin/master
 ```
 
 ```go
@@ -247,7 +225,7 @@ if err != nil {
 // Output:
 type Row map[string]interface{}
 dblist = []Row{
-  swarmdblib.Row{"database": "testdb"},
+  Row{"database": "testdb"},
 }
 ```
 
