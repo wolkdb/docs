@@ -18,20 +18,53 @@ SwarmDB is being developed by [Wolk Inc.](https://www.wolk.com/) to support dece
 
 Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  
 
-This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see [README](https://github.com/wolktoken/swarm.wolk.com/blob/master/README.md). 
+This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see [README](https://github.com/wolkdb/swarm.wolk.com/blob/master/README.md). 
 
 If you require further assistance, feel free to shoot us an email: [services@wolk.com](mailto:services@wolk.com)
 
+# Install
+
+To use SWARMDB API, you need to install the corresponding library.
+If you are using Node Shell in SwarmDB docker image, the packages are already installed. You can skip this step and move onto next section.
+
+```javascript
+//Getting swarmdb and web3 package
+$ npm install swarmdb.js --save
+$ npm install web3@1.0.0-beta.26
+
+//Using the package
+var swarmdbAPI = require("swarmdb.js");
+
+/* Note:
+Some users have experienced problems with auto-installing the latest web3 package.
+In case you have similar issue, we recommed you to do a clean web3 install manually. */
+
+
+```
+```go
+//Getting swarmdblib package
+go get github.com/wolkdb/swarmdblib/
+
+//Using the package
+import "github.com/wolkdb/swarmdblib"
+```
+
+```plaintext
+//Verifying that wolkdb is running
+$ ps aux | grep swarmdb
+$ curl https://www.google.com | wc
+```
+
 # Configure
 
-Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file). 
-The default location for this file is: /usr/local/swarmdb/etc/swarmdb.conf 
+Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolkdb/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file). 
+By default, the config file can be found at: `/usr/local/swarmdb/etc/swarmdb.conf`
 
 ```plaintext
 Note: for sending HTTP requests, please follow the URL path construction conventions detailed below:
 
-http://[IP]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
-- [IP]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
+http://[HOST]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
+- [HOST]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
 - [PORT]: 8501 is the default PORT
 - [DBNAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DBNAME] portion, as well as the trailing "." should be left off
 - [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
@@ -39,64 +72,38 @@ http://[IP]:[PORT]/[DBNAME].[OWNERENS]/[TABLE]
 ```
 
 ```javascript
-//example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
+//Setting private key as environment variable
 $ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
+//example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
 ```
 
 For Node.js API, you need to set the private key associated with this user as an environment variable in the terminal. 
 
-# Install
-
-```javascript
-$ npm install swarmdb.js --save
-// Note that since web3 module might have some issues to be installed at a latest version, you had better install it manually right now.
-$ npm install web3@1.0.0-beta.26
-```
-
-```go
-go get github.com/wolkdb/swarmdblib/
-```
-
-```plaintext
-//Check that wolkdb is running and that you can do curl calls
-$ ps aux | grep swarmdb
-$ curl https://www.google.com | wc
-```
-
-To use SWARMDB API, you need to install the corresponding library.  
-If you are using Node Shell in SwarmDB docker image, you can skip the install step.
-
-```javascript
-var swarmdbAPI = require("swarmdb.js");
-```
-
-```go
-import "github.com/wolkdb/swarmdblib"
-```
-
-Import the library
 
 # Connect
 ```javascript
-// swarmdbAPI.createConnection(options)
+//Connecting to SWARMDB node
+var SWARMDB_HOST = "localhost"
+var SWARMDB_PORT = 2001
 var swarmdb = swarmdbAPI.createConnection({
-    host: SWARMDB_HOST, //e.g. "localhost"
-    port: SWARMDB_PORT  //e.g. 2001
+    host: SWARMDB_HOST,
+    port: SWARMDB_PORT
 });
 ```
 
 ```go
-ip := "127.0.0.1"
+//Connecting to SWARMDB node
+host := "localhost"
 port := int(2001)
 owner := testowner.eth
-conn, err := NewSWARMDBConnection(ip, port, owner)
+conn, err := NewSWARMDBConnection(host, port, owner)
 ```
 
 ```plaintext
 For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/5.-HTTP-Interface#authentication
 ```
 
-Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
+Open a connection by specifying the host and port of the SWARMDB node.  Specific details may be found in the [SWARMDB configuration file](https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).
 Owner should be a valid ENS domain.
 
 For Go API, if no IP, no port, or no owner address are defined (ip = 0, port = "", owner = "") then they will be pulled from the SwarmDB config file.  Using the config file assumes the node is running locally.
@@ -107,8 +114,11 @@ For Go API, if no IP, no port, or no owner address are defined (ip = 0, port = "
 ## Create Database
 
 ```javascript
-// swarmdb.createDatabase(owner, databaseName, encrypted, callback)
-swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
+//Creating Database
+var owner = "test.eth"
+var databaseName= "testdb"
+var encrypted = 1
+swarmdb.createDatabase(owner, databaseName, encrypted, function (err, result) {
   if (err) {
     throw err;
   }
@@ -118,9 +128,10 @@ swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
 ```
 
 ```go
-name := "reallysmartdogs"
+//Creating Database
+databaseName := "reallysmartdogs"
 encrypted := int(1)
-db, err := conn.CreateDatabase(name, encrypted)
+db, err := conn.CreateDatabase(databaseName, encrypted)
 ```
 
 ```plaintext
@@ -137,13 +148,16 @@ For encrypted status, 1 means true and 0 means false.
 ## Open Database 
 
 ```javascript
-// swarmdb.openDatabase(owner, databaseName)
-swarmdb.openDatabase("test.eth", "testdb");
+//Open Darabase
+var owner = "test.eth"
+var databaseName= "testdb"
+swarmdb.openDatabase(owner, databaseName);
 ```
 
 ```go
-name := "smartdogs"
-db, err  := conn.OpenDatabase(name)
+//Open Darabase
+databaseName := "smartdogs"
+db, err  := conn.OpenDatabase(databaseName)
 ```
 
 ```plaintext
@@ -157,17 +171,18 @@ For Go API, owner will be the connection Object owner.
 ## List Databases
 
 ```javascript
-// swarmdb.listDatabases(callback)
-swarmdb.listDatabases(function (err, result) {
+//List Databases
+swarmdb.listDatabases(function (err, dblist) {
     if (err) {
       throw err;
     }
-    console.log(result);
+    console.log(dblist);
 });
 // Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
 ```
 
 ```go
+//List Databases
 dblist, err := conn.ListDatabases()
 
 //dblist contains:
