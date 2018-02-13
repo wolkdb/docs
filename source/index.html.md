@@ -42,6 +42,7 @@ $ npm install web3@1.0.0-beta.26
 ```
 
 ```go
+//package installation
 go get github.com/wolkdb/swarmdblib
 ```
 
@@ -59,6 +60,7 @@ var swarmdbAPI = require("swarmdb.js");
 ```
 
 ```go
+//import this library
 import "github.com/wolkdb/swarmdblib"
 ```
 
@@ -74,10 +76,13 @@ var swarmdb = swarmdbAPI.createConnection({
 ```
 
 ```go
+//func NewSWARMDBConnection(ip string, port int, owner string, privateKey string) (dbc SWARMDBConnection, err error) 
+
 ip := "127.0.0.1" //your SWARMDB node IP
 port := int(2001) //your SWARMDB node Port number
 owner := "db4db066584dea75f4838c08ddfadc195225dd80" //your SWARMDB node owner address
 privateKey := "98b5321e784dde6357896fd20f13ac6731e9b1ea0058c8529d55dde276e45624" //your SWARMDB node private key
+
 conn, err := NewSWARMDBConnection(ip, port, owner, privateKey)
 ```
 
@@ -105,6 +110,8 @@ swarmdb.createDatabase("test.eth", "testdb", 1, function (err, result) {
 ```
 
 ```go
+//func (dbc *SWARMDBConnection) CreateDatabase(name string, encrypted int) (db *SWARMDBDatabase, err error)
+
 name := "reallysmartdogs"
 encrypted := int(1)
 db, err := conn.CreateDatabase(name, encrypted)
@@ -129,6 +136,8 @@ swarmdb.openDatabase("test.eth", "testdb");
 ```
 
 ```go
+//func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)
+
 name := "smartdogs"
 db, err  := conn.OpenDatabase(name)
 ```
@@ -155,12 +164,15 @@ swarmdb.listDatabases(function (err, result) {
 ```
 
 ```go
+//func (dbc *SWARMDBConnection) ListDatabases() (databases []Row, err error)
+
 dblist, err := conn.ListDatabases()
 
-//dblist contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"database": "smartdogs"},
-  swarmdblib.Row{"database": "reallysmartdogs"},
+//output:
+type Row map[string]interface{}
+dblist = []Row{
+  Row{"database": "smartdogs"},
+  Row{"database": "reallysmartdogs"},
 }
 ```
 
@@ -196,15 +208,17 @@ swarmdb.createTable("contacts", columns, function (err, result) {
 ```
 
 ```go
+//func (db *SWARMDBDatabase) CreateTable(name string, columns []Column) (tbl *SWARMDBTable, err error)
+
 columns :=
-  []swarmdblib.Column{
-    swarmdblib.Column{
+  []Column{
+    Column{
       ColumnName: "email",
       ColumnType: CT_STRING,
       IndexType: IT_BPLUSTREE,
       Primary: 1
     },
-    swarmdblib.Column{
+    Column{
       ColumnName: "age",
       ColumnType: CT_INTEGER,
       IndexType: IT_BPLUSTREE,
@@ -247,6 +261,8 @@ swarmdb.openTable("contacts");
 ```
 
 ```go
+//func (db *SWARMDBDatabase) OpenTable(name string) (tbl *SWARMDBTable, err error)
+
 name := "accountantdogs"
 tbl, err := db.OpenTable(name)
 ```
@@ -272,23 +288,27 @@ swarmdb.describeTable("contacts", function (err, result) {
 ```
 
 ```go
-description, err := db.DescribeDatabase()
+//func (tbl *SWARMDBTable) DescribeTable() (description []Row, err error) 
 
-//description contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{
-    "ColumnName": "email",
-    "ColumnType": CT_STRING,
-    "IndexType":  IT_BPLUSTREE,
-    "Primary":    int(1)
-  },
-  swarmdblib.Row{
-    "ColumnName": "age",
-    "ColumnType": CT_INTEGER,
-    "IndexType":  IT_BPLUSTREE,
-    "Primary":    int(0)
-  },
-}
+description, err := db.DescribeTable()
+
+//output:
+type Row map[string]interface{}
+description = 
+  []Row{
+    Row{
+      "ColumnName": "email",
+      "ColumnType": CT_STRING,
+      "IndexType":  IT_BPLUSTREE,
+      "Primary":    int(1)
+    },
+    Row{
+      "ColumnName": "age",
+      "ColumnType": CT_INTEGER,
+      "IndexType":  IT_BPLUSTREE,
+      "Primary":    int(0)
+    },
+  }
 ```
 Shows the Columns of an existing Table.
 
@@ -306,13 +326,15 @@ swarmdb.listTables(function (err, result) {
 ```
 
 ```go
+//func (db *SWARMDBDatabase) ListTables() (tables []Row, err error)
 
 list, err := db.ListTables()
 
-//list contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"table": "accountantdogs"},
-  swarmdblib.Row{"table": "softwareengineerdogs"},
+//output:
+type Row map[string]interface{}
+list = []Row{
+  Row{"table": "accountantdogs"},
+  Row{"table": "softwareengineerdogs"},
 }
 
 ```
@@ -323,7 +345,7 @@ Lists the existing Tables in the specified Database.
 
 Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.
 
-For Node.js API, either createTable or openTable should be called prior to Write calls.
+Either CreateTable or OpenTable should be called prior to Write calls.
 
 ## Put
 ```javascript
@@ -338,11 +360,13 @@ swarmdb.put( [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" 
 ```
 
 ```go
+//func (db *SWARMDBDatabase) ListTables() (tables []Row, err error)
+
 rowtoadd := Row{"email": "peanut@dogs.com", "age": 12}
 rowstoadd :=
-  []swarmdblib.Row{
-    swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
-    swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
+  []Row{
+    Row{"email": "ralph@dogdog.com", "age": 7},
+    Row{"email": "nori@dogs.uk", "age": 1},
   }
 err = tbl.Put(rowtoadd)
 err = tbl.Put(rowstoadd)
@@ -428,12 +452,16 @@ swarmdb.get("bertie@gmail.com", function (err, result) {
 ```
 
 ```go
+//func (tbl *SWARMDBTable) Get(key string) (rows []Row, err error)
+
 rowgotten = tbl.Get("peanut@dogs.com")
 
-//rowgotten contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"age": 12, "email": "peanut@dogs.com"},
-}
+//output:
+type Row map[string]interface{}
+rowgotten = 
+  []Row{
+    Row{"age": 12, "email": "peanut@dogs.com"},
+  }
 
 ```
 
@@ -457,12 +485,15 @@ swarmdb.query("SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail
 ```
 
 ```go
+//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)
+
 rowsgotten, err = tbl.Query("select email, age from testtable where age < 10")
 
-//rowsgotten contains:
-[]swarmdblib.Row{
-  swarmdblib.Row{"email": "ralph@dogdog.com", "age": 7},
-  swarmdblib.Row{"email": "nori@dogs.uk", "age": 1},
+//output::
+type Row map[string]interface{}
+rowsgotten = []Row {
+  Row{"email": "ralph@dogdog.com", "age": 7},
+  Row{"email": "nori@dogs.uk", "age": 1},
 }
 ```
 
@@ -477,3 +508,57 @@ curl -X POST -d '{ "requesttype":"Query", \
 Select Query calls allow for the retrieval of rows by specifying a SELECT query using standard SQL.  The [supported query operands](https://github.com/wolktoken/swarm.wolk.com/wiki/8.-SWARMDB-Types#supported-query-operands) are allowed to be used on both primary and secondary keys.
 
 
+# Remove
+
+Removing a Database, Table, or entry in a Table is not recoverable. If a Database is removed, all the Tables associated with it are removed. Likewise, if a Table is removed, all rows in the Table are also removed. 
+
+## DropDatabase
+
+```javascript
+```
+
+```go
+//func (dbc *SWARMDBConnection) DropDatabase(name string) (err error) 
+
+err := dbc.DropDatabase("smartdogs")
+
+```
+
+```shell
+```
+
+Removes a Database.
+
+## DropTable
+
+```javascript
+```
+
+```go
+//func (db *SWARMDBDatabase) DropTable(name string) (err error)
+
+err := db.DropTable("accountantdogs")
+
+```
+
+```shell
+```
+
+Removes a Table.
+
+## Delete
+
+```javascript
+```
+
+```go
+//func (tbl *SWARMDBTable) Delete(key string) error
+
+err := tbl.Delete("ralph@dogdog.com")
+
+```
+
+```shell
+```
+
+Removes a row in a Table by primary key value.
