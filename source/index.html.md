@@ -132,7 +132,11 @@ Owner should be a valid ENS domain.
 var owner = "test.eth"
 var databaseName= "testdb"
 var encrypted = 1
+<<<<<<< HEAD
 conn.createDatabase(owner, databaseName, encrypted, function (err, db) {
+=======
+conn.createDatabase(owner, databaseName, encrypted, function (err, result) {
+>>>>>>> origin/master
   if (err) {
     throw err;
   }
@@ -173,17 +177,34 @@ var owner = "test.eth"
 var databaseName= "testdb"
 conn.openDatabase(owner, databaseName);
 
+<<<<<<< HEAD
 // Output: No return value
+=======
+//Output: No return values currently
+>>>>>>> origin/master
 ```
 
 ```go
 //Open Database
+<<<<<<< HEAD
 //func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)
 
 databaseName := "testdb"
 db, err  := conn.OpenDatabase(databaseName)
 if err != nil {
     fmt.Printf(err.Error())
+=======
+databaseName := "testdb"
+db, err  := conn.OpenDatabase(databaseName)
+if err != nil {
+    fmt.Printf(err.Error())
+}
+
+//func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)
+db, err  := conn.OpenDatabase(databaseName)
+if err != nil {
+    fmt.Printf( err.Error() )
+>>>>>>> origin/master
 }
 ```
 
@@ -206,8 +227,12 @@ conn.listDatabases(function (err, dblist) {
     console.log(dblist);
 });
 
+<<<<<<< HEAD
 // Output:
 {"data":[{"database":"testdb"}],"matchedrowcount":1}
+=======
+// Output: {"data":[{"database":"testdb"}],"matchedrowcount":1}
+>>>>>>> origin/master
 ```
 
 ```go
@@ -353,7 +378,6 @@ conn.describeTable(tableName, function (err, description) {
 ```go
 //Describe Table
 //func (tbl *SWARMDBTable) DescribeTable() (description []Row, err error) 
-
 description, err := db.DescribeTable()
 if err != nil {
     fmt.Printf(err.Error())
@@ -467,6 +491,12 @@ conn.put( rowsToAdd,  function (err, rowsAdded) {
 //Add row(s) to table
 //func (tbl *SWARMDBTable) Put(row interface{}) error
 
+rowToAdd := Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"}
+err = tbl.Put(rowToAdd)
+if err != nil {
+    fmt.Printf(err.Error())
+}
+
 //Adding single Row
 rowToAdd := Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"}
 err = tbl.Put(rowToAdd)
@@ -535,7 +565,7 @@ Insert Query calls allow for the insertion of rows by specifying an INSERT query
 ## Update
 ```javascript
 //Update a row using Query
-va sqlUpdate = "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';";
+var sqlUpdate = "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';";
 conn.query(sqlUpdate, function (err, rowsUpdated) {
     if (err) {
       throw err;
@@ -619,6 +649,7 @@ Get calls allow for the retrieval of a single row by specifying the value of a r
 ## Select
 ```javascript
 //Retrieve a Row using Query
+
 var sqlSelect = "SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'";
 conn.query(sqlSelect, function (err, retrievedRows) {
     if (err) {
