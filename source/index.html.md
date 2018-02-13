@@ -27,7 +27,7 @@ If you require further assistance, feel free to shoot us an email: [services@wol
 Upon installation and startup of your SWARMDB node, a default user and associated private key are generated and stored in the [SWARMDB configuration file](https://github.com/wolktoken/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file).  
 
 ```javascript
-// example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
+//example: export PRIVATE_KEY=4b0d79af51456172dfcc064c1b4b8f45f363a80a434664366045165ba5217d53
 $ export PRIVATE_KEY=PRIVATE_KEY_IN_YOUR_CONFIG_FILE
 ```
 
