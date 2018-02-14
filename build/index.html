@@ -632,7 +632,7 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 <h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Add row(s) to table </span>
 
 <span class="c1">//Adding single row </span>
-<span class="kd">var</span> <span class="nx">rowToAdd</span> <span class="o">=</span> <span class="s1">'[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ]'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">rowToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">];</span>
 <span class="nx">conn</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="nx">rowToAdd</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">rowAdded</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
@@ -644,7 +644,7 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 
 
 <span class="c1">//Adding multiple rows </span>
-<span class="kd">var</span> <span class="nx">rowsToAdd</span> <span class="o">=</span> <span class="s1">'[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" }, {"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"} ]'</span>
+<span class="kd">var</span> <span class="nx">rowsToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">},</span> <span class="p">{</span><span class="s2">"email"</span><span class="p">:</span> <span class="s2">"keisha@gmail.com"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Keisha Shepherd"</span><span class="p">}</span> <span class="p">];</span>
 <span class="nx">conn</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="nx">rowsToAdd</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">rowsAdded</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
