@@ -448,7 +448,7 @@ Either CreateTable or OpenTable should be called prior to Write calls.
 //Add row(s) to table 
 
 //Adding single row 
-var rowToAdd = '[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ]';
+var rowToAdd = [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ];
 conn.put( rowToAdd,  function (err, rowAdded) {
     if (err) {
       throw err;
@@ -460,7 +460,7 @@ conn.put( rowToAdd,  function (err, rowAdded) {
 
 
 //Adding multiple rows 
-var rowsToAdd = '[ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" }, {"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"} ]'
+var rowsToAdd = [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" }, {"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"} ];
 conn.put( rowsToAdd,  function (err, rowsAdded) {
     if (err) {
       throw err;
