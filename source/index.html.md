@@ -89,11 +89,11 @@ $ node
 var swarmdbAPI = require("swarmdb.js");
 
 //Connecting to SWARMDB node
-var SWARMDB_HOST = "localhost"
-var SWARMDB_PORT = 2001
+var SWARMDB_HOST = "localhost";
+var SWARMDB_PORT = 2001;
 var conn = swarmdbAPI.createConnection({
-    host: SWARMDB_HOST,
-    port: SWARMDB_PORT
+  host: SWARMDB_HOST,
+  port: SWARMDB_PORT
 });
 
 // Output: No return value
@@ -132,14 +132,14 @@ Owner should be a valid ENS domain.
 
 ```javascript
 //Creating Database
-var owner = "test.eth"
-var databaseName= "testdb"
-var encrypted = 1
-conn.createDatabase(owner, databaseName, encrypted, function (err, db) {
+var owner = "test.eth";
+var databaseName= "testdb";
+var encrypted = 1;
+conn.createDatabase(owner, databaseName, encrypted, function (err, result) {
   if (err) {
     throw err;
   }
-  console.log(db);
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":1}
@@ -172,8 +172,8 @@ For encryption status, `1` means "encrypted" while `0` means "not-encrypted".
 
 ```javascript
 //Open Database
-var owner = "test.eth"
-var databaseName= "testdb"
+var owner = "test.eth";
+var databaseName= "testdb";
 conn.openDatabase(owner, databaseName);
 
 // Output: No return value
@@ -202,11 +202,11 @@ For Go API, owner will be the connection Object owner.
 
 ```javascript
 //List Databases
-conn.listDatabases(function (err, dblist) {
-    if (err) {
-      throw err;
-    }
-    console.log(dblist);
+conn.listDatabases(function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output:
@@ -247,17 +247,17 @@ For Node.js API, either createDatabase or openDatabase should be called prior to
 
 ```javascript
 //Create Table
-var tableName = "contacts"
+var tableName = "contacts";
 var columns = [
   { "columnname": "email", "columntype": "STRING", "indextype": "BPLUS", "primary": 1 },
   { "columnname": "name", "columntype": "STRING", "indextype": "HASH", "primary": 0 },
   { "columnname": "age", "columntype": "INTEGER", "indextype": "BPLUS", "primary": 0 }
 ];
-conn.createTable(tableName, columns, function (err, tbl) {
+conn.createTable(tableName, columns, function (err, result) {
   if (err) {
     throw err;
   }
-  console.log(tbl);
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":1}
@@ -347,12 +347,12 @@ In Go, a table object must be created using the database object.
 
 ```javascript
 //Describe Table
-var tableName = "contacts"
-conn.describeTable(tableName, function (err, description) {
-    if (err) {
-      throw err;
-    }
-    console.log(description);
+var tableName = "contacts";
+conn.describeTable(tableName, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output:
@@ -399,11 +399,11 @@ Shows the Columns of an existing Table.
 
 ```javascript
 //List Tables
-conn.listTables(function (err, tblList) {
-    if (err) {
-      throw err;
-    }
-    console.log(tblList);
+conn.listTables(function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output:
@@ -449,11 +449,11 @@ Either CreateTable or OpenTable should be called prior to Write calls.
 
 //Adding single row 
 var rowToAdd = [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ];
-conn.put( rowToAdd,  function (err, rowAdded) {
-    if (err) {
-      throw err;
-    }
-    console.log(rowAdded);
+conn.put( rowToAdd,  function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":1}
@@ -461,11 +461,11 @@ conn.put( rowToAdd,  function (err, rowAdded) {
 
 //Adding multiple rows 
 var rowsToAdd = [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" }, {"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"} ];
-conn.put( rowsToAdd,  function (err, rowsAdded) {
-    if (err) {
-      throw err;
-    }
-    console.log(rowsAdded);
+conn.put( rowsToAdd,  function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":2}
@@ -516,11 +516,11 @@ Put calls allow for writing rows.
 ```javascript
 //Insert a row using Query
 var sqlInsert = "INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6);";
-conn.query(sqlInsert, function (err, rowsInserted) {
-    if (err) {
-      throw err;
-    }
-    console.log(rowsInserted);
+conn.query(sqlInsert, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":1}
@@ -550,11 +550,11 @@ Insert Query calls allow for the insertion of rows by specifying an INSERT query
 ```javascript
 //Update a row using Query
 var sqlUpdate = "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';";
-conn.query(sqlUpdate, function (err, rowsUpdated) {
-    if (err) {
-      throw err;
-    }
-    console.log(rowsUpdated);
+conn.query(sqlUpdate, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output: {"affectedrowcount":1}
@@ -591,11 +591,11 @@ In Node.js, either createTable or openTable should be called prior to Read calls
 //Retrieve a row using primary key
 
 var primaryKey = "bertie@gmail.com";
-conn.get(primaryKey, function (err, retrievedRow) {
-    if (err) {
-      throw err;
-    }
-    console.log(retrievedRow);
+conn.get(primaryKey, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output:
@@ -635,11 +635,11 @@ Get calls allow for the retrieval of a single row by specifying the value of a r
 //Retrieve a Row using Query
 
 var sqlSelect = "SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'";
-conn.query(sqlSelect, function (err, retrievedRows) {
-    if (err) {
-      throw err;
-    }
-    console.log(retrievedRows);
+conn.query(sqlSelect, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
 });
 
 // Output:
@@ -707,6 +707,15 @@ NOT SUPPORTED IN PROOF OF CONCEPT RELEASE: Removes a row in a Table by primary k
 
 ```javascript
 //Drop Table
+var tableName = "contacts";
+conn.dropTable(tableName, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
+});
+
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
@@ -734,6 +743,16 @@ Removes a Table.
 
 ```javascript
 //Drop Database
+var owner = "test.eth";
+var databaseName= "testdb";
+swarmdb.dropDatabase(owner, databaseName, function (err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log(result);
+});
+
+// Output: {"affectedrowcount":1}
 ```
 
 ```go
