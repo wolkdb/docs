@@ -268,18 +268,24 @@ conn.createTable(tableName, columns, function (err, tbl) {
 //func (db *SWARMDBDatabase) CreateTable(name string, columns []Column) (tbl *SWARMDBTable, err error)
 
 columns :=
-  []Column{
-    Column{
+  []swarmdblib.Column{
+    swarmdblib.Column{
       ColumnName: "email",
       ColumnType: CT_STRING,
       IndexType: IT_BPLUSTREE,
-      Primary: 1
+      Primary: 1,
     },
-    Column{
+    swarmdblib.Column{
       ColumnName: "age",
       ColumnType: CT_INTEGER,
       IndexType: IT_BPLUSTREE,
-      Primary: 0
+      Primary: 0,
+    },
+    swarmdblib.Column{
+      ColumnName: "name",
+      ColumnType: swarmdblib.CT_STRING,
+      IndexType: swarmdblib.IT_BPLUSTREE,
+      Primary: 0,
     },
 }
 tableName := "contacts"
