@@ -490,18 +490,24 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test
 </span><span class="c">//func (db *SWARMDBDatabase) CreateTable(name string, columns []Column) (tbl *SWARMDBTable, err error)</span><span class="x">
 
 </span><span class="n">columns</span><span class="x"> </span><span class="o">:=</span><span class="x">
-  </span><span class="p">[]</span><span class="n">Column</span><span class="p">{</span><span class="x">
-    </span><span class="n">Column</span><span class="p">{</span><span class="x">
+  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
       </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"email"</span><span class="p">,</span><span class="x">
       </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
       </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="x">
+      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x">
     </span><span class="p">},</span><span class="x">
-    </span><span class="n">Column</span><span class="p">{</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
       </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"age"</span><span class="p">,</span><span class="x">
       </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
       </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="x">
+      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
+    </span><span class="p">},</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
+      </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x">
+      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
+      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
+      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
     </span><span class="p">},</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
