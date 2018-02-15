@@ -113,6 +113,9 @@ port := int(2001)               //your SWARMDB node Port number
 owner := "test.eth"             //your SWARMDB node owner address
 privateKey := "YOURPRIVATEKEY"  //your SWARMDB node private key
 conn, err := swarmdblib.NewSWARMDBConnection(host, port, owner, privateKey)
+if err != nil {
+    fmt.Printf(err.Error())
+}
 
 //Note: private key and other settings can be found at '/usr/local/swarmdb/etc/swarmdb.conf'
 
@@ -223,9 +226,9 @@ if err != nil {
 }
 
 // Output:
-type Row map[string]interface{}
-dblist = []Row{
-  Row{"database": "testdb"},
+type swarmdblib.Row map[string]interface{}
+dblist = []swarmdblib.Row{
+  swarmdblib.Row{"database": "testdb"},
 }
 ```
 
@@ -271,14 +274,14 @@ columns :=
   []swarmdblib.Column{
     swarmdblib.Column{
       ColumnName: "email",
-      ColumnType: CT_STRING,
-      IndexType: IT_BPLUSTREE,
+      ColumnType: swarmdblib.CT_STRING,
+      IndexType: swarmdblib.IT_BPLUSTREE,
       Primary: 1,
     },
     swarmdblib.Column{
       ColumnName: "age",
-      ColumnType: CT_INTEGER,
-      IndexType: IT_BPLUSTREE,
+      ColumnType: swarmdblib.CT_INTEGER,
+      IndexType: swarmdblib.IT_BPLUSTREE,
       Primary: 0,
     },
     swarmdblib.Column{
@@ -291,7 +294,7 @@ columns :=
 tableName := "contacts"
 tbl, err := db.CreateTable(tableName, columns)
 if err != nil {
-    fmt.Printf( err.Error() )
+    fmt.Printf(err.Error())
 }
 ```
 
@@ -332,7 +335,7 @@ conn.openTable(tableName);
 tableName := "contacts"
 tbl, err := db.OpenTable(tableName)
 if err != nil {
-    fmt.Printf( err.Error() )
+    fmt.Printf(err.Error())
 }
 ```
 
@@ -362,25 +365,25 @@ conn.describeTable(tableName, function (err, result) {
 ```go
 //Describe Table
 //func (tbl *SWARMDBTable) DescribeTable() (description []Row, err error) 
-description, err := db.DescribeTable()
+description, err := tbl.DescribeTable()
 if err != nil {
     fmt.Printf(err.Error())
 }
 
 // Output:
-type Row map[string]interface{}
+type swarmdblib.Row map[string]interface{}
 description = 
-  []Row{
-    Row{
+  []swarmdblib.Row{
+    swarmdblib.Row{
       "ColumnName": "email",
-      "ColumnType": CT_STRING,
-      "IndexType":  IT_BPLUSTREE,
+      "ColumnType": swarmdblib.CT_STRING,
+      "IndexType":  swarmdblib.IT_BPLUSTREE,
       "Primary":    int(1)
     },
-    Row{
+    swarmdblib.Row{
       "ColumnName": "age",
-      "ColumnType": CT_INTEGER,
-      "IndexType":  IT_BPLUSTREE,
+      "ColumnType": swarmdblib.CT_INTEGER,
+      "IndexType":  swarmdblib.IT_BPLUSTREE,
       "Primary":    int(0)
     },
   }
@@ -420,9 +423,9 @@ if err != nil {
 }
 
 // Output:
-type Row map[string]interface{}
-tblList = []Row{
-  Row{"table": "contacts"},
+type swarmdblib.Row map[string]interface{}
+tblList = []swarmdblib.Row{
+  swarmdblib.Row{"table": "contacts"},
 }
 ```
 
@@ -448,7 +451,7 @@ Either CreateTable or OpenTable should be called prior to Write calls.
 //Add row(s) to table 
 
 //Adding single row 
-var rowToAdd = [ { "name": "Bertie Basset", "age": 7, "email": "bertie@gmail.com" } ];
+var rowToAdd = [ { "name": "Bertie Basset", "age": 8, "email": "bertie@gmail.com" } ];
 conn.put( rowToAdd,  function (err, result) {
   if (err) {
     throw err;
@@ -475,26 +478,19 @@ conn.put( rowsToAdd,  function (err, result) {
 //Add row(s) to table
 //func (tbl *SWARMDBTable) Put(row interface{}) error
 
-rowToAdd := Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"}
-err = tbl.Put(rowToAdd)
-if err != nil {
-    fmt.Printf(err.Error())
-}
-
 //Adding single Row
-rowToAdd := Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"}
+rowToAdd := swarmdblib.Row{"email": "bertie@gmail.com", "age": 8, "name": "Bertie Basset"}
 err = tbl.Put(rowToAdd)
 if err != nil {
     fmt.Printf(err.Error())
 }
 
+//Adding multiple Rows
 rowsToAdd :=
   []swarmdblib.Row{
         swarmdblib.Row{"email": "bertie@gmail.com", "age": 7, "name": "Bertie Basset"},
         swarmdblib.Row{"email": "keisha@gmail.com", "age": 3, "name": "Keisha Shepherd"},
   }
-
-//Adding multiple Rows
 err = tbl.Put(rowsToAdd)
 if err != nil {
     fmt.Printf(err.Error())
@@ -515,7 +511,7 @@ Put calls allow for writing rows.
 ## Insert
 ```javascript
 //Insert a row using Query
-var sqlInsert = "INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6);";
+var sqlInsert = "INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)";
 conn.query(sqlInsert, function (err, result) {
   if (err) {
     throw err;
@@ -530,7 +526,7 @@ conn.query(sqlInsert, function (err, result) {
 //Insert a row using Query
 //func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)
 
-sqlInsert := "INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6);";
+sqlInsert := "INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)";
 _, err = tbl.Query(sqlInsert)
 if err != nil {
     fmt.Printf(err.Error())
@@ -549,7 +545,7 @@ Insert Query calls allow for the insertion of rows by specifying an INSERT query
 ## Update
 ```javascript
 //Update a row using Query
-var sqlUpdate = "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';";
+var sqlUpdate = "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'";
 conn.query(sqlUpdate, function (err, result) {
   if (err) {
     throw err;
@@ -564,7 +560,7 @@ conn.query(sqlUpdate, function (err, result) {
 //Update a row using Query
 //func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)
 
-sqlUpdate := "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';";
+sqlUpdate := "UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'";
 _, err = tbl.Query(sqlUpdate)
 if err != nil {
     fmt.Printf(err.Error())
@@ -611,13 +607,12 @@ retrievedRow, err := tbl.Get(primaryKey)
 if err != nil {
    fmt.Printf(err.Error())
 }
-fmt.Printf("Output: %v\n")
 
 // Output:
-type Row map[string]interface{}
+type swarmdblib.Row map[string]interface{}
 retrievedRow = 
-  []Row{
-    Row{"name":"Bertie Basset", "age": 7, "email": "bertie@gmail.com"},
+  []swarmdblib.Row{
+    swarmdblib.Row{"name":"Bertie Basset", "age": 7, "email": "bertie@gmail.com"},
   }
 ```
 
@@ -654,9 +649,9 @@ sqlSelect := "SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.
 retrievedRows, err = tbl.Query(sqlSelect)
 
 // Output:
-type Row map[string]interface{}
-retrievedRows = []Row {
-  Row{"email": "bertie@gmail.com", "name":"Bertie Basset", "age": 7},
+type swarmdblib.Row map[string]interface{}
+retrievedRows = []swarmdblib.Row {
+  swarmdblib.Row{"email": "bertie@gmail.com", "name":"Bertie Basset", "age": 7},
 }
 ```
 
@@ -760,7 +755,7 @@ swarmdb.dropDatabase(owner, databaseName, function (err, result) {
 //func (dbc *SWARMDBConnection) DropDatabase(name string) (err error) 
 
 databaseName := "testdb"
-err := dbc.DropDatabase(databaseName)
+err := conn.DropDatabase(databaseName)
 if err != nil {
     fmt.Printf(err.Error())
 }
