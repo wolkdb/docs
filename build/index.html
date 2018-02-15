@@ -384,6 +384,9 @@ http://[HOST]:[PORT]/[DATABASENAME].[OWNERENS]/[TABLE]
 </span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">             </span><span class="c">//your SWARMDB node owner address</span><span class="x">
 </span><span class="n">privateKey</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"YOURPRIVATEKEY"</span><span class="x">  </span><span class="c">//your SWARMDB node private key</span><span class="x">
 </span><span class="n">conn</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">NewSWARMDBConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="x"> </span><span class="n">port</span><span class="p">,</span><span class="x"> </span><span class="n">owner</span><span class="p">,</span><span class="x"> </span><span class="n">privateKey</span><span class="p">)</span><span class="x">
+</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
+</span><span class="p">}</span><span class="x">
 
 </span><span class="c">//Note: private key and other settings can be found at '/usr/local/swarmdb/etc/swarmdb.conf'</span><span class="x">
 
@@ -458,9 +461,9 @@ curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'   "http://lo
 </span><span class="p">}</span><span class="x">
 
 </span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">dblist</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">Row</span><span class="p">{</span><span class="x">
-  </span><span class="n">Row</span><span class="p">{</span><span class="s">"database"</span><span class="o">:</span><span class="x"> </span><span class="s">"testdb"</span><span class="p">},</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
+</span><span class="n">dblist</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
+  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"database"</span><span class="o">:</span><span class="x"> </span><span class="s">"testdb"</span><span class="p">},</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// List the databases owned by test.eth.
 curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test.eth/"
@@ -493,14 +496,14 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test
   </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
     </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
       </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"email"</span><span class="p">,</span><span class="x">
-      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
-      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
+      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
+      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
       </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x">
     </span><span class="p">},</span><span class="x">
     </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
       </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"age"</span><span class="p">,</span><span class="x">
-      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
-      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
+      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
+      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
       </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
     </span><span class="p">},</span><span class="x">
     </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
@@ -513,7 +516,7 @@ curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test
 </span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
 </span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">CreateTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">,</span><span class="x"> </span><span class="n">columns</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="x"> </span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span><span class="x"> </span><span class="p">)</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>/* Create a table named contacts, which belongs to the database named testdb, which is owned by test.eth.
 
@@ -545,7 +548,7 @@ curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", "columns":[{
 </span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
 </span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">OpenTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="x"> </span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">()</span><span class="x"> </span><span class="p">)</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// not required
 </code></pre>
@@ -564,25 +567,25 @@ In Go, a table object must be created using the database object.</p>
 <span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"email"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"name"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"HASH"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"age"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"INTEGER"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}</span>
 </code></pre><pre class="highlight go tab-go"><code><span class="c">//Describe Table</span><span class="x">
 </span><span class="c">//func (tbl *SWARMDBTable) DescribeTable() (description []Row, err error) </span><span class="x">
-</span><span class="n">description</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">DescribeTable</span><span class="p">()</span><span class="x">
+</span><span class="n">description</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">DescribeTable</span><span class="p">()</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
 
 </span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
 </span><span class="n">description</span><span class="x"> </span><span class="o">=</span><span class="x"> 
-  </span><span class="p">[]</span><span class="n">Row</span><span class="p">{</span><span class="x">
-    </span><span class="n">Row</span><span class="p">{</span><span class="x">
+  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
       </span><span class="s">"ColumnName"</span><span class="o">:</span><span class="x"> </span><span class="s">"email"</span><span class="p">,</span><span class="x">
-      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
-      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
+      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
+      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
       </span><span class="s">"Primary"</span><span class="o">:</span><span class="x">    </span><span class="kt">int</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="x">
     </span><span class="p">},</span><span class="x">
-    </span><span class="n">Row</span><span class="p">{</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
       </span><span class="s">"ColumnName"</span><span class="o">:</span><span class="x"> </span><span class="s">"age"</span><span class="p">,</span><span class="x">
-      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
-      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
+      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
+      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
       </span><span class="s">"Primary"</span><span class="o">:</span><span class="x">    </span><span class="kt">int</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="x">
     </span><span class="p">},</span><span class="x">
   </span><span class="p">}</span><span class="x">
@@ -612,9 +615,9 @@ curl -X POST -d '{ "requesttype":"DescribeTable" }'  "http://localhost:8501/test
 </span><span class="p">}</span><span class="x">
 
 </span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">tblList</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">Row</span><span class="p">{</span><span class="x">
-  </span><span class="n">Row</span><span class="p">{</span><span class="s">"table"</span><span class="o">:</span><span class="x"> </span><span class="s">"contacts"</span><span class="p">},</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
+</span><span class="n">tblList</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
+  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"table"</span><span class="o">:</span><span class="x"> </span><span class="s">"contacts"</span><span class="p">},</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// List the tables belonging to the testdb database (owned by test.eth)
 curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.test.eth/"
@@ -632,7 +635,7 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 <h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Add row(s) to table </span>
 
 <span class="c1">//Adding single row </span>
-<span class="kd">var</span> <span class="nx">rowToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">];</span>
+<span class="kd">var</span> <span class="nx">rowToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">];</span>
 <span class="nx">conn</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="nx">rowToAdd</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
@@ -656,26 +659,19 @@ curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.t
 </code></pre><pre class="highlight go tab-go"><code><span class="c">//Add row(s) to table</span><span class="x">
 </span><span class="c">//func (tbl *SWARMDBTable) Put(row interface{}) error</span><span class="x">
 
-</span><span class="n">rowToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">}</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowToAdd</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
 </span><span class="c">//Adding single Row</span><span class="x">
-</span><span class="n">rowToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">}</span><span class="x">
+</span><span class="n">rowToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">8</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">}</span><span class="x">
 </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowToAdd</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
 
+</span><span class="c">//Adding multiple Rows</span><span class="x">
 </span><span class="n">rowsToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x">
   </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
         </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">},</span><span class="x">
         </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"keisha@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">3</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Keisha Shepherd"</span><span class="p">},</span><span class="x">
   </span><span class="p">}</span><span class="x">
-
-</span><span class="c">//Adding multiple Rows</span><span class="x">
 </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowsToAdd</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
@@ -689,7 +685,7 @@ curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "nam
 
 <aside class="notice">The "rows" input consists of an array rows, where a row is a defined as a json object containing column/value pairs.  Each row must at least include a column/value pair for the primary key.</aside>
 <h2 id='insert'>Insert</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Insert a row using Query</span>
-<span class="kd">var</span> <span class="nx">sqlInsert</span> <span class="o">=</span> <span class="s2">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6);"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">sqlInsert</span> <span class="o">=</span> <span class="s2">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)"</span><span class="p">;</span>
 <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">sqlInsert</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
@@ -701,7 +697,7 @@ curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "nam
 </code></pre><pre class="highlight go tab-go"><code><span class="c">//Insert a row using Query</span><span class="x">
 </span><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
 
-</span><span class="n">sqlInsert</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6);"</span><span class="p">;</span><span class="x">
+</span><span class="n">sqlInsert</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)"</span><span class="p">;</span><span class="x">
 </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlInsert</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
@@ -713,7 +709,7 @@ curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, n
 </code></pre>
 <p>Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.</p>
 <h2 id='update'>Update</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Update a row using Query</span>
-<span class="kd">var</span> <span class="nx">sqlUpdate</span> <span class="o">=</span> <span class="s2">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">sqlUpdate</span> <span class="o">=</span> <span class="s2">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'"</span><span class="p">;</span>
 <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">sqlUpdate</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
@@ -725,7 +721,7 @@ curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, n
 </code></pre><pre class="highlight go tab-go"><code><span class="c">//Update a row using Query</span><span class="x">
 </span><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
 
-</span><span class="n">sqlUpdate</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com';"</span><span class="p">;</span><span class="x">
+</span><span class="n">sqlUpdate</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'"</span><span class="p">;</span><span class="x">
 </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlUpdate</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
@@ -760,13 +756,12 @@ curl -X POST -d '{ "requesttype":"Query", "query":"UPDATE contacts SET age=8 WHE
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
-</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Output: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
 
 </span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
 </span><span class="n">retrievedRow</span><span class="x"> </span><span class="o">=</span><span class="x"> 
-  </span><span class="p">[]</span><span class="n">Row</span><span class="p">{</span><span class="x">
-    </span><span class="n">Row</span><span class="p">{</span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">},</span><span class="x">
+  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
+    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">},</span><span class="x">
   </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Try to retrieve a row using the primary key value 'bertie@gmail.com' from the contacts table (in the testdb database, owned by test.eth)
 curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
@@ -794,9 +789,9 @@ curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
 </span><span class="n">retrievedRows</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlSelect</span><span class="p">)</span><span class="x">
 
 </span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">retrievedRows</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">Row</span><span class="x"> </span><span class="p">{</span><span class="x">
-  </span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">},</span><span class="x">
+</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
+</span><span class="n">retrievedRows</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="p">{</span><span class="x">
+  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">},</span><span class="x">
 </span><span class="p">}</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Retrieve a Row using Query from testdb database (owned by test.eth owner ENS)
 curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
@@ -875,7 +870,7 @@ curl -X POST -d '{ "requesttype":"DropTable"  }'  "http://localhost:8501/testdb.
 </span><span class="c">//func (dbc *SWARMDBConnection) DropDatabase(name string) (err error) </span><span class="x">
 
 </span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">dbc</span><span class="o">.</span><span class="n">DropDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">)</span><span class="x">
+</span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">DropDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
 </span><span class="p">}</span><span class="x">
