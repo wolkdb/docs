@@ -320,15 +320,12 @@
 
 <p>If you require further assistance, feel free to shoot us an email: <a href="mailto:services@wolk.com">services@wolk.com</a></p>
 <h1 id='install'>Install</h1>
-<p>To use SWARMDB API, you need to install the corresponding library.
-If you are using Node Shell in SwarmDB docker image, the packages are already installed. You can skip this step and move onto next section.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">//Getting swarmdb and web3 package</span>
-<span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">save</span>
-<span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">web3</span><span class="p">@</span><span class="nd">1</span><span class="p">.</span><span class="mf">0.0</span><span class="o">-</span><span class="nx">beta</span><span class="p">.</span><span class="mi">26</span>
+<p>To use SWARMDB API, you need to install the corresponding library.</p>
 
-<span class="cm">/* Note:
-Some users have experienced problems with auto-installing the latest web3 package.
-In case you have similar issue, we recommed you to do a clean web3 install manually. */</span>
+<p>If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at <code>/usr/local/swarmdb/swarmdb.js</code>. Please go to <code>/usr/local/swarmdb/swarmdb.js</code> to access Node Shell.
+You can skip this step and move onto next section.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">//Getting swarmdb package</span>
+<span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">save</span>
 </code></pre><pre class="highlight go tab-go"><code><span class="c">//Getting swarmdblib package</span><span class="x">
 </span><span class="k">go</span><span class="x"> </span><span class="n">get</span><span class="x"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wolkdb</span><span class="o">/</span><span class="n">swarmdblib</span><span class="x">
 </span></code></pre><pre class="highlight plaintext tab-plaintext"><code>//Verifying that wolkdb is running
