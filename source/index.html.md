@@ -25,16 +25,13 @@ If you require further assistance, feel free to shoot us an email: [services@wol
 # Install
 
 To use SWARMDB API, you need to install the corresponding library.
-If you are using Node Shell in SwarmDB docker image, the packages are already installed. You can skip this step and move onto next section.
+
+If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at `/usr/local/swarmdb/swarmdb.js`. Please go to `/usr/local/swarmdb/swarmdb.js` to access Node Shell.
+You can skip this step and move onto next section.
 
 ```javascript
-//Getting swarmdb and web3 package
+//Getting swarmdb package
 $ npm install swarmdb.js --save
-$ npm install web3@1.0.0-beta.26
-
-/* Note:
-Some users have experienced problems with auto-installing the latest web3 package.
-In case you have similar issue, we recommed you to do a clean web3 install manually. */
 ```
 
 ```go
