@@ -107,7 +107,7 @@ import "github.com/wolkdb/swarmdblib"
 
 host := "localhost"             //your SWARMDB node IP
 port := int(2001)               //your SWARMDB node Port number
-owner := "test.eth"             //your SWARMDB node owner address
+owner := "test.ens"             //your SWARMDB node owner address
 privateKey := "YOURPRIVATEKEY"  //your SWARMDB node private key
 conn, err := swarmdblib.NewSWARMDBConnection(host, port, owner, privateKey)
 if err != nil {
