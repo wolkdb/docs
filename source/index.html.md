@@ -737,7 +737,7 @@ Removes a Table.
 //Drop Database
 var owner = "test.eth";
 var databaseName= "testdb";
-swarmdb.dropDatabase(owner, databaseName, function (err, result) {
+conn.dropDatabase(owner, databaseName, function (err, result) {
   if (err) {
     throw err;
   }
