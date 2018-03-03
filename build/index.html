@@ -855,7 +855,7 @@ curl -X POST -d '{ "requesttype":"DropTable"  }'  "http://localhost:8501/testdb.
 <h2 id='dropdatabase'>DropDatabase</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Drop Database</span>
 <span class="kd">var</span> <span class="nx">owner</span> <span class="o">=</span> <span class="s2">"test.eth"</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">databaseName</span><span class="o">=</span> <span class="s2">"testdb"</span><span class="p">;</span>
-<span class="nx">swarmdb</span><span class="p">.</span><span class="nx">dropDatabase</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">databaseName</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">conn</span><span class="p">.</span><span class="nx">dropDatabase</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">databaseName</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
   <span class="p">}</span>
