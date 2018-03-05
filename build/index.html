@@ -316,6 +316,8 @@
 
 <p>Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  </p>
 
+<p><strong>Since this is just a proof-of-concept, going from one version to the next is currently not backwards compatible. Thus, when updating from one version of SwarmDB to the next, you will need to clear out the old database from the previous version.</strong>  </p>
+
 <p>This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see <a href="https://github.com/wolkdb/swarm.wolk.com/blob/master/README.md">README</a>. </p>
 
 <p>If you require further assistance, feel free to shoot us an email: <a href="mailto:services@wolk.com">services@wolk.com</a></p>
@@ -378,7 +380,7 @@ http://[HOST]:[PORT]/[DATABASENAME].[OWNERENS]/[TABLE]
 
 </span><span class="n">host</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"localhost"</span><span class="x">             </span><span class="c">//your SWARMDB node IP</span><span class="x">
 </span><span class="n">port</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="kt">int</span><span class="p">(</span><span class="m">2001</span><span class="p">)</span><span class="x">               </span><span class="c">//your SWARMDB node Port number</span><span class="x">
-</span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.ens"</span><span class="x">             </span><span class="c">//your SWARMDB node owner address</span><span class="x">
+</span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">             </span><span class="c">//your SWARMDB node owner address</span><span class="x">
 </span><span class="n">privateKey</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"YOURPRIVATEKEY"</span><span class="x">  </span><span class="c">//your SWARMDB node private key</span><span class="x">
 </span><span class="n">conn</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">NewSWARMDBConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="x"> </span><span class="n">port</span><span class="p">,</span><span class="x"> </span><span class="n">owner</span><span class="p">,</span><span class="x"> </span><span class="n">privateKey</span><span class="p">)</span><span class="x">
 </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">

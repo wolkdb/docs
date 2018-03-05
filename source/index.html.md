@@ -18,6 +18,8 @@ SwarmDB is being developed by [Wolk Inc.](https://www.wolk.com/) to support dece
 
 Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  
 
+**Since this is just a proof-of-concept, going from one version to the next is currently not backwards compatible. Thus, when updating from one version of SwarmDB to the next, you will need to clear out the old database from the previous version.**  
+
 This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see [README](https://github.com/wolkdb/swarm.wolk.com/blob/master/README.md). 
 
 If you require further assistance, feel free to shoot us an email: [services@wolk.com](mailto:services@wolk.com)
@@ -107,7 +109,7 @@ import "github.com/wolkdb/swarmdblib"
 
 host := "localhost"             //your SWARMDB node IP
 port := int(2001)               //your SWARMDB node Port number
-owner := "test.ens"             //your SWARMDB node owner address
+owner := "test.eth"             //your SWARMDB node owner address
 privateKey := "YOURPRIVATEKEY"  //your SWARMDB node private key
 conn, err := swarmdblib.NewSWARMDBConnection(host, port, owner, privateKey)
 if err != nil {
