@@ -28,8 +28,8 @@ If you require further assistance, feel free to shoot us an email: [services@wol
 
 To use SWARMDB API, you need to install the corresponding library.
 
-If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at `/usr/local/swarmdb/swarmdb.js`. Please go to `/usr/local/swarmdb/swarmdb.js` to access Node Shell.
-You can skip this step and move onto next section.
+**If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at `/usr/local/swarmdb/swarmdb.js`. Please go to `/usr/local/swarmdb/swarmdb.js` to access Node Shell.
+You can skip this step and move onto next section.**
 
 ```javascript
 //Getting swarmdb package
@@ -84,8 +84,12 @@ For Node.js API, you need to set the private key associated with this user as an
 //starting nodejs console
 $ node 
 
-//Using swarmdb package
-var swarmdbAPI = require("swarmdb.js");
+//If you are manually installing swarmdb.js
+var swarmdbJSPath = "swarmdb.js";
+//Else if you are using Node Shell in SwarmDB docker image
+var swarmdbJSPath = "/usr/local/swarmdb/swarmdb.js/node_modules/swarmdb.js";
+
+var swarmdbAPI = require(swarmdbJSPath);
 
 //Connecting to SWARMDB node
 var SWARMDB_HOST = "localhost";
