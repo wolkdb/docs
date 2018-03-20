@@ -324,7 +324,7 @@
 <h1 id='install'>Install</h1>
 <p>To use SWARMDB API, you need to install the corresponding library.</p>
 
-<p><strong>If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at <code>/usr/local/swarmdb/swarmdb.js</code>. Please go to <code>/usr/local/swarmdb/swarmdb.js</code> to access Node Shell.
+<p><strong>If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at <code>/root/swarmdb.js</code>.
 You can skip this step and move onto next section.</strong></p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">//Getting swarmdb package</span>
 <span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">save</span>
@@ -361,7 +361,7 @@ http://[HOST]:[PORT]/[DATABASENAME].[OWNERENS]/[TABLE]
 <span class="c1">//If you are manually installing swarmdb.js</span>
 <span class="kd">var</span> <span class="nx">swarmdbJSPath</span> <span class="o">=</span> <span class="s2">"swarmdb.js"</span><span class="p">;</span>
 <span class="c1">//Else if you are using Node Shell in SwarmDB docker image</span>
-<span class="kd">var</span> <span class="nx">swarmdbJSPath</span> <span class="o">=</span> <span class="s2">"/usr/local/swarmdb/swarmdb.js/node_modules/swarmdb.js"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">swarmdbJSPath</span> <span class="o">=</span> <span class="s2">"/root/swarmdb.js"</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">swarmdbAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">swarmdbJSPath</span><span class="p">);</span>
 
