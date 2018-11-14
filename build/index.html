@@ -6,7 +6,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="images/wolk_favicon.png" rel="icon" type="image/png" />
-    <title>SWARMDB API Reference</title>
+    <title>WOLK API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -202,7 +202,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;,&quot;go&quot;,&quot;plaintext&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,8 +213,6 @@
       <center><img src="images/logo.png" class="logo" alt="Logo" /></center>
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">Node.js</a>
-              <a href="#" data-language-name="go">Go</a>
-              <a href="#" data-language-name="plaintext">HTTP</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,33 +226,50 @@
             <a href="#install" class="toc-h1 toc-link" data-title="install">Install</a>
           </li>
           <li>
-            <a href="#configuration" class="toc-h1 toc-link" data-title="configuration">Configuration</a>
+            <a href="#connect-to-plasma-node" class="toc-h1 toc-link" data-title="connect-to-plasma-node">Connect to Plasma Node</a>
           </li>
           <li>
-            <a href="#connect" class="toc-h1 toc-link" data-title="connect">Connect</a>
-          </li>
-          <li>
-            <a href="#database" class="toc-h1 toc-link" data-title="database">Database</a>
+            <a href="#plasma-operations" class="toc-h1 toc-link" data-title="plasma-operations">Plasma Operations</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-database" class="toc-h2 toc-link" data-title="create-database">Create Database</a>
+                    <a href="#retrieve-plasma-tokens-and-token-balances" class="toc-h2 toc-link" data-title="retrieve-plasma-tokens-and-token-balances">Retrieve Plasma Tokens and Token Balances</a>
                   </li>
                   <li>
-                    <a href="#open-database" class="toc-h2 toc-link" data-title="open-database">Open Database</a>
+                    <a href="#retrieve-blockchainid" class="toc-h2 toc-link" data-title="retrieve-blockchainid">Retrieve BlockchainID</a>
                   </li>
                   <li>
-                    <a href="#list-databases" class="toc-h2 toc-link" data-title="list-databases">List Databases</a>
+                    <a href="#send-initial-anchor-transaction" class="toc-h2 toc-link" data-title="send-initial-anchor-transaction">Send Initial Anchor Transaction</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#table" class="toc-h1 toc-link" data-title="table">Table</a>
+            <a href="#configure-wolk-node" class="toc-h1 toc-link" data-title="configure-wolk-node">Configure Wolk Node</a>
+          </li>
+          <li>
+            <a href="#connect-to-wolk-node" class="toc-h1 toc-link" data-title="connect-to-wolk-node">Connect to Wolk Node</a>
+          </li>
+          <li>
+            <a href="#nosql-operations" class="toc-h1 toc-link" data-title="nosql-operations">NoSQL Operations</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-table" class="toc-h2 toc-link" data-title="create-table">Create Table</a>
+                    <a href="#setkey" class="toc-h2 toc-link" data-title="setkey">SetKey</a>
                   </li>
                   <li>
-                    <a href="#open-table" class="toc-h2 toc-link" data-title="open-table">Open Table</a>
+                    <a href="#getkey" class="toc-h2 toc-link" data-title="getkey">GetKey</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#sql-operations" class="toc-h1 toc-link" data-title="sql-operations">SQL Operations</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-database" class="toc-h2 toc-link" data-title="create-database">Create database</a>
+                  </li>
+                  <li>
+                    <a href="#list-databases" class="toc-h2 toc-link" data-title="list-databases">List databases</a>
+                  </li>
+                  <li>
+                    <a href="#create-table" class="toc-h2 toc-link" data-title="create-table">Create table</a>
                   </li>
                   <li>
                     <a href="#describe-table" class="toc-h2 toc-link" data-title="describe-table">Describe Table</a>
@@ -262,44 +277,23 @@
                   <li>
                     <a href="#list-tables" class="toc-h2 toc-link" data-title="list-tables">List Tables</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#write" class="toc-h1 toc-link" data-title="write">Write</a>
-              <ul class="toc-list-h2">
                   <li>
-                    <a href="#put" class="toc-h2 toc-link" data-title="put">Put</a>
+                    <a href="#insert-query" class="toc-h2 toc-link" data-title="insert-query">INSERT Query</a>
                   </li>
                   <li>
-                    <a href="#insert" class="toc-h2 toc-link" data-title="insert">Insert</a>
+                    <a href="#select-query" class="toc-h2 toc-link" data-title="select-query">SELECT Query</a>
                   </li>
                   <li>
-                    <a href="#update" class="toc-h2 toc-link" data-title="update">Update</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#read" class="toc-h1 toc-link" data-title="read">Read</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get" class="toc-h2 toc-link" data-title="get">Get</a>
+                    <a href="#update-query" class="toc-h2 toc-link" data-title="update-query">UPDATE Query</a>
                   </li>
                   <li>
-                    <a href="#select" class="toc-h2 toc-link" data-title="select">Select</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#remove" class="toc-h1 toc-link" data-title="remove">Remove</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#delete" class="toc-h2 toc-link" data-title="delete">Delete</a>
+                    <a href="#delete-query" class="toc-h2 toc-link" data-title="delete-query">DELETE Query</a>
                   </li>
                   <li>
-                    <a href="#droptable" class="toc-h2 toc-link" data-title="droptable">DropTable</a>
+                    <a href="#drop-table" class="toc-h2 toc-link" data-title="drop-table">Drop table</a>
                   </li>
                   <li>
-                    <a href="#dropdatabase" class="toc-h2 toc-link" data-title="dropdatabase">DropDatabase</a>
+                    <a href="#drop-database" class="toc-h2 toc-link" data-title="drop-database">Drop database</a>
                   </li>
               </ul>
           </li>
@@ -312,579 +306,219 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>SwarmDB is being developed by <a href="https://www.wolk.com/">Wolk Inc.</a> to support decentralized database services.  </p>
+<p>wolkjs is a client library for the Wolk API, implemented in JavaScript. It&#39;s available on npm as a node module.</p>
 
-<p>Prospective database users can use our NoSQL interfaces to store and retrieve data from a network of SwarmDB nodes that store chunks representing database records.  </p>
+<p>To use wolkjs, for your desired database type (NoSQL or SQL), you MUST either</p>
 
-<p><strong>Since this is just a proof-of-concept, going from one version to the next is currently not backwards compatible. Thus, when updating from one version of SwarmDB to the next, you will need to clear out the old database from the previous version.</strong>  </p>
+<ul>
+<li>Install WolkDB via source code or the docker image for your db type</li>
+<li>Register your address on the WolkDB Public Gateway. (Available in Dec. 2018)</li>
+</ul>
 
-<p>This is a pre-alpha project under active development with Ethereum Swarm. To install the current version of SWARMDB, please see <a href="https://github.com/wolkdb/swarm.wolk.com/blob/master/README.md">README</a>. </p>
+<p>Instructions for setting up and testing your own node can be found HERE.</p>
+
+<p>Please note that the library is still under development and may not be stable.</p>
 
 <p>If you require further assistance, feel free to shoot us an email: <a href="mailto:services@wolk.com">services@wolk.com</a></p>
 <h1 id='install'>Install</h1>
-<p>To use SWARMDB API, you need to install the corresponding library.</p>
+<p>To use WOLK API, you need to install the corresponding library.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">wolkjs</span>
+</code></pre><h1 id='connect-to-plasma-node'>Connect to Plasma Node</h1>
+<p>Open a connection by specifying the host and port of the Plasma node.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">wolkjsAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"wolkjs"</span><span class="p">);</span>
 
-<p><strong>If you are using Node Shell in SwarmDB docker image, swarmdb.js package is already installed at <code>/root/swarmdb.js</code>.
-You can skip this step and move onto next section.</strong></p>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">//Getting swarmdb package</span>
-<span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">swarmdb</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">save</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Getting swarmdblib package</span><span class="x">
-</span><span class="k">go</span><span class="x"> </span><span class="n">get</span><span class="x"> </span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wolkdb</span><span class="o">/</span><span class="n">swarmdblib</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>//Verifying that wolkdb is running
-$ ps aux | grep wolkdb | grep -vE 'wolkdb-start|grep'
-$ curl https://www.google.com | wc
+<span class="kd">var</span> <span class="nx">PLASMAHOST</span> <span class="o">=</span> <span class="s2">"plasma.wolk.com"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">PLASMAPORT</span> <span class="o">=</span> <span class="s2">"80"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">PLASMAADDR</span> <span class="o">=</span> <span class="s2">"http://"</span> <span class="o">+</span> <span class="nx">PLASMAHOST</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="nx">PLASMAPORT</span><span class="p">;</span>
 
-//Restart wolkdb (if it's not running)
-$ sudo kill -9 $(ps aux | grep wolkdb | grep -v grep | awk '{print$2}')
-$ /usr/local/swarmdb/bin/wolkdb &amp;
-</code></pre><h1 id='configuration'>Configuration</h1>
-<p>Upon successfully installation of your SWARMDB node, an address and its associated private key are randomly generated and stored in the <a href="https://github.com/wolkdb/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file">SWARMDB configuration file</a>. 
-By default, the config file can be found at: <code>/usr/local/swarmdb/etc/swarmdb.conf</code></p>
-<pre class="highlight plaintext tab-plaintext"><code>Note: for sending HTTP requests, please follow the URL path construction conventions detailed below:
+<span class="kd">var</span> <span class="nx">plasmanode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">wolkjsAPI</span><span class="p">(</span><span class="nx">PLASMAADDR</span><span class="p">);</span>
+</code></pre><h1 id='plasma-operations'>Plasma Operations</h1><h2 id='retrieve-plasma-tokens-and-token-balances'>Retrieve Plasma Tokens and Token Balances</h2>
+<p>Retrieve plasma tokens and token balance by specifying address and block number</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">registered_address</span> <span class="o">=</span> <span class="s2">"0xAA96B58F7ee51d2445fE596C3535874F5E206B14"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">blockNumber</span> <span class="o">=</span> <span class="s2">"latest"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">plasmaBalance</span> <span class="o">=</span> <span class="nx">plasmanode</span><span class="p">.</span><span class="nx">getPlasmaBalance</span><span class="p">(</span><span class="nx">registered_address</span><span class="p">,</span> <span class="nx">blockNumber</span><span class="p">);</span>
+<span class="c1">// plasmaBalance result:</span>
+<span class="p">{</span> <span class="nl">account</span><span class="p">:</span>
+   <span class="p">{</span> <span class="nl">tokens</span><span class="p">:</span> <span class="p">[</span> <span class="s1">'0x1962836485220a62'</span> <span class="p">],</span>
+     <span class="nx">denomination</span><span class="p">:</span> <span class="s1">'0x2386f26fc10000'</span><span class="p">,</span>
+     <span class="nx">balance</span><span class="p">:</span> <span class="s1">'0x2386f26fc10000'</span> <span class="p">}</span> 
+<span class="p">}</span>
+</code></pre><h2 id='retrieve-blockchainid'>Retrieve BlockchainID</h2>
+<p>Retrieve blockchainID by specifying tokenID and block number</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">tokenId</span> <span class="o">=</span> <span class="nx">plasmaBalance</span><span class="p">.</span><span class="nx">account</span><span class="p">.</span><span class="nx">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">tokenObject</span> <span class="o">=</span> <span class="nx">plasmanode</span><span class="p">.</span><span class="nx">getPlasmaToken</span><span class="p">(</span><span class="nx">tokenId</span><span class="p">,</span> <span class="s2">"latest"</span><span class="p">);</span>
+<span class="c1">// tokenObject result</span>
+<span class="p">{</span> <span class="nl">token</span><span class="p">:</span>
+   <span class="p">{</span> <span class="nl">denomination</span><span class="p">:</span> <span class="s1">'0x2386f26fc10000'</span><span class="p">,</span>
+     <span class="nx">prevBlock</span><span class="p">:</span> <span class="s1">'0x3'</span><span class="p">,</span>
+     <span class="nx">owner</span><span class="p">:</span> <span class="s1">'0xaa96b58f7ee51d2445fe596c3535874f5e206b14'</span><span class="p">,</span>
+     <span class="nx">balance</span><span class="p">:</span> <span class="s1">'0x2386f26fc10000'</span><span class="p">,</span>
+     <span class="nx">allowance</span><span class="p">:</span> <span class="s1">'0x0'</span><span class="p">,</span>
+     <span class="nx">spent</span><span class="p">:</span> <span class="s1">'0x0'</span> <span class="p">},</span>
+  <span class="nx">tokenInfo</span><span class="p">:</span>
+   <span class="p">{</span> <span class="nl">depositIndex</span><span class="p">:</span> <span class="s1">'0x3c'</span><span class="p">,</span>
+     <span class="nx">denomination</span><span class="p">:</span> <span class="s1">'0x2386f26fc10000'</span><span class="p">,</span>
+     <span class="nx">depositor</span><span class="p">:</span> <span class="s1">'0xaa96b58f7ee51d2445fe596c3535874f5e206b14'</span><span class="p">,</span>
+     <span class="nx">tokenID</span><span class="p">:</span> <span class="s1">'0x1962836485220a62'</span> <span class="p">}</span> 
+<span class="p">}</span>
 
-http://[HOST]:[PORT]/[DATABASENAME].[OWNERENS]/[TABLE]
-- [HOST]: For singleton mode, this is typically "localhost", however, the actual IP is acceptable as well
-- [PORT]: 8501 is the default PORT
-- [DATABASENAME]: The name of the Database being manipulated or accessed.  When creating a Database, The [DATABASENAME] portion, as well as the trailing "." should be left of- [OWNERENS]: The "Owner" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
-- [OWNER]: The "Owner ENS" of the Database being manipulated or accessed.  This will always follow the format of x.y (i.e. wolk.eth, owner.name, etc ...)
-- [TABLE]: The table, belonging to the database noted, which is owned by the Owner noted that is to be manipulated or accessed
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">//Setting private key as environment variable (in terminal)</span>
-<span class="nx">$</span> <span class="kr">export</span> <span class="nx">PRIVATE_KEY</span><span class="o">=</span><span class="nx">PRIVATE_KEY_IN_YOUR_CONFIG_FILE</span>
-<span class="c1">//example: export PRIVATE_KEY=1111222233334444555566667777888899990000aaaabbbbccccddddeeeeffff</span>
+<span class="kd">var</span> <span class="nx">blockchainID</span> <span class="o">=</span> <span class="nx">plasmanode</span><span class="p">.</span><span class="nx">getBlockchainID</span><span class="p">(</span><span class="nx">tokenId</span><span class="p">,</span> <span class="nx">tokenObject</span><span class="p">.</span><span class="nx">tokenInfo</span><span class="p">.</span><span class="nx">depositIndex</span><span class="p">);</span>
+<span class="c1">// blockchainID result: '0xcd778162be0d4f2'</span>
+</code></pre><h2 id='send-initial-anchor-transaction'>Send Initial Anchor Transaction</h2>
+<p>To register your blockchain with the plasma node by sending the initial anchor transaction</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// For all initial Anchor Transactions, use 0x03c85f1da84d9c6313e0c34bcb5ace945a9b12105988895252b88ce5b769f82b</span>
+<span class="kd">var</span> <span class="nx">genesisBlockHash</span> <span class="o">=</span> <span class="s2">"0x03c85f1da84d9c6313e0c34bcb5ace945a9b12105988895252b88ce5b769f82b"</span><span class="p">;</span>
 
-<span class="c1">//Note: private key and other settings can be found at '/usr/local/swarmdb/etc/swarmdb.conf'</span>
-</code></pre>
-<p>For Node.js API, you need to set the private key associated with this user as an environment variable in the terminal. </p>
-<h1 id='connect'>Connect</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">//starting nodejs console</span>
-<span class="nx">$</span> <span class="nx">node</span> 
-
-<span class="c1">//If you are manually installing swarmdb.js</span>
-<span class="kd">var</span> <span class="nx">swarmdbJSPath</span> <span class="o">=</span> <span class="s2">"swarmdb.js"</span><span class="p">;</span>
-<span class="c1">//Else if you are using Node Shell in SwarmDB docker image</span>
-<span class="kd">var</span> <span class="nx">swarmdbJSPath</span> <span class="o">=</span> <span class="s2">"/root/swarmdb.js"</span><span class="p">;</span>
-
-<span class="kd">var</span> <span class="nx">swarmdbAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">swarmdbJSPath</span><span class="p">);</span>
-
-<span class="c1">//Connecting to SWARMDB node</span>
-<span class="kd">var</span> <span class="nx">SWARMDB_HOST</span> <span class="o">=</span> <span class="s2">"localhost"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">SWARMDB_PORT</span> <span class="o">=</span> <span class="mi">2001</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">conn</span> <span class="o">=</span> <span class="nx">swarmdbAPI</span><span class="p">.</span><span class="nx">createConnection</span><span class="p">({</span>
-  <span class="na">host</span><span class="p">:</span> <span class="nx">SWARMDB_HOST</span><span class="p">,</span>
-  <span class="na">port</span><span class="p">:</span> <span class="nx">SWARMDB_PORT</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: No return value</span>
-
-</code></pre><pre class="highlight go tab-go"><code><span class="x">
-</span><span class="c">//Using swarmdblib package</span><span class="x">
-</span><span class="k">import</span><span class="x"> </span><span class="s">"github.com/wolkdb/swarmdblib"</span><span class="x">
-
-</span><span class="c">//Connecting to SWARMDB node</span><span class="x">
-</span><span class="c">//func NewSWARMDBConnection(ip string, port int, owner string, privateKey string) (dbc SWARMDBConnection, err error)</span><span class="x">
-
-</span><span class="n">host</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"localhost"</span><span class="x">             </span><span class="c">//your SWARMDB node IP</span><span class="x">
-</span><span class="n">port</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="kt">int</span><span class="p">(</span><span class="m">2001</span><span class="p">)</span><span class="x">               </span><span class="c">//your SWARMDB node Port number</span><span class="x">
-</span><span class="n">owner</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"test.eth"</span><span class="x">             </span><span class="c">//your SWARMDB node owner address</span><span class="x">
-</span><span class="n">privateKey</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"YOURPRIVATEKEY"</span><span class="x">  </span><span class="c">//your SWARMDB node private key</span><span class="x">
-</span><span class="n">conn</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">NewSWARMDBConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="x"> </span><span class="n">port</span><span class="p">,</span><span class="x"> </span><span class="n">owner</span><span class="p">,</span><span class="x"> </span><span class="n">privateKey</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span><span class="c">//Note: private key and other settings can be found at '/usr/local/swarmdb/etc/swarmdb.conf'</span><span class="x">
-
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>For more information on this see https://github.com/wolkdb/swarm.wolk.com/wiki/9.-SWARMDB-Server-Configuration,--Authentication-and-Voting#http-authentication
-</code></pre>
-<p>Open a connection by specifying the <code>host</code> and <code>port</code> of the SWARMDB node.  Specific details may be found in the <a href="https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Server-Configuration,--Authentication-and-Voting#configuration-file">SWARMDB configuration file</a>.
-Owner should be a valid ENS domain.</p>
-<h1 id='database'>Database</h1><h2 id='create-database'>Create Database</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Creating Database</span>
-<span class="kd">var</span> <span class="nx">owner</span> <span class="o">=</span> <span class="s2">"test.eth"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">databaseName</span><span class="o">=</span> <span class="s2">"testdb"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">encrypted</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">createDatabase</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">databaseName</span><span class="p">,</span> <span class="nx">encrypted</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Creating Database</span><span class="x">
-</span><span class="c">//func (dbc *SWARMDBConnection) CreateDatabase(name string, encrypted int) (db *SWARMDBDatabase, err error)</span><span class="x">
-
-</span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
-</span><span class="n">encrypted</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="kt">int</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="x">
-</span><span class="n">db</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">CreateDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">,</span><span class="x"> </span><span class="n">encrypted</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Create an encrypted database named testdb, which is owned by test.eth.
-curl -X POST -d '{ "requesttype":"CreateDatabase", "encrypted":1 }'   "http://localhost:8501/testdb.test.eth/" 
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Create a database by specifying database name and encrypted status.  </p>
-
-<p>For encryption status, <code>1</code> means &quot;encrypted&quot; while <code>0</code> means &quot;not-encrypted&quot;.</p>
-<h2 id='open-database'>Open Database</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Open Database</span>
-<span class="kd">var</span> <span class="nx">owner</span> <span class="o">=</span> <span class="s2">"test.eth"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">databaseName</span><span class="o">=</span> <span class="s2">"testdb"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">openDatabase</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">databaseName</span><span class="p">);</span>
-
-<span class="c1">// Output: No return value</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Open Database</span><span class="x">
-</span><span class="c">//func (dbc *SWARMDBConnection) OpenDatabase(name string) (db *SWARMDBDatabase, err error)</span><span class="x">
-
-</span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
-</span><span class="n">db</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">  </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">OpenDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// not required
-</code></pre>
-<p>Open an existing database by specifying owner and database name.</p>
-
-<p>For Go API, owner will be the connection Object owner.</p>
-<h2 id='list-databases'>List Databases</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//List Databases</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">listDatabases</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output:</span>
-<span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">}],</span><span class="s2">"matchedrowcount"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//List Databases</span><span class="x">
-</span><span class="c">//func (dbc *SWARMDBConnection) ListDatabases() (databases []Row, err error)</span><span class="x">
-
-</span><span class="n">dblist</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">ListDatabases</span><span class="p">()</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">dblist</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"database"</span><span class="o">:</span><span class="x"> </span><span class="s">"testdb"</span><span class="p">},</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// List the databases owned by test.eth.
-curl -X POST -d '{ "requesttype":"ListDatabases" }'  "http://localhost:8501/test.eth/"
-
-// Output:
-{"data":[{"database":"testdb"}],"matchedrowcount":1}
-</code></pre>
-<p>Lists the Databases associated with a Connection.</p>
-<h1 id='table'>Table</h1>
-<p>For Node.js API, either createDatabase or openDatabase should be called prior to table method calls.</p>
-<h2 id='create-table'>Create Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Create Table</span>
-<span class="kd">var</span> <span class="nx">tableName</span> <span class="o">=</span> <span class="s2">"contacts"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"STRING"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"BPLUS"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"STRING"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"HASH"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span> <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"BPLUS"</span><span class="p">,</span> <span class="s2">"primary"</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">rlp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'rlp'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'web3'</span><span class="p">);</span>
+<span class="nx">web3Obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">atxExtra</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span> <span class="nx">registered_address</span> <span class="p">],</span> <span class="p">[]</span> <span class="p">];</span>
+<span class="kd">var</span> <span class="nx">anchorTxJson</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"blockchainID"</span><span class="p">:</span> <span class="nx">blockchainID</span><span class="p">,</span> <span class="s2">"blocknumber"</span><span class="p">:</span> <span class="s2">"0x0"</span><span class="p">,</span> <span class="s2">"blockhash"</span><span class="p">:</span> <span class="nx">genesisBlockHash</span><span class="p">,</span> <span class="s2">"extra"</span><span class="p">:</span> <span class="nx">atxExtra</span><span class="p">,</span> <span class="s2">"sig"</span><span class="p">:</span> <span class="s1">''</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">anchorTx</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="nx">anchorTxJson</span><span class="p">.</span><span class="nx">blockchainID</span><span class="p">,</span>
+  <span class="nx">anchorTxJson</span><span class="p">.</span><span class="nx">blocknumber</span><span class="p">,</span>
+  <span class="nx">anchorTxJson</span><span class="p">.</span><span class="nx">blockhash</span><span class="p">,</span>
+  <span class="nx">anchorTxJson</span><span class="p">.</span><span class="nx">extra</span><span class="p">,</span>
+  <span class="s1">''</span><span class="p">,</span>
 <span class="p">];</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">createTable</span><span class="p">(</span><span class="nx">tableName</span><span class="p">,</span> <span class="nx">columns</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">encodedAnchorTx</span> <span class="o">=</span> <span class="nx">rlp</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="nx">anchorTx</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">encodedAnchorTxAsHex</span> <span class="o">=</span> <span class="nx">encodedAnchorTx</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">'hex'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">shortHash</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">sha3</span><span class="p">(</span><span class="nx">encodedAnchorTxAsHex</span><span class="p">,</span> <span class="p">{</span><span class="na">encoding</span><span class="p">:</span><span class="s1">'hex'</span><span class="p">});</span>
+
+<span class="c1">// Example of signing with Metamask</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s2">"Check Metamask to Approve Signing and Sending Order"</span><span class="p">);</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">registered_address</span><span class="p">,</span> <span class="nx">shortHash</span><span class="p">,</span>
+  <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">sig</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Sending AnchorTX"</span><span class="p">)</span>
+      <span class="nx">anchorTx</span><span class="p">.</span><span class="nx">sig</span> <span class="o">=</span> <span class="nx">sig</span><span class="p">;</span>
+      <span class="nx">plasmanode</span><span class="p">.</span><span class="nx">sendAnchorTransaction</span><span class="p">(</span><span class="nx">anchorTx</span><span class="p">)</span>
+    <span class="p">}</span>
   <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="p">}</span>
+</code></pre><h1 id='configure-wolk-node'>Configure Wolk Node</h1>
+<p>For the next steps you will need to have a running WolkDB node
+ * If you set up your own WolkDB node, make sure to set the blockchainId to the blockchainID retrieved via the steps described above
+ * If you registered your address directly with the WolkDB Public Gateway, you should have received the corresponding blockchainID for the selected database type.  Please contact services@wolk.com if you did not.  Those using the public gateway MUST use the blockchainID returned for their requests to work.</p>
 
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Create Table</span><span class="x">
-</span><span class="c">//func (db *SWARMDBDatabase) CreateTable(name string, columns []Column) (tbl *SWARMDBTable, err error)</span><span class="x">
+<p>Steps for downloading and launching docker can be found at: ___</p>
+<h1 id='connect-to-wolk-node'>Connect to Wolk Node</h1>
+<p>Open a connection by specifying configuration options like host and port</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">HOST</span> <span class="o">=</span> <span class="s2">"localhost"</span>
+<span class="kd">var</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="s2">"24000"</span>
+<span class="kd">var</span> <span class="nx">WOLKADDR</span> <span class="o">=</span> <span class="s2">"http://"</span> <span class="o">+</span> <span class="nx">HOST</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="nx">PORT</span>
 
-</span><span class="n">columns</span><span class="x"> </span><span class="o">:=</span><span class="x">
-  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
-      </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"email"</span><span class="p">,</span><span class="x">
-      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
-      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x">
-    </span><span class="p">},</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
-      </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"age"</span><span class="p">,</span><span class="x">
-      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
-      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
-    </span><span class="p">},</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Column</span><span class="p">{</span><span class="x">
-      </span><span class="n">ColumnName</span><span class="o">:</span><span class="x"> </span><span class="s">"name"</span><span class="p">,</span><span class="x">
-      </span><span class="n">ColumnType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
-      </span><span class="n">IndexType</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="n">Primary</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
-    </span><span class="p">},</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
-</span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">CreateTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">,</span><span class="x"> </span><span class="n">columns</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>/* Create a table named contacts, which belongs to the database named testdb, which is owned by test.eth.
+<span class="kd">var</span> <span class="nx">wolknode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">wolkjsAPI</span><span class="p">(</span><span class="nx">WOLKADDR</span><span class="p">)</span>
+</code></pre><h1 id='nosql-operations'>NoSQL Operations</h1><h2 id='setkey'>SetKey</h2>
+<p>Set a key value pair</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">wolknode</span><span class="p">.</span><span class="nx">setKey</span><span class="p">(</span><span class="s2">"blockchainID"</span><span class="p">,</span> <span class="s2">"key"</span><span class="p">,</span> <span class="s2">"val"</span><span class="p">)</span>
 
-For example, creating a 'contacts' table which has 3 columns:
- 1) 'email' is of type  STRING and uses the BPLUS index (Primary key)
- 2) 'name'  is of type  STRING and uses the  HASH index (Non-primary key)
- 3)  'age'  is of type INTEGER and uses the BPLUS index (Non-primary key) */
+<span class="c1">// setKey result:</span>
+<span class="p">{</span> <span class="nl">txhash</span><span class="p">:</span>
+   <span class="s1">'2471d3ed40ba6ddb3ff0ea12cdae2f378d6ef146025d5a2b3ef02325af9d0677'</span> <span class="p">}</span>
+</code></pre><h2 id='getkey'>GetKey</h2>
+<p>Get the value corresponding to a given key</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">wolknode</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="s2">"blockchainID"</span><span class="p">,</span> <span class="s2">"key"</span><span class="p">)</span>
 
-curl -X POST -d '{ "requesttype":"CreateTable", "table":"contacts", "columns":[{ "columnName":"email", "ColumnType":"STRING", "Primary":1, "IndexType":"BPLUS" }, { "columnname":"name", "columntype":"STRING", "IndexType":"HASH" }, { "columnname":"age", "columntype":"INTEGER", "IndexType":"BPLUS" } ] }' "http://localhost:8501/testdb.test.eth/"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Create a table by specifying table name and column details. Columns must consist of the following parameters:</p>
-
-<ul>
-<li><strong>indextype</strong>: enter the desired indextype, defined <a href="https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-index-types">HERE</a></li>
-<li><strong>columnname</strong>: enter the desired column name (no spaces allowed)</li>
-<li><strong>columntype</strong>: enter the desired columntype, defined <a href="https://github.com/wolkdb/swarm.wolk.com/wiki/8.-SWARMDB-Types#table-column-types">HERE</a></li>
-<li><strong>primary</strong>: enter <code>1</code> if the column is the primary key and <code>0</code> for any other column.</li>
-</ul>
-<h2 id='open-table'>Open Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Open Table</span>
-<span class="kd">var</span> <span class="nx">tableName</span> <span class="o">=</span> <span class="s2">"contacts"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">openTable</span><span class="p">(</span><span class="nx">tableName</span><span class="p">);</span>
-
-<span class="c1">// Output: No return value</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Open Table for manipulating</span><span class="x">
-</span><span class="c">//func (db *SWARMDBDatabase) OpenTable(name string) (tbl *SWARMDBTable, err error)</span><span class="x">
-
-</span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
-</span><span class="n">tbl</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">OpenTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// not required
-</code></pre>
-<p>Open a table by specifying table name. 
-In Go, a table object must be created using the database object.</p>
-<h2 id='describe-table'>Describe Table</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Describe Table</span>
-<span class="kd">var</span> <span class="nx">tableName</span> <span class="o">=</span> <span class="s2">"contacts"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">describeTable</span><span class="p">(</span><span class="nx">tableName</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="c1">// getKey result:</span>
+<span class="p">{</span> <span class="nl">proof</span><span class="p">:</span> <span class="s1">'{"token":"07855b46a623a8ec","proofBits":"0","proof":[]}'</span><span class="p">,</span>
+  <span class="nx">value</span><span class="p">:</span> <span class="s1">'valueA'</span> <span class="p">}</span>
+</code></pre><h1 id='sql-operations'>SQL Operations</h1><h2 id='create-database'>Create database</h2>
+<p>Create a database by specifying your blockchainID, the requesttype (&quot;CreateDatabase&quot;), an owner (will be specific to your blockchain) and database name.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">createDatabaseCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"CreateDatabase"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span> <span class="p">}</span>
+<span class="nx">wolknode</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">createDatabaseCommand</span><span class="p">)</span>
+<span class="c1">// result:</span>
+<span class="p">{</span> <span class="nl">txhash</span><span class="p">:</span> <span class="s2">"4450a4f4fde8f0b49d83d2ec3b1185cdc66b287748e546afa55571d887021cc8"</span> <span class="p">}</span>
+</code></pre><h2 id='list-databases'>List databases</h2>
+<p>List existing databases by specifying your blockchainID, the requesttype (&quot;ListDatabases&quot;), an owner (will be specific to your blockchain) and (optionally) the blocknumber.  If blocknumber is not included, the request defaults to returning data that corresponds with the latest block minted.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">listDatabasesCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"ListDatabases"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"blocknumber"</span><span class="p">:</span><span class="mi">1</span> <span class="p">})</span>
+<span class="nx">wolknode</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">listDatabasesCommand</span><span class="p">)</span>
+<span class="c1">// result:</span>
+<span class="p">{</span>
+  <span class="nl">result</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">data</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">database</span><span class="p">:</span> <span class="s2">"testdb"</span>
+    <span class="p">}],</span>
+    <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">1</span>
   <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="p">}</span>
+</code></pre><h2 id='create-table'>Create table</h2>
+<p>Create a table by specifying your blockchainID and a CREATE TABLE SQL statement.</p>
 
-<span class="c1">// Output:</span>
-<span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"email"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"name"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"HASH"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"age"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"INTEGER"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Describe Table</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) DescribeTable() (description []Row, err error) </span><span class="x">
-</span><span class="n">description</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">DescribeTable</span><span class="p">()</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
+<p>Note: current supported types for columns are <code>string</code>, <code>integer</code>, <code>float</code> and a table must have a primary key.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">createTableSQL</span> <span class="o">=</span> <span class="s2">"CREATE TABLE demoitems(ID string primary key, Name string, Description string, Price float, Currency string, Hash string)"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">createTableCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"CreateTable"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">createTableSQL</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">createTableCommand</span><span class="p">)</span>
+<span class="c1">// result:</span>
+<span class="p">{</span>
+  <span class="nl">txhash</span><span class="p">:</span> <span class="s2">"98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"</span>
+<span class="p">}</span>
+</code></pre><h2 id='describe-table'>Describe Table</h2>
+<p>To see the table definition of a table, specify your blockchainID along with the owner by specifying table name.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">describeTableCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"DescribeTable"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"table"</span><span class="p">:</span><span class="s2">"demoitems"</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">describeTableCommand</span><span class="p">)</span>
+</code></pre><h2 id='list-tables'>List Tables</h2>
+<p>To list the tables that belong to a given database, specify your blockchainID, owner, database and (optionally) blocknumber</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">listTablesCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"ListTables"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"blocknumber"</span><span class="p">:</span><span class="mi">3</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">listTablesCommand</span><span class="p">)</span>
 
-</span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">description</span><span class="x"> </span><span class="o">=</span><span class="x"> 
-  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-      </span><span class="s">"ColumnName"</span><span class="o">:</span><span class="x"> </span><span class="s">"email"</span><span class="p">,</span><span class="x">
-      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_STRING</span><span class="p">,</span><span class="x">
-      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="s">"Primary"</span><span class="o">:</span><span class="x">    </span><span class="kt">int</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="x">
-    </span><span class="p">},</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-      </span><span class="s">"ColumnName"</span><span class="o">:</span><span class="x"> </span><span class="s">"age"</span><span class="p">,</span><span class="x">
-      </span><span class="s">"ColumnType"</span><span class="o">:</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">CT_INTEGER</span><span class="p">,</span><span class="x">
-      </span><span class="s">"IndexType"</span><span class="o">:</span><span class="x">  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">IT_BPLUSTREE</span><span class="p">,</span><span class="x">
-      </span><span class="s">"Primary"</span><span class="o">:</span><span class="x">    </span><span class="kt">int</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="x">
-    </span><span class="p">},</span><span class="x">
-  </span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// List the column info for the contacts table (in the testdb database owned by test.eth).
-curl -X POST -d '{ "requesttype":"DescribeTable" }'  "http://localhost:8501/testdb.test.eth/contacts"
-
-// Output:
-{"data":[{"ColumnName":"email","ColumnType":"STRING","IndexType":"BPLUS","Primary":1},{"ColumnName":"name","ColumnType":"STRING","IndexType":"HASH","Primary":0},{"ColumnName":"age","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":0}]}
-</code></pre>
-<p>Shows the Columns of an existing Table.</p>
-<h2 id='list-tables'>List Tables</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//List Tables</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">listTables</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="c1">// result:</span>
+<span class="p">{</span>
+  <span class="nl">result</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">data</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">table</span><span class="p">:</span> <span class="s2">"demoitems"</span>
+    <span class="p">}],</span>
+    <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">1</span>
   <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="p">}</span>
+</code></pre><h2 id='insert-query'>INSERT Query</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql1</span> <span class="o">=</span> <span class="s2">"INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">sql2</span> <span class="o">=</span> <span class="s2">"INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID2','Item2','Hot Item #2',0.09,'ethereum', 'Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u')"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql1</span> <span class="p">};</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">queryCommand</span><span class="p">);</span>
 
-<span class="c1">// Output:</span>
-<span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"table"</span><span class="p">:</span><span class="s2">"contacts"</span><span class="p">}],</span><span class="s2">"matchedrowcount"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//List Tables</span><span class="x">
-</span><span class="c">//func (db *SWARMDBDatabase) ListTables() (tables []Row, err error)</span><span class="x">
-
-</span><span class="n">tblList</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">ListTables</span><span class="p">()</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">tblList</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"table"</span><span class="o">:</span><span class="x"> </span><span class="s">"contacts"</span><span class="p">},</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// List the tables belonging to the testdb database (owned by test.eth)
-curl -X POST -d '{ "requesttype":"ListTables" }' "http://localhost:8501/testdb.test.eth/"
-
-// Output:
-{"data":[{"table":"contacts"}],"matchedrowcount":1}
-</code></pre>
-<p>Lists all Tables associated with a given Database. Requires an opened connection to a database.</p>
-<h1 id='write'>Write</h1>
-<p>Writing a row (or rows) to SWARMDB tables may be done via the PUT call or running a SQL INSERT/UPDATE query.</p>
-
-<p>Note: The PUT statement overwrites the existing row with the exact value specified if the primary key value already exists</p>
-
-<p>Either CreateTable or OpenTable should be called prior to Write calls.</p>
-<h2 id='put'>Put</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Add row(s) to table </span>
-
-<span class="c1">//Adding single row </span>
-<span class="kd">var</span> <span class="nx">rowToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">}</span> <span class="p">];</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="nx">rowToAdd</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql2</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">queryCommand</span><span class="p">)</span>
+</code></pre><h2 id='select-query'>SELECT Query</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql3</span> <span class="o">=</span> <span class="s2">"SELECT * FROM demoitems"</span>
+<span class="kd">var</span> <span class="nx">sql4</span> <span class="o">=</span> <span class="s2">"SELECT * FROM demoitems WHERE price &gt; 0.10"</span>
+<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql3</span> <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">rows</span> <span class="o">=</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">queryCommand</span><span class="p">)</span>
+<span class="c1">// result:</span>
+<span class="p">{</span>
+  <span class="nl">result</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">data</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">ID</span><span class="p">:</span> <span class="s2">"ID1"</span><span class="p">,</span>
+        <span class="na">Name</span><span class="p">:</span> <span class="s2">"Item1"</span><span class="p">,</span>
+        <span class="na">Description</span><span class="p">:</span> <span class="s2">"Hot Item #1"</span><span class="p">,</span>
+        <span class="na">Price</span><span class="p">:</span><span class="mf">0.11</span><span class="p">,</span>
+        <span class="na">Currency</span><span class="p">:</span><span class="s1">'ethereum'</span><span class="p">,</span>
+        <span class="na">Hash</span><span class="p">:</span><span class="s1">'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u'</span>
+    <span class="p">},{</span>
+        <span class="na">ID</span><span class="p">:</span> <span class="s2">"ID2"</span><span class="p">,</span>
+        <span class="na">Name</span><span class="p">:</span> <span class="s2">"Item2"</span><span class="p">,</span>
+        <span class="na">Description</span><span class="p">:</span> <span class="s2">"Hot Item #2"</span><span class="p">,</span>
+        <span class="na">Price</span><span class="p">:</span><span class="mf">0.09</span><span class="p">,</span>
+        <span class="na">Currency</span><span class="p">:</span><span class="s1">'ethereum'</span><span class="p">,</span>
+        <span class="na">Hash</span><span class="p">:</span><span class="s1">'Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u'</span>
+    <span class="p">}],</span>
+    <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">2</span>
   <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="p">}</span>
 
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-
-
-<span class="c1">//Adding multiple rows </span>
-<span class="kd">var</span> <span class="nx">rowsToAdd</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bertie Basset"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"bertie@gmail.com"</span> <span class="p">},</span> <span class="p">{</span><span class="s2">"email"</span><span class="p">:</span> <span class="s2">"keisha@gmail.com"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Keisha Shepherd"</span><span class="p">}</span> <span class="p">];</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span> <span class="nx">rowsToAdd</span><span class="p">,</span>  <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":2}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Add row(s) to table</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) Put(row interface{}) error</span><span class="x">
-
-</span><span class="c">//Adding single Row</span><span class="x">
-</span><span class="n">rowToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">8</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">}</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowToAdd</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span><span class="c">//Adding multiple Rows</span><span class="x">
-</span><span class="n">rowsToAdd</span><span class="x"> </span><span class="o">:=</span><span class="x">
-  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-        </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Bertie Basset"</span><span class="p">},</span><span class="x">
-        </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"keisha@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">3</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="x"> </span><span class="s">"Keisha Shepherd"</span><span class="p">},</span><span class="x">
-  </span><span class="p">}</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">rowsToAdd</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Insert into or Update the contacts table (in the testdb database, owned by test.eth) with the row {"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} 
-curl -X POST -d '{ "requesttype":"Put",  "row":{"email":"bertie@gmail.com", "name":"Bertie Basset", "age":7} }' "http://localhost:8501/testdb.test.eth/contacts"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Put calls allow for writing rows.</p>
-
-<aside class="notice">The "rows" input consists of an array rows, where a row is a defined as a json object containing column/value pairs.  Each row must at least include a column/value pair for the primary key.</aside>
-<h2 id='insert'>Insert</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Insert a row using Query</span>
-<span class="kd">var</span> <span class="nx">sqlInsert</span> <span class="o">=</span> <span class="s2">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">sqlInsert</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Insert a row using Query</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
-
-</span><span class="n">sqlInsert</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"INSERT INTO contacts(email, name, age) VALUES('warren@gmail.com','Warren',6)"</span><span class="p">;</span><span class="x">
-</span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlInsert</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Insert) a row into the contacts table (in the testdb database, owned by test.eth)
-curl -X POST -d '{ "requesttype":"Query", "query":"INSERT INTO contacts(email, name, age) VALUES(\"warren@gmail.com\",\"Warren\",6) " }'  "http://localhost:8501/testdb.test.eth/"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Insert Query calls allow for the insertion of rows by specifying an INSERT query using standard SQL. SWARMDB currently only supports one row insert per call.</p>
-<h2 id='update'>Update</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Update a row using Query</span>
-<span class="kd">var</span> <span class="nx">sqlUpdate</span> <span class="o">=</span> <span class="s2">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">sqlUpdate</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Update a row using Query</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
-
-</span><span class="n">sqlUpdate</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"UPDATE contacts SET age=8 WHERE email='bertie@gmail.com'"</span><span class="p">;</span><span class="x">
-</span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlUpdate</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Query (Update) a row in the contacts table (owned by test.eth owner ENS), setting the age to 8, where the email='bertie@gmail.com'
-curl -X POST -d '{ "requesttype":"Query", "query":"UPDATE contacts SET age=8 WHERE email=\"bertie@gmail.com\" " }' "http://localhost:8501/testdb.test.eth/"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Update Query calls allow for the update on non-primary key using standard SQL.</p>
-<h1 id='read'>Read</h1>
-<p>Reading row(s) from SWARMDB tables may be done via the GET call or running a SQL Select query.</p>
-
-<p>In Node.js, either createTable or openTable should be called prior to Read calls.</p>
-<h2 id='get'>Get</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Retrieve a row using primary key</span>
-
-<span class="kd">var</span> <span class="nx">primaryKey</span> <span class="o">=</span> <span class="s2">"bertie@gmail.com"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">primaryKey</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output:</span>
-<span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"bertie@gmail.com"</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Bertie Basset"</span><span class="p">,</span><span class="s2">"age"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Retrieve a row using primary key</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) Get(key string) (rows []Row, err error)</span><span class="x">
-
-</span><span class="n">primaryKey</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">;</span><span class="x">
-</span><span class="n">retrievedRow</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">primaryKey</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-   </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">retrievedRow</span><span class="x"> </span><span class="o">=</span><span class="x"> 
-  </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="x">
-    </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">,</span><span class="x"> </span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">},</span><span class="x">
-  </span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Try to retrieve a row using the primary key value 'bertie@gmail.com' from the contacts table (in the testdb database, owned by test.eth)
-curl "http://localhost:8501/testdb.test.eth/contacts/bertie@gmail.com"
-
-// Output:
-{"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-</code></pre>
-<p>Get calls allow for the retrieval of a single row by specifying the value of a rows primary key.</p>
-<h2 id='select'>Select</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Retrieve a Row using Query</span>
-
-<span class="kd">var</span> <span class="nx">sqlSelect</span> <span class="o">=</span> <span class="s2">"SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">sqlSelect</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output:</span>
-<span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"bertie@gmail.com"</span><span class="p">,</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Bertie Basset"</span><span class="p">,</span><span class="s2">"age"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Retrieve a Row using Query</span><span class="x">
-</span><span class="c">//func (tbl *SWARMDBTable) Query(query string) (response []Row, err error)</span><span class="x">
-
-</span><span class="n">sqlSelect</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"SELECT email, name, age FROM contacts WHERE email = 'bertie@gmail.com'"</span><span class="p">;</span><span class="x">
-</span><span class="n">retrievedRows</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">tbl</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="n">sqlSelect</span><span class="p">)</span><span class="x">
-
-</span><span class="c">// Output:</span><span class="x">
-</span><span class="k">type</span><span class="x"> </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}</span><span class="x">
-</span><span class="n">retrievedRows</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="x"> </span><span class="p">{</span><span class="x">
-  </span><span class="n">swarmdblib</span><span class="o">.</span><span class="n">Row</span><span class="p">{</span><span class="s">"email"</span><span class="o">:</span><span class="x"> </span><span class="s">"bertie@gmail.com"</span><span class="p">,</span><span class="x"> </span><span class="s">"name"</span><span class="o">:</span><span class="s">"Bertie Basset"</span><span class="p">,</span><span class="x"> </span><span class="s">"age"</span><span class="o">:</span><span class="x"> </span><span class="m">7</span><span class="p">},</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Retrieve a Row using Query from testdb database (owned by test.eth owner ENS)
-curl -X POST -d '{ "requesttype":"Query", "query":"SELECT email, name, age FROM contacts WHERE email=\"bertie@gmail.com\" " }'  "http://localhost:8501/testdb.test.eth/"
-
-// Output:
-{"data":[{"email":"bertie@gmail.com","name":"Bertie Basset","age":7}]}
-</code></pre>
-<p>Lists the existing Tables in the specified Database.</p>
-<h1 id='remove'>Remove</h1>
-<p>Removing a Row, Table or Database is not recoverable. If a Database is removed, all the Tables associated with it are removed. Likewise, if a Table is removed, all rows in the Table are also removed. </p>
-<h2 id='delete'>Delete</h2>
-<!--
-```javascript
-//Delete Row from a Table
-```
-
-```go
-//Delete Row from a Table
-//func (tbl *SWARMDBTable) Delete(key string) error
-
-primaryKey := "bertie@gmail.com"
-err := tbl.Delete(primaryKey)
-if err != nil {
-    fmt.Printf(err.Error())
-}
-
-```
-
-```shell
-//Delete Row from a Table
-curl -X POST -d '{ "requesttype":"Delete" }'  "http://localhost:8501/testdb.test.eth/"
-
-// Output:
-{"data":[{"database":"testdb"}],"matchedrowcount":1}
-```
--->
-
-<p>NOT SUPPORTED IN PROOF OF CONCEPT RELEASE: Removes a row in a Table by primary key value.</p>
-<h2 id='droptable'>DropTable</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Drop Table</span>
-<span class="kd">var</span> <span class="nx">tableName</span> <span class="o">=</span> <span class="s2">"contacts"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">dropTable</span><span class="p">(</span><span class="nx">tableName</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Drop Table</span><span class="x">
-</span><span class="c">//func (db *SWARMDBDatabase) DropTable(name string) (err error)</span><span class="x">
-
-</span><span class="n">tableName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"contacts"</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">db</span><span class="o">.</span><span class="n">DropTable</span><span class="p">(</span><span class="n">tableName</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>//Drop contacts table from testdb (which is owned by test.eth) 
-curl -X POST -d '{ "requesttype":"DropTable"  }'  "http://localhost:8501/testdb.test.eth/contacts"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Removes a Table.</p>
-<h2 id='dropdatabase'>DropDatabase</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">//Drop Database</span>
-<span class="kd">var</span> <span class="nx">owner</span> <span class="o">=</span> <span class="s2">"test.eth"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">databaseName</span><span class="o">=</span> <span class="s2">"testdb"</span><span class="p">;</span>
-<span class="nx">conn</span><span class="p">.</span><span class="nx">dropDatabase</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">databaseName</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// Output: {"affectedrowcount":1}</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="c">//Drop Database</span><span class="x">
-</span><span class="c">//func (dbc *SWARMDBConnection) DropDatabase(name string) (err error) </span><span class="x">
-
-</span><span class="n">databaseName</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="s">"testdb"</span><span class="x">
-</span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">conn</span><span class="o">.</span><span class="n">DropDatabase</span><span class="p">(</span><span class="n">databaseName</span><span class="p">)</span><span class="x">
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span><span class="x">
-</span><span class="p">}</span><span class="x">
-
-</span></code></pre><pre class="highlight plaintext tab-plaintext"><code>// Drop testdb database owned by test.eth.
-curl -X POST -d '{ "requesttype":"DropDatabase" }'  "http://localhost:8501/testdb.test.eth/"
-
-// Output: {"affectedrowcount":1}
-</code></pre>
-<p>Removes a Database.</p>
-<h1 id='errors'>Errors</h1>
+</code></pre><h2 id='update-query'>UPDATE Query</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql5</span> <span class="o">=</span> <span class="s2">"UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"</span>
+<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql5</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">queryCommand</span><span class="p">)</span>
+</code></pre><h2 id='delete-query'>DELETE Query</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql6</span> <span class="o">=</span> <span class="s2">"DELETE FROM demoitems WHERE ID='ID1'"</span>
+<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql6</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">queryCommand</span><span class="p">)</span>
+</code></pre><h2 id='drop-table'>Drop table</h2>
+<p>Drop a table by specifying table name.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">dropTableCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"DropTable"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"table"</span><span class="p">:</span><span class="s2">"demoitems"</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">dropTableCommand</span><span class="p">)</span>
+</code></pre><h2 id='drop-database'>Drop database</h2>
+<p>Drop a database by specifying owner and database name.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">dropDatabaseCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"DropDatabase"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span> <span class="p">}</span>
+<span class="nx">sql</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">blockchainID</span><span class="p">,</span> <span class="nx">dropTableCommand</span><span class="p">)</span>
+</code></pre><h1 id='errors'>Errors</h1>
 <p>The SWARMDB API uses the following error codes:</p>
 
 <table><thead>
@@ -1063,8 +697,6 @@ curl -X POST -d '{ "requesttype":"DropDatabase" }'  "http://localhost:8501/testd
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="javascript">Node.js</a>
-                <a href="#" data-language-name="go">Go</a>
-                <a href="#" data-language-name="plaintext">HTTP</a>
           </div>
       </div>
     </div>
