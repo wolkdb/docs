@@ -46,6 +46,7 @@ var plasmanode = new wolkjsAPI(PLASMAADDR);
 
 # Plasma Operations
 
+
 ## Retrieve Plasma Tokens and Token Balances
 Retrieve plasma tokens and token balance by specifying address and block number
 
