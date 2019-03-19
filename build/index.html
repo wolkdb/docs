@@ -212,7 +212,7 @@
     <div class="toc-wrapper">
       <center><img src="images/logo.png" class="logo" alt="Logo" /></center>
         <div class="lang-selector">
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="javascript">Wolk API</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -220,31 +220,54 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#wolk-trustless-web-browsing-and-trustless-appstores" class="toc-h1 toc-link" data-title="wolk-trustless-web-browsing-and-trustless-appstores">Wolk: Trustless Web Browsing and Trustless Appstores</a>
+            <a href="#wolk-trustless-web-apps" class="toc-h1 toc-link" data-title="wolk-trustless-web-apps">Wolk: Trustless Web Apps</a>
           </li>
           <li>
-            <a href="#nosql-operations" class="toc-h1 toc-link" data-title="nosql-operations">NoSQL Operations</a>
+            <a href="#wolk-clients" class="toc-h1 toc-link" data-title="wolk-clients">Wolk Clients</a>
+          </li>
+          <li>
+            <a href="#blockchain-methods" class="toc-h1 toc-link" data-title="blockchain-methods">Blockchain Methods</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#createcollection-owner-collection-callback" class="toc-h2 toc-link" data-title="createcollection-owner-collection-callback">createCollection(owner, collection[, callback])</a>
+                    <a href="#createaccount" class="toc-h2 toc-link" data-title="createaccount">createAccount</a>
                   </li>
                   <li>
-                    <a href="#listcollections-owner-callback" class="toc-h2 toc-link" data-title="listcollections-owner-callback">listCollections(owner[, callback]</a>
+                    <a href="#getaccount" class="toc-h2 toc-link" data-title="getaccount">getAccount</a>
                   </li>
                   <li>
-                    <a href="#deletecollection-owner-collection" class="toc-h2 toc-link" data-title="deletecollection-owner-collection">deleteCollection(owner, collection)</a>
+                    <a href="#getblock" class="toc-h2 toc-link" data-title="getblock">getBlock</a>
                   </li>
                   <li>
-                    <a href="#setkey-owner-collection-key-val-callback" class="toc-h2 toc-link" data-title="setkey-owner-collection-key-val-callback">setKey(owner, collection, key, val[, callback])</a>
+                    <a href="#getlatestblock" class="toc-h2 toc-link" data-title="getlatestblock">getLatestBlock</a>
                   </li>
                   <li>
-                    <a href="#getkey-owner-collection-key-callback" class="toc-h2 toc-link" data-title="getkey-owner-collection-key-callback">getKey(owner, collection, key[, callback])</a>
+                    <a href="#gettransaction" class="toc-h2 toc-link" data-title="gettransaction">getTransaction</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#file-nosql-methods" class="toc-h1 toc-link" data-title="file-nosql-methods">File/NoSQL Methods</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#createcollection" class="toc-h2 toc-link" data-title="createcollection">createCollection</a>
                   </li>
                   <li>
-                    <a href="#scancollection-owner-collection-callback" class="toc-h2 toc-link" data-title="scancollection-owner-collection-callback">scanCollection(owner, collection[, callback])</a>
+                    <a href="#listcollections" class="toc-h2 toc-link" data-title="listcollections">listCollections</a>
                   </li>
                   <li>
-                    <a href="#deletekey-owner-collection-key" class="toc-h2 toc-link" data-title="deletekey-owner-collection-key">deleteKey(owner, collection, key)</a>
+                    <a href="#deletecollection" class="toc-h2 toc-link" data-title="deletecollection">deleteCollection</a>
+                  </li>
+                  <li>
+                    <a href="#setkey" class="toc-h2 toc-link" data-title="setkey">setKey</a>
+                  </li>
+                  <li>
+                    <a href="#getkey" class="toc-h2 toc-link" data-title="getkey">getKey</a>
+                  </li>
+                  <li>
+                    <a href="#scancollection" class="toc-h2 toc-link" data-title="scancollection">scanCollection</a>
+                  </li>
+                  <li>
+                    <a href="#deletekey" class="toc-h2 toc-link" data-title="deletekey">deleteKey</a>
                   </li>
               </ul>
           </li>
@@ -252,33 +275,36 @@
             <a href="#sql-operations" class="toc-h1 toc-link" data-title="sql-operations">SQL Operations</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#createdatabase-owner-database-options-callback" class="toc-h2 toc-link" data-title="createdatabase-owner-database-options-callback">createDatabase(owner, database, options [, callback])</a>
+                    <a href="#createdatabase" class="toc-h2 toc-link" data-title="createdatabase">createDatabase</a>
                   </li>
                   <li>
-                    <a href="#listdatabases-owner-options" class="toc-h2 toc-link" data-title="listdatabases-owner-options">listDatabases(owner, options)</a>
+                    <a href="#listdatabases" class="toc-h2 toc-link" data-title="listdatabases">listDatabases</a>
                   </li>
                   <li>
-                    <a href="#deletedatabase-owner-database" class="toc-h2 toc-link" data-title="deletedatabase-owner-database">deleteDatabase(owner, database)</a>
+                    <a href="#deletedatabase" class="toc-h2 toc-link" data-title="deletedatabase">deleteDatabase</a>
                   </li>
                   <li>
-                    <a href="#createtable-owner-database-table-columns-options-callback" class="toc-h2 toc-link" data-title="createtable-owner-database-table-columns-options-callback">createTable(owner, database, table, columns, options[, callback])</a>
+                    <a href="#createtable" class="toc-h2 toc-link" data-title="createtable">createTable</a>
                   </li>
                   <li>
-                    <a href="#describetable-owner-database-table-options-callback" class="toc-h2 toc-link" data-title="describetable-owner-database-table-options-callback">describeTable(owner, database, table, options[, callback])</a>
+                    <a href="#describetable" class="toc-h2 toc-link" data-title="describetable">describeTable</a>
                   </li>
                   <li>
-                    <a href="#listtables-owner-database-options" class="toc-h2 toc-link" data-title="listtables-owner-database-options">listTables(owner, database, options)</a>
+                    <a href="#listtables" class="toc-h2 toc-link" data-title="listtables">listTables</a>
                   </li>
                   <li>
-                    <a href="#executesql-owner-database-sql-options-callback" class="toc-h2 toc-link" data-title="executesql-owner-database-sql-options-callback">executeSQL(owner, database, sql, options[, callback])</a>
+                    <a href="#droptable" class="toc-h2 toc-link" data-title="droptable">dropTable</a>
                   </li>
                   <li>
-                    <a href="#readsql-owner-database-sql-options" class="toc-h2 toc-link" data-title="readsql-owner-database-sql-options">readSQL(owner, database, sql, options)</a>
+                    <a href="#executesql" class="toc-h2 toc-link" data-title="executesql">executeSQL</a>
                   </li>
                   <li>
-                    <a href="#droptable-owner-database-table-options-callback" class="toc-h2 toc-link" data-title="droptable-owner-database-table-options-callback">dropTable(owner, database, table, options[, callback])</a>
+                    <a href="#readsql" class="toc-h2 toc-link" data-title="readsql">readSQL</a>
                   </li>
               </ul>
+          </li>
+          <li>
+            <a href="#request-options" class="toc-h1 toc-link" data-title="request-options">Request Options</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
@@ -288,27 +314,365 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='wolk-trustless-web-browsing-and-trustless-appstores'>Wolk: Trustless Web Browsing and Trustless Appstores</h1>
-<p>The Wolk blockchain enables trustless, serverless web browsing model making lock-in between users and developers impossible:
-* user data is kept in user buckets eg wolk://owner/bucket
-* developer code is kept in application buckets owned by the developer eg wolk://developer/app<br>
-* there is no server held by developers holding user data hostage,
-* there is no platform holding developers hostage, only a protocol
-* storage nodes of the blockchain cannot hold user data or developer code hostage</p>
+        <h1 id='wolk-trustless-web-apps'>Wolk: Trustless Web Apps</h1>
+<p>The Wolk blockchain embodies a next generation HTTP protocol (the Wolk protocl)
+where web browsing is  <em>trustless</em> and <em>serverless</em>, with web browsers interacting not with web servers but with a web blockchain.  </p>
 
-<p>The Wolk API is a Javascript interface, enables developers of web content to store and retrieve data from user buckets</p>
+<p>The Wolk protocol makes lock-in between users and developers impossible, enabling true digital freedom:</p>
 
-<p>Storers earn rewards from running Wolk nodes, and developers earn rewards when applications.</p>
+<ul>
+<li>user data is kept in user buckets eg wolk://owner/bucket</li>
+<li>developer code is kept in application buckets owned by the developer eg wolk://developer/app<br></li>
+<li>there is no server held by developers holding user data hostage</li>
+<li>there is no platform holding developers hostage, only the Wolk protocol</li>
+<li>storage nodes of the blockchain cannot hold user data or developer code hostage</li>
+<li>storers earn rewards from running Wolk nodes, and developers earn rewards when applications are used.</li>
+</ul>
 
+<p>The Wolk API is a Javascript interface that enables developers of web content to store and retrieve data from the Wolk blockchain:</p>
+
+<table><thead>
+<tr>
+<th>Wolk API Method</th>
+<th>HTTP Request Method / Path</th>
+<th>HTTP Request Body</th>
+<th>HTTP Response Body (200 OK)</th>
+<th>HTTP Proof Response Header</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>createAccount</td>
+<td>PUT wolk/account/owner</td>
+<td>JSON Account</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>getAccount</td>
+<td>GET wolk/account/owner</td>
+<td>-</td>
+<td>JSON Account</td>
+<td>JSON SMTProof</td>
+</tr>
+<tr>
+<td>getBlock</td>
+<td>GET wolk/block/blocknumber</td>
+<td>-</td>
+<td>JSON Block</td>
+<td>verified against blockchain</td>
+</tr>
+<tr>
+<td>getLatestBlock</td>
+<td>GET wolk/block/latest</td>
+<td>-</td>
+<td>JSON Block</td>
+<td>verified against blockchain</td>
+</tr>
+<tr>
+<td>getTransaction</td>
+<td>GET wolk/tx/txhash</td>
+<td>-</td>
+<td>JSON Transaction</td>
+<td>verified against blockchain</td>
+</tr>
+<tr>
+<td>createCollection</td>
+<td>PUT owner/collection</td>
+<td>JSON Collection definition</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>listCollections</td>
+<td>GET owner</td>
+<td>-</td>
+<td>JSON Collection</td>
+<td>JSON ScanProof</td>
+</tr>
+<tr>
+<td>deleteCollection</td>
+<td>DELETE owner/collection</td>
+<td>-</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>setKey</td>
+<td>PUT owner/collection/key</td>
+<td>ArrayBuffer or JSON Schema</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>getKey</td>
+<td>GET owner/collection/key</td>
+<td>-</td>
+<td>value</td>
+<td>JSON NoSQLProof</td>
+</tr>
+<tr>
+<td>scanCollection</td>
+<td>GET owner/collection</td>
+<td>-</td>
+<td>[]value</td>
+<td>JSON ScanProof</td>
+</tr>
+<tr>
+<td>deleteKey</td>
+<td>DELETE owner/collection</td>
+<td>-</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>createDatabase</td>
+<td>PUT owner/database/SQL</td>
+<td>JSON SQLRequest</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>listDatabases</td>
+<td>GET owner/database/SQL</td>
+<td>JSON SQLRequest</td>
+<td>JSON Database</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>deleteDatabase</td>
+<td>DELETE owner/database/SQL</td>
+<td>JSON SQLRequest</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>createTable</td>
+<td>PUT owner/database/table</td>
+<td>JSON SQLRequest</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>describeTable</td>
+<td>GET owner/database/table</td>
+<td>JSON SQLRequest</td>
+<td>JSON Columns</td>
+<td>JSON NoSQLProof</td>
+</tr>
+<tr>
+<td>listTables</td>
+<td>GET owner/database</td>
+<td>JSON SQLRequest</td>
+<td>[]JSON Table</td>
+<td>JSON ScanProof</td>
+</tr>
+<tr>
+<td>dropTable</td>
+<td>DELETE owner/database/table</td>
+<td>JSON SQLRequest</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>executeSQL</td>
+<td>POST owner/database/table</td>
+<td>JSON SQLRequest</td>
+<td>txhash</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>readSQL</td>
+<td>PATCH owner/database/table</td>
+<td>JSON SQLRequest</td>
+<td>JSON SQLResponse</td>
+<td>JSON STARKProof (Not implemented)</td>
+</tr>
+</tbody></table>
+
+<p>The Wolk Class abstracts all HTTP operations in the Wolk API methods that each interact with the Wolk Blockchain, described below.<br>
+Unless otherwise noted, all Wolk API methods are asynchronous, supporting both a callback and promise pattern.  </p>
+
+<p>Each interaction with a Wolk Blockchain involves submitting <em>signed</em> HTTP requests with <code>Requester</code> being the users public JSON Web Key and <code>Sig</code> holding the users signature (64 hex).
+A Wolk Browser/Extension will register a user private key with <code>createAccount</code> and is responsible for protecting the users keys and ensuring that application code does not
+engage in signing actions without the user&#39;s permission.<br>
+Current implementations have Wolk nodes support for ECDSA-256 with SHA-256 hashes, but in principle any number of curves and hashing functions could be used (e.g. Edwards with Blake).   </p>
+
+<table><thead>
+<tr>
+<th>Request Method</th>
+<th>HTTP Request Headers</th>
+<th>HTTP Response Headers</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GET</td>
+<td>Sig, Requester, Proof</td>
+<td>Proof, Proof-Type</td>
+</tr>
+<tr>
+<td>POST, PUT, DELETE, PATCH</td>
+<td>Sig, Requester</td>
+<td>-</td>
+</tr>
+</tbody></table>
+
+<p>PUT, POST, DELETE, PATCH requests result in a transaction being submitted to the Wolk Blockchain with a txhash being returned immediately.  When consensus is achieved, the transaction is included in a minted block and GET requests can return proofs.     Wolk Browsers should send their <code>Proof</code> header in GET requests and Wolk nodes must send <code>Proof</code> and <code>Proof-Type</code> headers in addition to the both.<br>
+Each Proof-type is described separately.</p>
+
+<p>Wolk nodes run data sharing and consensus protocols that Wolk API users do not need to concern themselves with but are critical for decentralized storage.</p>
+<h1 id='wolk-clients'>Wolk Clients</h1>
 <p>To use the WOLK API and develop Wolk applications, obtain a browser or Chrome extension from:</p>
 
 <ul>
-<li>Wolk Browser: https://github.com/wolkdb/browser</li>
-<li>Wolk Extension: https://github.com/wolkdb/extension</li>
+<li><a href="https://github.com/wolkdb/browser">Wolk Browser</a></li>
+<li><a href="https://github.com/wolkdb/extension">Wolk Extension</a></li>
 </ul>
 
-<p>Both expose the WOLK API with a Wolk class with methods that interact with the HTTP Blockchain.</p>
-<h1 id='nosql-operations'>NoSQL Operations</h1><h2 id='createcollection-owner-collection-callback'>createCollection(owner, collection[, callback])</h2>
+<p>Anyone can fork these browsers and extensions to develop additional Wolk Clients that interacts with a Wolk blockchain.</p>
+<h1 id='blockchain-methods'>Blockchain Methods</h1>
+<p>The API uses the following core Blockchain types:
+ * JSON Account (indexed by owner <string>)
+ * JSON Block (indexed by blocknumber <int>)
+ * JSON Transaction (indexed by txhash <string>)</p>
+<h2 id='createaccount'>createAccount</h2>
+<p><code>createAccount(owner, account[, callback])</code></p>
+
+<ul>
+<li><code>owner &lt;string&gt;</code></li>
+<li><code>account &lt;JSON Account&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>`
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>txhash &lt;string&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously creates account using owner name and JSON Account object.  If <code>callback</code> is not provided, returns a promise.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">createAccount</span><span class="p">(</span><span class="s2">"jill"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"rsaPublicKey"</span><span class="p">:</span> <span class="s2">"..."</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">})</span>
+
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">createAccount</span><span class="p">(</span><span class="s2">"jack"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"rsaPublicKey"</span><span class="p">:</span> <span class="s2">"..."</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><h2 id='getaccount'>getAccount</h2>
+<p><code>getAccount(owner[, callback])</code></p>
+
+<ul>
+<li><code>owner &lt;string&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>`
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>txhash &lt;string&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously gets specific account by the account owner, originally created by <code>createAccount</code>.  If <code>callback</code> is not provided, returns a promise.</p>
+<h2 id='getblock'>getBlock</h2>
+<p><code>getBlock(blockNumber[, callback])</code></p>
+
+<ul>
+<li><code>blockNumber &lt;int&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>`
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>block &lt;JSON Block&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously gets specific block number.  If <code>callback</code> is not provided, returns a promise.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getBlock</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">block</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">block</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getBlock</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">block</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><h2 id='getlatestblock'>getLatestBlock</h2>
+<p><code>getLatestBlock([callback])</code></p>
+
+<ul>
+<li><code>blockNumber &lt;int&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>`
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>block &lt;JSON Block&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously gets latest block.  If <code>callback</code> is not provided, returns a promise.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getLatestBlock</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">block</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">block</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getLatestBlock</span><span class="p">(</span><span class="nx">blockNumber</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">block</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><h2 id='gettransaction'>getTransaction</h2>
+<p><code>getTransaction(txhash[, callback])</code></p>
+
+<ul>
+<li><code>blockNumber &lt;int&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>`
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>tx &lt;JSON Transaction&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously gets transaction using a transaction hash.  If <code>callback</code> is not provided, returns a promise.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getTransaction</span><span class="p">(</span><span class="s2">"98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tx</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">getTransaction</span><span class="p">(</span><span class="s2">"98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">tx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tx</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><h1 id='file-nosql-methods'>File/NoSQL Methods</h1>
+<p>The model for file storage and NoSQL is that keys and values are kept in an owner&#39;s collections.
+The difference between File collections and NoSQL collections is that File collections are just blobs of bytes
+and NoSQL collections are JSON records which may be indexed.</p>
+<h2 id='createcollection'>createCollection</h2>
+<p><code>createCollection(owner, collection[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -320,23 +684,27 @@
 </ul></li>
 </ul>
 
-<p>Asynchronously creata new collection, returning a transaction hash.  If <code>callback</code> is not provided, returns a promise.</p>
+<p>Asynchronously creates new collection, returning a transaction hash.  If <code>callback</code> is not provided, returns a promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">)</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// callback</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><h2 id='listcollections-owner-callback'>listCollections(owner[, callback]</h2>
+</code></pre>
+<p>In the next release, we will have index specifiable in <code>CreateCollection</code>, with Range Proofs being returned in <code>scanCollection</code> responses and verified by Wolk clients.</p>
+<h2 id='listcollections'>listCollections</h2>
+<p><code>listCollections(owner[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>callback &lt;Function&gt;</code>`
@@ -349,21 +717,24 @@
 
 <p>Asynchronously list an owner&#39;s collections, returning a list of collections.  If <code>callback</code> is not provided, returns a promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">listCollections</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">)</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">listCollections</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// callback</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">listCollections</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">listCollections</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><h2 id='deletecollection-owner-collection'>deleteCollection(owner, collection)</h2>
+</code></pre><h2 id='deletecollection'>deleteCollection</h2>
+<p><code>deleteCollection(owner, collection)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -377,21 +748,23 @@
 
 <p>Asynchronously delete an owner&#39;s collection, returning transaction hash.  If <code>callback</code> is not provided, returns a promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteCollection</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">)</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteCollection</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// callback</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteCollection</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">collection</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteCollection</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
       <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
   <span class="p">})</span>
-</code></pre><h2 id='setkey-owner-collection-key-val-callback'>setKey(owner, collection, key, val[, callback])</h2>
+</code></pre><h2 id='setkey'>setKey</h2>
+<p><code>setKey(owner, collection, key, val[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -404,7 +777,7 @@
 </ul></li>
 </ul>
 
-<p>Asynchronously set a key-value pair in an owner&#39;s collection.  If <code>callback</code> is not provided, returns a promise.</p>
+<p>Asynchronously sets a key-value pair in an owner&#39;s collection.  The collection must have already been created with <code>createCollection</code> and to retreive the value the caller must use <code>getKey</code>.  If <code>callback</code> is not provided, returns a promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">setKey</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="s2">"pluto"</span><span class="p">,</span> <span class="s2">"small"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
@@ -421,7 +794,9 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
 <span class="p">})</span>
-</code></pre><h2 id='getkey-owner-collection-key-callback'>getKey(owner, collection, key[, callback])</h2>
+</code></pre><h2 id='getkey'>getKey</h2>
+<p><code>getKey(owner, collection, key[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -434,7 +809,7 @@
 </ul></li>
 </ul>
 
-<p>Asynchronously gets the value corresponding to a given key in the owner&#39;s collection.  If <code>callback</code> is not provided, returns a Promise.</p>
+<p>Asynchronously gets the value corresponding to a given key in the owner&#39;s collection.  Previously, the key-value pair must have been set with <code>setKey</code>.  If <code>callback</code> is not provided, returns a Promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="s2">"pluto"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -448,7 +823,9 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">})</span>
-</code></pre><h2 id='scancollection-owner-collection-callback'>scanCollection(owner, collection[, callback])</h2>
+</code></pre><h2 id='scancollection'>scanCollection</h2>
+<p><code>scanCollection(owner, collection[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -460,7 +837,7 @@
 </ul></li>
 </ul>
 
-<p>Asynchronously returns <em>all</em> key-value pairs in a collection.   If <code>callback</code> is not provided, returns a Promise.</p>
+<p>Asynchronously returns <em>all</em> key-value pairs in a collection.  All key-value pairs have been set with <code>setKey</code> transactions.   If <code>callback</code> is not provided, returns a Promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">scanCollection</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
@@ -477,7 +854,9 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 <span class="p">})</span>  
-</code></pre><h2 id='deletekey-owner-collection-key'>deleteKey(owner, collection, key)</h2>
+</code></pre><h2 id='deletekey'>deleteKey</h2>
+<p><code>deleteKey(owner, collection, key)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
@@ -490,7 +869,7 @@
 </ul></li>
 </ul>
 
-<p>Asynchronously delete specific key-value pair in an owner&#39;s collection.   If <code>callback</code> is not provided, returns a Promise.</p>
+<p>Asynchronously delete specific key-value pair in an owner&#39;s collection.  The key-value pair must have been set with <code>setKey</code> operations.  If <code>callback</code> is not provided, returns a Promise.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteKey</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="s2">"pluto"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
@@ -500,18 +879,24 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">})</span>
 
-<span class="c1">// promise</span>
+<span class="c1">// callback</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteKey</span><span class="p">(</span><span class="s2">"bruce"</span><span class="p">,</span> <span class="s2">"planets"</span><span class="p">,</span> <span class="s2">"pluto"</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
 <span class="p">})</span>
-</code></pre><h1 id='sql-operations'>SQL Operations</h1><h2 id='createdatabase-owner-database-options-callback'>createDatabase(owner, database, options [, callback])</h2>
+</code></pre><h1 id='sql-operations'>SQL Operations</h1>
+<p>The Wolk API uses the following data types in SQL Operations:
+* JSON SQLRequest
+* JSON SQLResponse</p>
+<h2 id='createdatabase'>createDatabase</h2>
+<p><code>createDatabase(owner, database, options [, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
-<li><code>options &lt;JSONObject&gt;</code></li>
+<li><code>options &lt;JSON RequestOptions&gt;</code></li>
 <li><code>callback &lt;Function&gt;</code>`
 
 <ul>
@@ -537,10 +922,12 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre><h2 id='listdatabases-owner-options'>listDatabases(owner, options)</h2>
+</code></pre><h2 id='listdatabases'>listDatabases</h2>
+<p><code>listDatabases(owner, options)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
-<li><code>options &lt;JSONObject&gt;</code></li>
+<li><code>options &lt;JSON RequestOptions&gt;</code></li>
 <li><code>callback &lt;Function&gt;</code>
 
 <ul>
@@ -575,7 +962,9 @@
     <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">1</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h2 id='deletedatabase-owner-database'>deleteDatabase(owner, database)</h2>
+</code></pre><h2 id='deletedatabase'>deleteDatabase</h2>
+<p><code>deleteDatabase(owner, database)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
@@ -587,7 +976,7 @@
 </ul></li>
 </ul>
 
-<p>Delete a database by specifying owner and database name.</p>
+<p>Aysnchronously deleted a database by specifying owner and database name.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
@@ -596,7 +985,6 @@
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">})</span>
-
 <span class="c1">// callback</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
@@ -604,12 +992,14 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
 <span class="p">})</span>
-</code></pre><h2 id='createtable-owner-database-table-columns-options-callback'>createTable(owner, database, table, columns, options[, callback])</h2>
+</code></pre><h2 id='createtable'>createTable</h2>
+<p><code>createTable(owner, database, table, columns, options[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
 <li><code>table &lt;string&gt;</code></li>
-<li><code>column &lt;column[]&gt;</code></li>
+<li><code>column &lt;JSON Array of Column&gt;</code></li>
 <li><code>callback &lt;Function&gt;</code>
 
 <ul>
@@ -618,8 +1008,10 @@
 </ul></li>
 </ul>
 
-<p>Create a table with specific column definitions.  Note: current supported types for columns are <code>STRING</code>, <code>INTEGER</code>, <code>FLOAT</code> and a table must have a primary key.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[{</span>
+<p>Asynchronously creates a table with specific column definitions.  Note: current supported types for columns are <code>STRING</code>, <code>INTEGER</code>, <code>FLOAT</code> and a table must have a primary key.
+If <code>callback</code> is not provided, returns a Promise.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="kd">let</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[{</span>
     <span class="s2">"columnname"</span><span class="p">:</span> <span class="s2">"person_id"</span><span class="p">,</span>
     <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"BPLUS"</span><span class="p">,</span>
     <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span>
@@ -629,8 +1021,6 @@
     <span class="s2">"indextype"</span><span class="p">:</span> <span class="s2">"BPLUS"</span><span class="p">,</span>
     <span class="s2">"columntype"</span><span class="p">:</span> <span class="s2">"STRING"</span>
   <span class="p">}]</span>
-
-<span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">createTable</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="s2">"person"</span><span class="p">,</span> <span class="nx">columns</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
@@ -648,7 +1038,9 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
 <span class="p">})</span>
 <span class="p">{</span><span class="s2">"txhash"</span><span class="p">:</span> <span class="s2">"98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"</span><span class="p">}</span>
-</code></pre><h2 id='describetable-owner-database-table-options-callback'>describeTable(owner, database, table, options[, callback])</h2>
+</code></pre><h2 id='describetable'>describeTable</h2>
+<p><code>describeTable(owner, database, table, options[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
@@ -677,10 +1069,10 @@
      <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
    <span class="p">})</span>
-
-<span class="c1">// result:</span>
 <span class="p">{</span><span class="s2">"data"</span><span class="p">:[{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"name"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="s2">"ColumnName"</span><span class="p">:</span><span class="s2">"person_id"</span><span class="p">,</span><span class="s2">"ColumnType"</span><span class="p">:</span><span class="s2">"INTEGER"</span><span class="p">,</span><span class="s2">"IndexType"</span><span class="p">:</span><span class="s2">"BPLUS"</span><span class="p">,</span><span class="s2">"Primary"</span><span class="p">:</span><span class="mi">1</span><span class="p">}]}</span>
-</code></pre><h2 id='listtables-owner-database-options'>listTables(owner, database, options)</h2>
+</code></pre><h2 id='listtables'>listTables</h2>
+<p><code>listTables(owner, database, options)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
@@ -702,14 +1094,11 @@
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">})</span>
-
 <span class="c1">// callback</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">listTables</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="p">{},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"list tables:"</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
      <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
    <span class="p">})</span>
-
-<span class="c1">// result:</span>
 <span class="p">{</span>
   <span class="nl">result</span><span class="p">:</span> <span class="p">{</span>
     <span class="nl">data</span><span class="p">:</span> <span class="p">[{</span>
@@ -718,7 +1107,41 @@
     <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">1</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h2 id='executesql-owner-database-sql-options-callback'>executeSQL(owner, database, sql, options[, callback])</h2>
+</code></pre><h2 id='droptable'>dropTable</h2>
+<p><code>dropTable(owner, database, table, options[, callback])</code></p>
+
+<ul>
+<li><code>owner &lt;string&gt;</code></li>
+<li><code>database &lt;string&gt;</code></li>
+<li><code>table &lt;string&gt;</code></li>
+<li><code>options &lt;JSONObject&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>
+
+<ul>
+<li><code>err &lt;Error&gt;</code></li>
+<li><code>result &lt;string&gt;</code></li>
+</ul></li>
+</ul>
+
+<p>Asynchronously drop a table by specifying table name in an owner&#39;s database.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">dropTable</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="s2">"person"</span><span class="p">,</span> <span class="p">{})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">})</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// callback</span>
+<span class="nx">wolk</span><span class="p">.</span><span class="nx">dropTable</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="s2">"person"</span><span class="p">,</span> <span class="p">{},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre><h2 id='executesql'>executeSQL</h2>
+<p><code>executeSQL(owner, database, sql, options[, callback])</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
@@ -732,11 +1155,9 @@
 </ul></li>
 </ul>
 
-<p>Executes transactional SQL query in an owner&#39;s database.</p>
-<h3 id='insert-query'>INSERT Query</h3><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql_insert</span> <span class="o">=</span> <span class="s2">"INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">queryCommand</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"requesttype"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span> <span class="s2">"owner"</span><span class="p">:</span><span class="s2">"wolkdb.eth"</span><span class="p">,</span> <span class="s2">"database"</span><span class="p">:</span><span class="s2">"testdb"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">:</span> <span class="nx">sql1</span> <span class="p">};</span>
-
-<span class="c1">// promise</span>
+<p>Asynchronously executes  SQL query in an owner&#39;s database.</p>
+<h3 id='insert-query'>INSERT Query</h3><pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="kd">var</span> <span class="nx">sql_insert</span> <span class="o">=</span> <span class="s2">"INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')"</span><span class="p">;</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">executeSQL</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="nx">sql_insert</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
@@ -752,8 +1173,8 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
 <span class="p">})</span>
-</code></pre><h3 id='update-query'>UPDATE Query</h3><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql_update</span> <span class="o">=</span> <span class="s2">"UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"</span>
-<span class="c1">// promise</span>
+</code></pre><h3 id='update-query'>UPDATE Query</h3><pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="kd">var</span> <span class="nx">sql_update</span> <span class="o">=</span> <span class="s2">"UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">executeSQL</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="nx">sql_update</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
@@ -769,8 +1190,8 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
 <span class="p">})</span>
-</code></pre><h3 id='delete-query'>DELETE Query</h3><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql_delete</span> <span class="o">=</span> <span class="s2">"DELETE FROM demoitems WHERE ID='ID1'"</span>
-<span class="c1">// promise</span>
+</code></pre><h3 id='delete-query'>DELETE Query</h3><pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="kd">var</span> <span class="nx">sql_delete</span> <span class="o">=</span> <span class="s2">"DELETE FROM demoitems WHERE ID='ID1'"</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">executeSQL</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="nx">sql_delete</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
@@ -786,7 +1207,9 @@
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
 <span class="p">})</span>
-</code></pre><h2 id='readsql-owner-database-sql-options'>readSQL(owner, database, sql, options)</h2>
+</code></pre><h2 id='readsql'>readSQL</h2>
+<p><code>readSQL(owner, database, sql, options)</code></p>
+
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
@@ -801,9 +1224,8 @@
 </ul>
 
 <p>Executes read-only SQL query in an owner&#39;s database.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">sql_select</span> <span class="o">=</span> <span class="s2">"SELECT * FROM demoitems WHERE price &gt; 0.10"</span>
-
-<span class="c1">// promise</span>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<span class="kd">var</span> <span class="nx">sql_select</span> <span class="o">=</span> <span class="s2">"SELECT * FROM demoitems WHERE price &gt; 0.10"</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">readSQL</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="nx">sql_select</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
@@ -843,39 +1265,11 @@
     <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">2</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h2 id='droptable-owner-database-table-options-callback'>dropTable(owner, database, table, options[, callback])</h2>
-<ul>
-<li><code>owner &lt;string&gt;</code></li>
-<li><code>database &lt;string&gt;</code></li>
-<li><code>table &lt;string&gt;</code></li>
-<li><code>options &lt;JSONObject&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>
-
-<ul>
-<li><code>err &lt;Error&gt;</code></li>
-<li><code>result &lt;string&gt;</code></li>
-</ul></li>
-</ul>
-
-<p>Drop a table by specifying table name.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">dropTable</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="s2">"person"</span><span class="p">,</span> <span class="p">{})</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
-  <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-  <span class="p">})</span>
-
-<span class="c1">// callback</span>
-<span class="nx">wolk</span><span class="p">.</span><span class="nx">dropTable</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="s2">"person"</span><span class="p">,</span> <span class="p">{},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="nx">err</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
-<span class="p">})</span>
-</code></pre><h1 id='errors'>Errors</h1>
-<p>The SWARMDB API uses the following error codes:</p>
+</code></pre><h1 id='request-options'>Request Options</h1>
+<p>Many requests support an JSON RequestOptions structure to control request behavior, with the following attributes:
+ * TBD</p>
+<h1 id='errors'>Errors</h1>
+<p>The Wolk API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -929,11 +1323,11 @@
 </tr>
 <tr>
 <td>411</td>
-<td>SWARM Error on Write [Details]</td>
+<td>Error on Write [Details]</td>
 </tr>
 <tr>
 <td>412</td>
-<td>SWARM Error on Read [Details]</td>
+<td>Error on Read [Details]</td>
 </tr>
 <tr>
 <td>413</td>
@@ -1052,7 +1446,7 @@
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="javascript">Wolk API</a>
           </div>
       </div>
     </div>
