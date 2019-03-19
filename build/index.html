@@ -6,7 +6,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="images/wolk_favicon.png" rel="icon" type="image/png" />
-    <title>WOLK API Reference</title>
+    <title>WOLK 1.0 API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -220,7 +220,7 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#wolk-trustless-web-apps" class="toc-h1 toc-link" data-title="wolk-trustless-web-apps">Wolk: Trustless Web Apps</a>
+            <a href="#wolk-api-for-trustless-web-apps" class="toc-h1 toc-link" data-title="wolk-api-for-trustless-web-apps">Wolk API for Trustless Web Apps</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#wolk-api" class="toc-h2 toc-link" data-title="wolk-api">Wolk API</a>
@@ -288,11 +288,6 @@
                   <li>
                     <a href="#createdatabase" class="toc-h2 toc-link" data-title="createdatabase">createDatabase</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u" class="toc-h1 toc-link" data-title="qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u">Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u</a>
-              <ul class="toc-list-h2">
                   <li>
                     <a href="#listdatabases" class="toc-h2 toc-link" data-title="listdatabases">listDatabases</a>
                   </li>
@@ -327,7 +322,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='wolk-trustless-web-apps'>Wolk: Trustless Web Apps</h1>
+        <h1 id='wolk-api-for-trustless-web-apps'>Wolk API for Trustless Web Apps</h1>
 <p>The Wolk blockchain embodies a next generation HTTP protocol (the Wolk protocl)
 where web browsing is  <em>trustless</em> and <em>serverless</em>, with web browsers interacting not with web servers but with a web blockchain.  </p>
 
@@ -928,7 +923,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 </ul>
 
 <p>Creates a database owned by owner.</p>
-<h1 id='qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u'>Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">createDatabase</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>

@@ -1,5 +1,5 @@
 ---
-title: WOLK API Reference
+title: WOLK 1.0 API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript: Wolk API
@@ -10,7 +10,7 @@ includes:
 search: true
 ---
 
-# Wolk: Trustless Web Apps
+# Wolk API for Trustless Web Apps
 
 The Wolk blockchain embodies a next generation HTTP protocol (the Wolk protocl)
 where web browsing is  _trustless_ and _serverless_, with web browsers interacting not with web servers but with a web blockchain.  
@@ -470,8 +470,6 @@ The Wolk API uses the following data types in SQL Operations:
   * `result <string>`
 
 Creates a database owned by owner.
-
-# Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u
 
 ```javascript
 // promise
