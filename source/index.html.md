@@ -622,3 +622,4 @@ wolk.dropTable("alina", "db03", "person", {}, function(err, txhash) {
   console.log(txhash)
 })
 ```
+ 
