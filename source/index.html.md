@@ -2,8 +2,7 @@
 title: WOLK API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-- javascript-promise: Promise
-- javascript-callback: Promise
+  - javascript: Wolk API
 
 includes:
   - errors
@@ -11,12 +10,13 @@ includes:
 search: true
 ---
 
-# Wolk Trustless HTTP
+# Wolk: Trustless Web Apps
 
 The Wolk blockchain embodies a next generation HTTP protocol (the Wolk protocl)
 where web browsing is  _trustless_ and _serverless_, with web browsers interacting not with web servers but with a web blockchain.  
 
 The Wolk protocol makes lock-in between users and developers impossible, enabling true digital freedom:
+
 * user data is kept in user buckets eg wolk://owner/bucket
 * developer code is kept in application buckets owned by the developer eg wolk://developer/app  
 * there is no server held by developers holding user data hostage
@@ -73,12 +73,12 @@ Wolk nodes run data sharing and consensus protocols that Wolk API users do not n
 
 To use the WOLK API and develop Wolk applications, obtain a browser or Chrome extension from:
 
- * Wolk Browser: https://github.com/wolkdb/browser
- * Wolk Extension: https://github.com/wolkdb/extension
+ * [Wolk Browser](https://github.com/wolkdb/browser)
+ * [Wolk Extension](https://github.com/wolkdb/extension)
 
 Anyone can fork these browsers and extensions to develop additional Wolk Clients that interacts with a Wolk blockchain.
 
-# Blockchain Operations
+# Blockchain Methods
 
 The API uses the following core Blockchain types:
  * JSON Account (indexed by owner <string>)
@@ -97,7 +97,8 @@ The API uses the following core Blockchain types:
 
 Asynchronously creates account using owner name and JSON Account object.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.createAccount("jill", {"rsaPublicKey": "..."})
   .then(function(txhash) {
     console.log(txhash);
@@ -105,9 +106,8 @@ wolk.createAccount("jill", {"rsaPublicKey": "..."})
   .catch(function(err) {
     console.error(err);
   })
-```
 
-```javascript-callback
+// callback
 wolk.createAccount("jack", {"rsaPublicKey": "..."}, function(err, txhash) {
     if ( err ) {
       throw(err);
@@ -140,7 +140,8 @@ Asynchronously gets specific account by the account owner, originally created by
 
 Asynchronously gets specific block number.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.getBlock(42)
   .then(function(block) {
     console.log(block);
@@ -148,9 +149,7 @@ wolk.getBlock(42)
   .catch(function(err) {
     console.error(err);
   })
-```
-
-```javascript-callback
+// callback
 wolk.getBlock(42, function(err, block) {
     if ( err ) {
       throw(err);
@@ -170,7 +169,8 @@ wolk.getBlock(42, function(err, block) {
 
 Asynchronously gets latest block.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.getLatestBlock()
   .then(function(block) {
     console.log(block);
@@ -178,9 +178,7 @@ wolk.getLatestBlock()
   .catch(function(err) {
     console.error(err);
   })
-```
-
-```javascript-callback
+// callback
 wolk.getLatestBlock(blockNumber, function(err, block) {
     if ( err ) {
       throw(err);
@@ -200,7 +198,8 @@ wolk.getLatestBlock(blockNumber, function(err, block) {
 
 Asynchronously gets transaction using a transaction hash.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.getTransaction("98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b")
   .then(function(tx) {
     console.log(tx);
@@ -208,9 +207,7 @@ wolk.getTransaction("98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c6
   .catch(function(err) {
     console.error(err);
   })
-```
-
-```javascript-callback
+// callback
 wolk.getTransaction("98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b", function(err, tx) {
     if ( err ) {
       throw(err);
@@ -219,7 +216,11 @@ wolk.getTransaction("98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c6
   })
 ```
 
-# NoSQL Operations
+# File/NoSQL Methods
+
+The model for file storage and NoSQL is that keys and values are kept in an owner's collections.
+The difference between File collections and NoSQL collections is that File collections are just blobs of bytes
+and NoSQL collections are JSON records which may be indexed.
 
 ## createCollection
 
@@ -233,7 +234,8 @@ wolk.getTransaction("98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c6
 
 Asynchronously creates new collection, returning a transaction hash.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.createCollection("bruce", "planets")
   .then(function(txhash) {
     console.log(txhash);
@@ -241,9 +243,7 @@ wolk.createCollection("bruce", "planets")
   .catch(function(err) {
     console.error(err);
   })
-```
-
-```javascript-callback
+// callback
 wolk.createCollection("bruce", "planets", function(err, txhash) {
     if ( err ) {
       throw(err);
@@ -251,6 +251,8 @@ wolk.createCollection("bruce", "planets", function(err, txhash) {
     console.log(txhash);
   })
 ```
+
+In the next release, we will have index specifiable in `CreateCollection`, with Range Proofs being returned in `scanCollection` responses and verified by Wolk clients.
 
 ## listCollections
 
@@ -263,7 +265,8 @@ wolk.createCollection("bruce", "planets", function(err, txhash) {
 
 Asynchronously list an owner's collections, returning a list of collections.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.listCollections("bruce")
   .then(function(result) {
     console.log(result);
@@ -271,9 +274,8 @@ wolk.listCollections("bruce")
   .catch(function(err) {
     console.error(err);
   })
-```
 
-```javascript-callback
+// callback
 wolk.listCollections("bruce", function(err, result) {
     if ( err ) {
       throw(err);
@@ -294,7 +296,8 @@ wolk.listCollections("bruce", function(err, result) {
 
 Asynchronously delete an owner's collection, returning transaction hash.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.deleteCollection("bruce", "planets",)
   .then(function(txhash) {
     console.log(txhash);
@@ -302,9 +305,7 @@ wolk.deleteCollection("bruce", "planets",)
   .catch(function(err) {
     console.error(err);
   })
-```
-
-```javascript-callback
+// callback
 wolk.deleteCollection("bruce", "planets", function(err, result) {
     if ( err ) {
       throw(err);
@@ -326,7 +327,8 @@ wolk.deleteCollection("bruce", "planets", function(err, result) {
 
 Asynchronously sets a key-value pair in an owner's collection.  The collection must have already been created with `createCollection` and to retreive the value the caller must use `getKey`.  If `callback` is not provided, returns a promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.setKey("bruce", "planets", "pluto", "small")
   .then(function(txhash) {
     console.log(txhash)
@@ -357,7 +359,8 @@ wolk.setKey("bruce", "planets", "pluto", "small", function(err, txhash) {
 
 Asynchronously gets the value corresponding to a given key in the owner's collection.  Previously, the key-value pair must have been set with `setKey`.  If `callback` is not provided, returns a Promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.getKey("bruce", "planets", "pluto")
   .then(function(result) {
     console.log(result);
@@ -384,7 +387,8 @@ wolk.getKey("bruce", "planets", "pluto", function (err, result) {
 
 Asynchronously returns _all_ key-value pairs in a collection.  All key-value pairs have been set with `setKey` transactions.   If `callback` is not provided, returns a Promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.scanCollection("bruce", "planets")
   .then(function(result) {
     console.log(result);
@@ -392,9 +396,8 @@ wolk.scanCollection("bruce", "planets")
   .catch(function(err) {
     console.error(err);
   })
-```
 
-```javascript-callback
+// callback
 wolk.scanCollection("bruce", "planets", function (err, result) {
   if ( err ) {
     throw(err);
@@ -416,7 +419,8 @@ wolk.scanCollection("bruce", "planets", function (err, result) {
 
 Asynchronously delete specific key-value pair in an owner's collection.  The key-value pair must have been set with `setKey` operations.  If `callback` is not provided, returns a Promise.
 
-```javascript-promise
+```javascript
+// promise
 wolk.deleteKey("bruce", "planets", "pluto")
   .then(function(txhash) {
     console.log(txhash)
@@ -424,9 +428,8 @@ wolk.deleteKey("bruce", "planets", "pluto")
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.deleteKey("bruce", "planets", "pluto"), function(err, txhash) {
   if ( err ) {
     throw(err);
@@ -454,7 +457,8 @@ The Wolk API uses the following data types in SQL Operations:
 
 Creates a database owned by owner.
 
-```javascript-promise
+```javascript
+// promise
 wolk.createDatabase("alina", "db03", {})
   .then(function(txhash) {
     console.log(txhash)
@@ -462,9 +466,8 @@ wolk.createDatabase("alina", "db03", {})
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.createDatabase("alina", "db03", {}, function(err, txhash) {
   if ( err ) {
     throw(err)
@@ -485,7 +488,8 @@ wolk.createDatabase("alina", "db03", {}, function(err, txhash) {
 
 List databases owned by a user.  
 
-```javascript-promise
+```javascript
+// promise
 wolk.listDatabases("alina", {})
   .then(function(result) {
     console.log(result);
@@ -493,9 +497,8 @@ wolk.listDatabases("alina", {})
   .catch(function(err) {
     console.error(err);
   })
-```
 
-```javascript-callback
+// callback
 wolk.listDatabases("alina", {}, function(err, result) {
   if ( err ) {
     throw(err)
@@ -525,7 +528,8 @@ wolk.listDatabases("alina", {}, function(err, result) {
 
 Aysnchronously deleted a database by specifying owner and database name.
 
-```javascript-promise
+```javascript
+// promise
 wolk.deleteDatabase("alina", "db03")
   .then(function(txhash) {
     console.log(txhash)
@@ -533,9 +537,7 @@ wolk.deleteDatabase("alina", "db03")
   .catch(function(err) {
     console.error(err)
   })
-```
-
-```javascript-callback
+// callback
 wolk.deleteDatabase("alina", "db03", function(err, txhash) {
   if ( err ) {
     throw(err);
@@ -557,8 +559,10 @@ wolk.deleteDatabase("alina", "db03", function(err, txhash) {
   * `result <string>`
 
 Asynchronously creates a table with specific column definitions.  Note: current supported types for columns are `STRING`, `INTEGER`, `FLOAT` and a table must have a primary key.
+If `callback` is not provided, returns a Promise.
 
-```javascript-promise
+```javascript
+// promise
 let columns = [{
     "columnname": "person_id",
     "indextype": "BPLUS",
@@ -577,9 +581,8 @@ wolk.createTable("alina", "db03", "person", columns, {})
     console.error(err)
   })
 {"txhash": "98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"}
-```
 
-```javascript-callback
+// callback
 wolk.createTable("alina", "db03", "person", columns, {}, function(err, txhash) {
   if ( err ) {
     throw(err);
@@ -602,7 +605,9 @@ wolk.createTable("alina", "db03", "person", columns, {}, function(err, txhash) {
 
 Shows the definition of a table in an owner's database.
 
-```javascript-promise
+
+```javascript
+// promise
 wolk.describeTable("alina", "db03", "person", {})
    .then( function(result) {
      let res = JSON.parse(result);
@@ -611,9 +616,8 @@ wolk.describeTable("alina", "db03", "person", {})
    .catch( function(err) {
      console.error(err);
    })
-```
 
-```javascript-callback
+// callback
 wolk.describeTable("alina", "db03", "person", {}, function(err, result) {
      let res = JSON.parse(result);
      console.log(res)
@@ -633,7 +637,8 @@ wolk.describeTable("alina", "db03", "person", {}, function(err, result) {
 
 Lists the tables in an owner's database.
 
-```javascript-promise
+```javascript
+// promise
 wolk.listTables("alina", "db03", {})
   .then(  function(result) {
      console.log("list tables:", result)
@@ -642,9 +647,7 @@ wolk.listTables("alina", "db03", {})
   .catch( function(err) {
     console.error(err)
   })
-```
-
-```javascript-callback
+// callback
 wolk.listTables("alina", "db03", {}, function(err, result) {
      console.log("list tables:", result)
      let res = JSON.parse(result);
@@ -671,9 +674,10 @@ wolk.listTables("alina", "db03", {}, function(err, result) {
   * `err <Error>`
   * `result <string>`
 
-Drop a table by specifying table name.
+Asynchronously drop a table by specifying table name in an owner's database.
 
-```javascript-promise
+```javascript
+// promise
 wolk.dropTable("alina", "db03", "person", {})
   .then( function(txhash) {
     console.log(txhash)
@@ -683,7 +687,8 @@ wolk.dropTable("alina", "db03", "person", {})
   })
 ```
 
-```javascript-callback
+```javascript
+// callback
 wolk.dropTable("alina", "db03", "person", {}, function(err, txhash) {
   if ( err ) {
     throw(err);
@@ -704,11 +709,12 @@ wolk.dropTable("alina", "db03", "person", {}, function(err, txhash) {
   * `err <Error>`
   * `result <string>`
 
-Executes transactional SQL query in an owner's database.
+Asynchronously executes  SQL query in an owner's database.
 
 ### INSERT Query
 
-```javascript-promise
+```javascript
+// promise
 var sql_insert = "INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')";
 wolk.executeSQL("alina", "db03", sql_insert, {})
   .then(function(txhash) {
@@ -717,9 +723,8 @@ wolk.executeSQL("alina", "db03", sql_insert, {})
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.executeSQL("alina", "db03", sql_insert, {}, function(err, txhash) {
   if ( err ) {
       throw(error);
@@ -730,7 +735,8 @@ wolk.executeSQL("alina", "db03", sql_insert, {}, function(err, txhash) {
 
 ### UPDATE Query
 
-```javascript-promise
+```javascript
+// promise
 var sql_update = "UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"
 wolk.executeSQL("alina", "db03", sql_update, {})
   .then(function(txhash) {
@@ -739,9 +745,8 @@ wolk.executeSQL("alina", "db03", sql_update, {})
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.executeSQL("alina", "db03", sql_update, {}, function(err, txhash) {
   if ( err ) {
       throw(error);
@@ -753,7 +758,8 @@ wolk.executeSQL("alina", "db03", sql_update, {}, function(err, txhash) {
 
 ### DELETE Query
 
-```javascript-promise
+```javascript
+// promise
 var sql_delete = "DELETE FROM demoitems WHERE ID='ID1'"
 wolk.executeSQL("alina", "db03", sql_delete, {})
   .then(function(txhash) {
@@ -762,9 +768,8 @@ wolk.executeSQL("alina", "db03", sql_delete, {})
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.executeSQL("alina", "db03", sql_delete, {}, function(err, txhash) {
   if ( err ) {
       throw(error);
@@ -787,7 +792,8 @@ wolk.executeSQL("alina", "db03", sql_delete, {}, function(err, txhash) {
 
 Executes read-only SQL query in an owner's database.
 
-```javascript-promise
+```javascript
+// promise
 var sql_select = "SELECT * FROM demoitems WHERE price > 0.10"
 wolk.readSQL("alina", "db03", sql_select, {})
   .then(function(result) {
@@ -797,9 +803,8 @@ wolk.readSQL("alina", "db03", sql_select, {})
   .catch(function(err) {
     console.error(err)
   })
-```
 
-```javascript-callback
+// callback
 wolk.readSQL("alina", "db03", sql_select, {}, function(err, result) {
   if ( err ) {
     throw(err);
@@ -831,7 +836,7 @@ wolk.readSQL("alina", "db03", sql_select, {}, function(err, result) {
 }
 ```
 
-# Options
+# Request Options
 
 Many requests support an JSON RequestOptions structure to control request behavior, with the following attributes:
  * TBD
