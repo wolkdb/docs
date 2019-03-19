@@ -2,7 +2,7 @@
 title: WOLK API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - javascript: Node.js
+  - javascript: javascript
 
 includes:
   - errors
@@ -10,180 +10,296 @@ includes:
 search: true
 ---
 
-# Introduction
-wolkjs is a client library for the Wolk API, implemented in JavaScript. It's available on npm as a node module.
+# Wolk: Trustless Web Browsing and Trustless Appstores
 
-To use wolkjs, for your desired database type (NoSQL or SQL), you MUST either
+The Wolk blockchain enables trustless, serverless web browsing model making lock-in between users and developers impossible:
+* user data is kept in user buckets eg wolk://owner/bucket
+* developer code is kept in application buckets owned by the developer eg wolk://developer/app  
+* there is no server held by developers holding user data hostage,
+* there is no platform holding developers hostage, only a protocol
+* storage nodes of the blockchain cannot hold user data or developer code hostage
 
-* Install WolkDB via source code or the docker image for your db type
-* Register your address on the WolkDB Public Gateway. (Available in Dec. 2018)
+The Wolk API is a Javascript interface, enables developers of web content to store and retrieve data from user buckets
 
-Instructions for setting up and testing your own node can be found HERE.
+Storers earn rewards from running Wolk nodes, and developers earn rewards when applications.
 
-Please note that the library is still under development and may not be stable.
+To use the WOLK API and develop Wolk applications, obtain a browser or Chrome extension from:
 
-If you require further assistance, feel free to shoot us an email: [services@wolk.com](mailto:services@wolk.com)
+* Wolk Browser: https://github.com/wolkdb/browser
+* Wolk Extension: https://github.com/wolkdb/extension
 
-# Install
-To use WOLK API, you need to install the corresponding library.
-
-```javascript
-$ npm install wolkjs
-```
-
-# Connect to Plasma Node
-Open a connection by specifying the host and port of the Plasma node.
-
-```javascript
-var wolkjsAPI = require("wolkjs");
-
-var PLASMAHOST = "plasma.wolk.com";
-var PLASMAPORT = "80";
-var PLASMAADDR = "http://" + PLASMAHOST + ":" + PLASMAPORT;
-
-var plasmanode = new wolkjsAPI(PLASMAADDR);
-```
-
-# Plasma Operations
-
-
-## Retrieve Plasma Tokens and Token Balances
-Retrieve plasma tokens and token balance by specifying address and block number
-
-```javascript
-var registered_address = "0xAA96B58F7ee51d2445fE596C3535874F5E206B14";
-var blockNumber = "latest";
-var plasmaBalance = plasmanode.getPlasmaBalance(registered_address, blockNumber);
-// plasmaBalance result:
-{ account:
-   { tokens: [ '0x1962836485220a62' ],
-     denomination: '0x2386f26fc10000',
-     balance: '0x2386f26fc10000' } 
-}
-```
-
-## Retrieve BlockchainID
-Retrieve blockchainID by specifying tokenID and block number
-
-```javascript
-var tokenId = plasmaBalance.account.tokens[0];
-var tokenObject = plasmanode.getPlasmaToken(tokenId, "latest");
-// tokenObject result
-{ token:
-   { denomination: '0x2386f26fc10000',
-     prevBlock: '0x3',
-     owner: '0xaa96b58f7ee51d2445fe596c3535874f5e206b14',
-     balance: '0x2386f26fc10000',
-     allowance: '0x0',
-     spent: '0x0' },
-  tokenInfo:
-   { depositIndex: '0x3c',
-     denomination: '0x2386f26fc10000',
-     depositor: '0xaa96b58f7ee51d2445fe596c3535874f5e206b14',
-     tokenID: '0x1962836485220a62' } 
-}
-
-var blockchainID = plasmanode.getBlockchainID(tokenId, tokenObject.tokenInfo.depositIndex);
-// blockchainID result: '0xcd778162be0d4f2'
-```
-
-## Send Initial Anchor Transaction
-To register your blockchain with the plasma node by sending the initial anchor transaction
-
-```javascript
-// For all initial Anchor Transactions, use 0x03c85f1da84d9c6313e0c34bcb5ace945a9b12105988895252b88ce5b769f82b
-var genesisBlockHash = "0x03c85f1da84d9c6313e0c34bcb5ace945a9b12105988895252b88ce5b769f82b";
-
-var rlp = require('rlp');
-var web3 = require('web3');
-web3Obj = new web3();
-var atxExtra = [ [ registered_address ], [] ];
-var anchorTxJson = { "blockchainID": blockchainID, "blocknumber": "0x0", "blockhash": genesisBlockHash, "extra": atxExtra, "sig": '' };
-var anchorTx = [
-  anchorTxJson.blockchainID,
-  anchorTxJson.blocknumber,
-  anchorTxJson.blockhash,
-  anchorTxJson.extra,
-  '',
-];
-var encodedAnchorTx = rlp.encode(anchorTx);
-var encodedAnchorTxAsHex = encodedAnchorTx.toString('hex');
-var shortHash = web3.sha3(encodedAnchorTxAsHex, {encoding:'hex'});
-
-// Example of signing with Metamask
-alert("Check Metamask to Approve Signing and Sending Order");
-web3.eth.sign(registered_address, shortHash,
-  function(err, sig) {
-    if(!err) {
-      console.log("Sending AnchorTX")
-      anchorTx.sig = sig;
-      plasmanode.sendAnchorTransaction(anchorTx)
-    }
-  }
-}
-```
-
-# Configure Wolk Node
-For the next steps you will need to have a running WolkDB node
- * If you set up your own WolkDB node, make sure to set the blockchainId to the blockchainID retrieved via the steps described above
- * If you registered your address directly with the WolkDB Public Gateway, you should have received the corresponding blockchainID for the selected database type.  Please contact services@wolk.com if you did not.  Those using the public gateway MUST use the blockchainID returned for their requests to work.
- 
- Steps for downloading and launching docker can be found at: ___
-
-# Connect to Wolk Node
-Open a connection by specifying configuration options like host and port
-
-```javascript
-var HOST = "localhost"
-var PORT = "24000"
-var WOLKADDR = "http://" + HOST + ":" + PORT
-
-var wolknode = new wolkjsAPI(WOLKADDR)
-```
+Both expose the WOLK API with a Wolk class with methods that interact with the HTTP Blockchain.
 
 # NoSQL Operations
 
-## SetKey
-Set a key value pair
+## createCollection(owner, collection[, callback])
+
+* `owner <string>`
+* `collection <string>`
+* `callback <Function>``
+  * `err <Error>`
+  * `txhash <string>`
+
+Asynchronously creata new collection, returning a transaction hash.  If `callback` is not provided, returns a promise.
 
 ```javascript
-wolknode.setKey("blockchainID", "key", "val")
-
-// setKey result:
-{ txhash:
-   '2471d3ed40ba6ddb3ff0ea12cdae2f378d6ef146025d5a2b3ef02325af9d0677' }
+// promise
+wolk.createCollection(owner, collection)
+  .then(function(txhash) {
+    console.log(txhash);
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
 ```
 
-## GetKey
-Get the value corresponding to a given key
+```javascript
+// callback
+wolk.createCollection(owner, collection, function(err, txhash) {
+    if ( err ) {
+      throw(err);
+    }
+    console.log(txhash);
+  })
+```
+
+## listCollections(owner[, callback]
+
+* `owner <string>`
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Asynchronously list an owner's collections, returning a list of collections.  If `callback` is not provided, returns a promise.
 
 ```javascript
-var value = wolknode.getKey("blockchainID", "key")
+// promise
+wolk.listCollections(owner, collection)
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
+```
 
-// getKey result:
-{ proof: '{"token":"07855b46a623a8ec","proofBits":"0","proof":[]}',
-  value: 'valueA' }
+```javascript
+// callback
+wolk.listCollections(owner, collection, function(err, result) {
+    if ( err ) {
+      throw(err);
+    }
+    console.log(result);
+  })
+```
+
+## deleteCollection(owner, collection)
+
+* `owner <string>`
+* `collection <string>`
+* `callback <Function>``
+  * `err <Error>`
+  * `txhash <string>`
+
+Asynchronously delete an owner's collection, returning transaction hash.  If `callback` is not provided, returns a promise.
+
+```javascript
+// promise
+wolk.deleteCollection(owner, collection)
+  .then(function(txhash) {
+    console.log(txhash);
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
+```
+
+```javascript
+// callback
+wolk.deleteCollection(owner, collection, function(err, result) {
+    if ( err ) {
+      throw(err);
+    }
+    console.log(result);
+  })
+```
+
+## setKey(owner, collection, key, val[, callback])
+
+* `owner <string>`
+* `collection <string>`
+* `key <string>``
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Asynchronously set a key-value pair in an owner's collection.  If `callback` is not provided, returns a promise.
+
+```javascript
+// promise
+wolk.setKey("bruce", "planets", "pluto", "small")
+  .then(function(txhash) {
+    console.log(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.setKey("bruce", "planets", "pluto", "small", function(err, txhash) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(txhash);
+})
+```
+
+## getKey(owner, collection, key[, callback])
+
+* `owner <string>`
+* `collection <string>`
+* `key <string>``
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Asynchronously gets the value corresponding to a given key in the owner's collection.  If `callback` is not provided, returns a Promise.
+
+```javascript
+// promise
+wolk.getKey("bruce", "planets", "pluto")
+  .then(function(result) {
+    console.log(result);
+  })
+
+// callback
+wolk.getKey("bruce", "planets", "pluto", function (err, result) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(result);
+})
+```
+
+## scanCollection(owner, collection[, callback])  
+
+* `owner <string>`
+* `collection <string>`
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Asynchronously returns _all_ key-value pairs in a collection.   If `callback` is not provided, returns a Promise.
+
+```javascript
+// promise
+wolk.scanCollection("bruce", "planets")
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
+
+// callback
+wolk.scanCollection("bruce", "planets", function (err, result) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(result);
+})  
+```
+
+## deleteKey(owner, collection, key)
+
+* `owner <string>`
+* `collection <string>`
+* `key <string>``
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Asynchronously delete specific key-value pair in an owner's collection.   If `callback` is not provided, returns a Promise.
+
+```javascript
+// promise
+wolk.deleteKey("bruce", "planets", "pluto")
+  .then(function(txhash) {
+    console.log(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// promise
+wolk.deleteKey("bruce", "planets", "pluto"), function(err, txhash) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(txhash);
+})
 ```
 
 # SQL Operations
 
-## Create database
-Create a database by specifying your blockchainID, the requesttype ("CreateDatabase"), an owner (will be specific to your blockchain) and database name.
+## createDatabase(owner, database, options [, callback])
+
+* `owner <string>`
+* `database <string>`
+* `options <JSONObject>`
+* `callback <Function>``
+  * `err <Error>`
+  * `result <string>`
+
+Creates a database owned by owner.
 
 ```javascript
-var createDatabaseCommand = { "requesttype":"CreateDatabase", "owner":"wolkdb.eth", "database":"testdb" }
-wolknode.exec(blockchainID, createDatabaseCommand)
-// result:
-{ txhash: "4450a4f4fde8f0b49d83d2ec3b1185cdc66b287748e546afa55571d887021cc8" }
+// promise
+wolk.createDatabase("alina", "db03", {})
+  .then(function(txhash) {
+    console.log(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.createDatabase("alina", "db03", {}, function(err, txhash) {
+  if ( err ) {
+    throw(err)
+  }
+  console.log(txhash);
+}
 ```
 
-## List databases
-List existing databases by specifying your blockchainID, the requesttype ("ListDatabases"), an owner (will be specific to your blockchain) and (optionally) the blocknumber.  If blocknumber is not included, the request defaults to returning data that corresponds with the latest block minted.
+## listDatabases(owner, options)
+
+* `owner <string>`
+* `options <JSONObject>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+List databases owned by a user.  
 
 ```javascript
-var listDatabasesCommand = { "requesttype":"ListDatabases", "owner":"wolkdb.eth", "blocknumber":1 })
-wolknode.exec(blockchainID, listDatabasesCommand)
-// result:
+// promise
+wolk.listDatabases("alina", {})
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
+
+// callback
+wolk.listDatabases("alina", {}, function(err, result) {
+  if ( err ) {
+    throw(err)
+  }
+  console.log(result);
+});
+
 {
   result: {
     data: [{
@@ -194,35 +310,138 @@ wolknode.exec(blockchainID, listDatabasesCommand)
 }
 ```
 
-## Create table
-Create a table by specifying your blockchainID and a CREATE TABLE SQL statement.
+## deleteDatabase(owner, database)
 
-Note: current supported types for columns are `string`, `integer`, `float` and a table must have a primary key.
+* `owner <string>`
+* `database <string>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+Delete a database by specifying owner and database name.
 
 ```javascript
-var createTableSQL = "CREATE TABLE demoitems(ID string primary key, Name string, Description string, Price float, Currency string, Hash string)";
-var createTableCommand = { "requesttype":"CreateTable", "owner":"wolkdb.eth", "database":"testdb", "query": createTableSQL }
-sql.exec(blockchainID, createTableCommand)
+// promise
+wolk.deleteDatabase("alina", "db03")
+  .then(function(txhash) {
+    console.log(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.deleteDatabase("alina", "db03", function(err, txhash) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(txhash)
+})
+```
+
+## createTable(owner, database, table, columns, options[, callback])
+
+* `owner <string>`
+* `database <string>`
+* `table <string>`
+* `column <column[]>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+
+Create a table with specific column definitions.  Note: current supported types for columns are `STRING`, `INTEGER`, `FLOAT` and a table must have a primary key.
+
+```javascript
+let columns = [{
+    "columnname": "person_id",
+    "indextype": "BPLUS",
+    "columntype": "INTEGER",
+    "primary": 1
+  }, {
+    "columnname": "name",
+    "indextype": "BPLUS",
+    "columntype": "STRING"
+  }]
+
+// promise
+wolk.createTable("alina", "db03", "person", columns, {})
+  .then( function(txhash) {
+    console.log(txhash)
+  })
+  .catch( function(err) {
+    console.error(err)
+  })
+{"txhash": "98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"}
+
+// callback
+wolk.createTable("alina", "db03", "person", columns, {}, function(err, txhash) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(txhash)
+})
+{"txhash": "98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"}
+```
+
+## describeTable(owner, database, table, options[, callback])
+
+* `owner <string>`
+* `database <string>`
+* `table <string>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+Shows the definition of a table in an owner's database.
+
+```javascript
+// promise
+wolk.describeTable("alina", "db03", "person", {})
+   .then( function(result) {
+     let res = JSON.parse(result);
+     console.log(res)
+   })
+   .catch( function(err) {
+     console.error(err);
+   })
+
+// callback
+wolk.describeTable("alina", "db03", "person", {}, function(err, result) {
+     let res = JSON.parse(result);
+     console.log(res)
+   })
+
 // result:
-{
-  txhash: "98827bbd28f1cf65f91dbc0abdb7e50e6bb4a9d4fb69283b1ca5ff828c686a9b"
-}
+{"data":[{"ColumnName":"name","ColumnType":"STRING","IndexType":"BPLUS","Primary":0},{"ColumnName":"person_id","ColumnType":"INTEGER","IndexType":"BPLUS","Primary":1}]}
 ```
 
-## Describe Table
-To see the table definition of a table, specify your blockchainID along with the owner by specifying table name.
+## listTables(owner, database, options)
+
+* `owner <string>`
+* `database <string>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+Lists the tables in an owner's database.
 
 ```javascript
-var describeTableCommand = { "requesttype":"DescribeTable", "owner":"wolkdb.eth", "database":"testdb", "table":"demoitems" }
-sql.exec(blockchainID, describeTableCommand)
-```
+// promise
+wolk.listTables("alina", "db03", {})
+  .then(  function(result) {
+     console.log("list tables:", result)
+     let res = JSON.parse(result);
+   })
+  .catch( function(err) {
+    console.error(err)
+  })
 
-## List Tables
-To list the tables that belong to a given database, specify your blockchainID, owner, database and (optionally) blocknumber
-
-```javascript
-var listTablesCommand = { "requesttype":"ListTables", "owner":"wolkdb.eth", "database":"testdb", "blocknumber":3 }
-sql.exec(blockchainID, listTablesCommand)
+// callback
+wolk.listTables("alina", "db03", {}, function(err, result) {
+     console.log("list tables:", result)
+     let res = JSON.parse(result);
+   })
 
 // result:
 {
@@ -235,25 +454,121 @@ sql.exec(blockchainID, listTablesCommand)
 }
 ```
 
-## INSERT Query
+## executeSQL(owner, database, sql, options[, callback])
+
+* `owner <string>`
+* `database <string>`
+* `sql <string>`
+* `options <JSONObject>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+Executes transactional SQL query in an owner's database.
+
+### INSERT Query
 
 ```javascript
-var sql1 = "INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')";
-var sql2 = "INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID2','Item2','Hot Item #2',0.09,'ethereum', 'Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u')";
+var sql_insert = "INSERT INTO demoitems(ID, Name, Description, Price, Currency, Hash) VALUES('ID1','Item1','Hot Item #1',0.11,'ethereum', 'Qmd286K6pohQcTKYqnS1YhWrCiS4gz7Xi34sdwMe9USZ7u')";
 var queryCommand = { "requesttype":"Query", "owner":"wolkdb.eth", "database":"testdb", "query": sql1 };
-sql.exec(blockchainID, queryCommand);
 
-var queryCommand = { "requesttype":"Query", "owner":"wolkdb.eth", "database":"testdb", "query": sql2 }
-sql.exec(blockchainID, queryCommand)
+// promise
+wolk.executeSQL("alina", "db03", sql_insert, {})
+  .then(function(txhash) {
+    console.error(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.executeSQL("alina", "db03", sql_insert, {}, function(err, txhash) {
+  if ( err ) {
+      throw(error);
+  }
+  console.log(txhash)
+})
 ```
 
-## SELECT Query
+### UPDATE Query
 
 ```javascript
-var sql3 = "SELECT * FROM demoitems"
-var sql4 = "SELECT * FROM demoitems WHERE price > 0.10"
-var queryCommand = { "requesttype":"Query", "owner":"wolkdb.eth", "database":"testdb", "query": sql3 }
-var rows = sql.exec(blockchainID, queryCommand)
+var sql_update = "UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"
+// promise
+wolk.executeSQL("alina", "db03", sql_update, {})
+  .then(function(txhash) {
+    console.error(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.executeSQL("alina", "db03", sql_update, {}, function(err, txhash) {
+  if ( err ) {
+      throw(error);
+  }
+  console.log(txhash)
+})
+```
+
+
+### DELETE Query
+
+```javascript
+var sql_delete = "DELETE FROM demoitems WHERE ID='ID1'"
+// promise
+wolk.executeSQL("alina", "db03", sql_delete, {})
+  .then(function(txhash) {
+    console.error(txhash)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.executeSQL("alina", "db03", sql_delete, {}, function(err, txhash) {
+  if ( err ) {
+      throw(error);
+  }
+  console.log(txhash)
+})
+```
+
+## readSQL(owner, database, sql, options)
+
+* `owner <string>`
+* `database <string>`
+* `sql <string>`
+* `options <JSONObject>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
+
+Executes read-only SQL query in an owner's database.
+
+```javascript
+var sql_select = "SELECT * FROM demoitems WHERE price > 0.10"
+
+// promise
+wolk.readSQL("alina", "db03", sql_select, {})
+  .then(function(result) {
+    let res = JSON.parse(result);
+    console.log(res.data);
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+
+// callback
+wolk.readSQL("alina", "db03", sql_select, {}, function(err, result) {
+  if ( err ) {
+    throw(err);
+  }
+  let res = JSON.parse(result);
+  console.log(res.data);
+});
+
 // result:
 {
   result: {
@@ -275,40 +590,35 @@ var rows = sql.exec(blockchainID, queryCommand)
     matchedrowcount: 2
   }
 }
-
 ```
 
-## UPDATE Query
+## dropTable(owner, database, table, options[, callback])
 
-```javascript
-var sql5 = "UPDATE demoitems SET Price = 0.13 WHERE ID='ID2'"
-var queryCommand = { "requesttype":"Query", "owner":"wolkdb.eth", "database":"testdb", "query": sql5 }
-sql.exec(blockchainID, queryCommand)
-```
-
-
-## DELETE Query
-
-```javascript
-var sql6 = "DELETE FROM demoitems WHERE ID='ID1'"
-var queryCommand = { "requesttype":"Query", "owner":"wolkdb.eth", "database":"testdb", "query": sql6 }
-sql.exec(blockchainID, queryCommand)
-```
-
-## Drop table
+* `owner <string>`
+* `database <string>`
+* `table <string>`
+* `options <JSONObject>`
+* `callback <Function>`
+  * `err <Error>`
+  * `result <string>`
 
 Drop a table by specifying table name.
 
 ```javascript
-var dropTableCommand = { "requesttype":"DropTable", "owner":"wolkdb.eth", "database":"testdb", "table":"demoitems" }
-sql.exec(blockchainID, dropTableCommand)
-```
+// promise
+wolk.dropTable("alina", "db03", "person", {})
+  .then( function(txhash) {
+    console.log(txhash)
+  })
+  .catch( function(err) {
+    console.error(err)
+  })
 
-## Drop database
-
-Drop a database by specifying owner and database name.
-
-```javascript
-var dropDatabaseCommand = { "requesttype":"DropDatabase", "owner":"wolkdb.eth", "database":"testdb" }
-sql.exec(blockchainID, dropTableCommand)
+// callback
+wolk.dropTable("alina", "db03", "person", {}, function(err, txhash) {
+  if ( err ) {
+    throw(err);
+  }
+  console.log(txhash)
+})
 ```
