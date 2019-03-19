@@ -1,6 +1,6 @@
 # Errors
 
-The SWARMDB API uses the following error codes:
+The Wolk API uses the following error codes:
 
 Error Code | Meaning
 ---------- | -------
@@ -14,10 +14,10 @@ Error Code | Meaning
 407	| Invalid ColumnType: [columnType]
 408	| Invalid IndexType: [indexType]
 409	| Max Allowed Columns exceeded - [Num Columns] supplied, max is [MaxNumColumns]
-410	| Max Allowed Record size exceeded - [RecordSize] provided, 
-411	| SWARM Error on Write [Details]
-412	| SWARM Error on Read [Details]
-413	| ENS Error 
+410	| Max Allowed Record size exceeded - [RecordSize] provided,
+411	| Error on Write [Details]
+412	| Error on Read [Details]
+413	| ENS Error
 414	| Invalid Challenge Response
 415	| Insufficient Permissions
 416	| No Table Owner specified
