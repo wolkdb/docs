@@ -221,6 +221,17 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#wolk-trustless-web-apps" class="toc-h1 toc-link" data-title="wolk-trustless-web-apps">Wolk: Trustless Web Apps</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#wolk-api" class="toc-h2 toc-link" data-title="wolk-api">Wolk API</a>
+                  </li>
+                  <li>
+                    <a href="#request-response-headers" class="toc-h2 toc-link" data-title="request-response-headers">Request/Response Headers</a>
+                  </li>
+                  <li>
+                    <a href="#request-options" class="toc-h2 toc-link" data-title="request-options">Request Options</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#wolk-clients" class="toc-h1 toc-link" data-title="wolk-clients">Wolk Clients</a>
@@ -277,6 +288,11 @@
                   <li>
                     <a href="#createdatabase" class="toc-h2 toc-link" data-title="createdatabase">createDatabase</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u" class="toc-h1 toc-link" data-title="qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u">Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#listdatabases" class="toc-h2 toc-link" data-title="listdatabases">listDatabases</a>
                   </li>
@@ -304,9 +320,6 @@
               </ul>
           </li>
           <li>
-            <a href="#request-options" class="toc-h1 toc-link" data-title="request-options">Request Options</a>
-          </li>
-          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </ul>
@@ -328,7 +341,7 @@ where web browsing is  <em>trustless</em> and <em>serverless</em>, with web brow
 <li>storage nodes of the blockchain cannot hold user data or developer code hostage</li>
 <li>storers earn rewards from running Wolk nodes, and developers earn rewards when applications are used.</li>
 </ul>
-
+<h2 id='wolk-api'>Wolk API</h2>
 <p>The Wolk API is a Javascript interface that enables developers of web content to store and retrieve data from the Wolk blockchain:</p>
 
 <table><thead>
@@ -491,7 +504,7 @@ where web browsing is  <em>trustless</em> and <em>serverless</em>, with web brow
 
 <p>The Wolk Class abstracts all HTTP operations in the Wolk API methods that each interact with the Wolk Blockchain, described below.<br>
 Unless otherwise noted, all Wolk API methods are asynchronous, supporting both a callback and promise pattern.  </p>
-
+<h2 id='request-response-headers'>Request/Response Headers</h2>
 <p>Each interaction with a Wolk Blockchain involves submitting <em>signed</em> HTTP requests with <code>Requester</code> being the users public JSON Web Key and <code>Sig</code> holding the users signature (64 hex).
 A Wolk Browser/Extension will register a user private key with <code>createAccount</code> and is responsible for protecting the users keys and ensuring that application code does not
 engage in signing actions without the user&#39;s permission.<br>
@@ -520,6 +533,12 @@ Current implementations have Wolk nodes support for ECDSA-256 with SHA-256 hashe
 Each Proof-type is described separately.</p>
 
 <p>Wolk nodes run data sharing and consensus protocols that Wolk API users do not need to concern themselves with but are critical for decentralized storage.</p>
+<h2 id='request-options'>Request Options</h2>
+<p>GET requests uniformly support an JSON RequestOptions structure to control request behavior, with the following attributes:
+ * blockNumber <int>
+ * maxContentLength <int>
+ * history <int>
+ * range <string></p>
 <h1 id='wolk-clients'>Wolk Clients</h1>
 <p>To use the WOLK API and develop Wolk applications, obtain a browser or Chrome extension from:</p>
 
@@ -530,17 +549,20 @@ Each Proof-type is described separately.</p>
 
 <p>Anyone can fork these browsers and extensions to develop additional Wolk Clients that interacts with a Wolk blockchain.</p>
 <h1 id='blockchain-methods'>Blockchain Methods</h1>
-<p>The API uses the following core Blockchain types:
- * JSON Account (indexed by owner <string>)
- * JSON Block (indexed by blocknumber <int>)
- * JSON Transaction (indexed by txhash <string>)</p>
+<p>The API uses the following core Blockchain types:</p>
+
+<ul>
+<li>JSON Account (indexed by <code>owner &lt;string&gt;</code>)</li>
+<li>JSON Block (indexed by <code>blocknumber &lt;int&gt;</code>)</li>
+<li>JSON Transaction (indexed by <code>txhash &lt;string&gt;</code>)</li>
+</ul>
 <h2 id='createaccount'>createAccount</h2>
 <p><code>createAccount(owner, account[, callback])</code></p>
 
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>account &lt;JSON Account&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -570,7 +592,7 @@ Each Proof-type is described separately.</p>
 
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -584,7 +606,7 @@ Each Proof-type is described separately.</p>
 
 <ul>
 <li><code>blockNumber &lt;int&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -613,7 +635,7 @@ Each Proof-type is described separately.</p>
 
 <ul>
 <li><code>blockNumber &lt;int&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -642,7 +664,7 @@ Each Proof-type is described separately.</p>
 
 <ul>
 <li><code>blockNumber &lt;int&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -676,7 +698,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -707,7 +729,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -738,7 +760,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -768,8 +790,8 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>key &lt;string&gt;</code>`</li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>key &lt;string&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -800,8 +822,8 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>key &lt;string&gt;</code>`</li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>key &lt;string&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -829,7 +851,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -860,8 +882,8 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <ul>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>collection &lt;string&gt;</code></li>
-<li><code>key &lt;string&gt;</code>`</li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>key &lt;string&gt;</code></li>
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -897,7 +919,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
 <li><code>owner &lt;string&gt;</code></li>
 <li><code>database &lt;string&gt;</code></li>
 <li><code>options &lt;JSON RequestOptions&gt;</code></li>
-<li><code>callback &lt;Function&gt;</code>`
+<li><code>callback &lt;Function&gt;</code>
 
 <ul>
 <li><code>err &lt;Error&gt;</code></li>
@@ -906,13 +928,13 @@ and NoSQL collections are JSON records which may be indexed.</p>
 </ul>
 
 <p>Creates a database owned by owner.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
+<h1 id='qme1gtwdtfaumoqwtnwx5sdymnfiaj4n88qujbxmsx5z6u'>Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u</h1><pre class="highlight javascript tab-javascript"><code><span class="c1">// promise</span>
 <span class="nx">wolk</span><span class="p">.</span><span class="nx">createDatabase</span><span class="p">(</span><span class="s2">"alina"</span><span class="p">,</span> <span class="s2">"db03"</span><span class="p">,</span> <span class="p">{})</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">})</span>
 
 <span class="c1">// callback</span>
@@ -921,7 +943,7 @@ and NoSQL collections are JSON records which may be indexed.</p>
     <span class="k">throw</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">}</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txhash</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="p">})</span>
 </code></pre><h2 id='listdatabases'>listDatabases</h2>
 <p><code>listDatabases(owner, options)</code></p>
 
@@ -1265,10 +1287,9 @@ If <code>callback</code> is not provided, returns a Promise.</p>
     <span class="nx">matchedrowcount</span><span class="p">:</span> <span class="mi">2</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h1 id='request-options'>Request Options</h1>
-<p>Many requests support an JSON RequestOptions structure to control request behavior, with the following attributes:
- * TBD</p>
-<h1 id='errors'>Errors</h1>
+</code></pre><h1 id='errors'>Errors</h1>
+<p>[This is undergoing revision now.]</p>
+
 <p>The Wolk API uses the following error codes:</p>
 
 <table><thead>

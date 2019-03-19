@@ -24,6 +24,8 @@ The Wolk protocol makes lock-in between users and developers impossible, enablin
 * storage nodes of the blockchain cannot hold user data or developer code hostage
 * storers earn rewards from running Wolk nodes, and developers earn rewards when applications are used.
 
+## Wolk API
+
 The Wolk API is a Javascript interface that enables developers of web content to store and retrieve data from the Wolk blockchain:
 
 Wolk API Method  | HTTP Request Method / Path   | HTTP Request Body            | HTTP Response Body (200 OK) | HTTP Proof Response Header
@@ -53,6 +55,8 @@ readSQL          | PATCH owner/database/table   | JSON SQLRequest              |
 The Wolk Class abstracts all HTTP operations in the Wolk API methods that each interact with the Wolk Blockchain, described below.  
 Unless otherwise noted, all Wolk API methods are asynchronous, supporting both a callback and promise pattern.  
 
+## Request/Response Headers
+
 Each interaction with a Wolk Blockchain involves submitting _signed_ HTTP requests with `Requester` being the users public JSON Web Key and `Sig` holding the users signature (64 hex).
 A Wolk Browser/Extension will register a user private key with `createAccount` and is responsible for protecting the users keys and ensuring that application code does not
 engage in signing actions without the user's permission.   
@@ -66,8 +70,17 @@ POST, PUT, DELETE, PATCH | Sig, Requester               | -
 PUT, POST, DELETE, PATCH requests result in a transaction being submitted to the Wolk Blockchain with a txhash being returned immediately.  When consensus is achieved, the transaction is included in a minted block and GET requests can return proofs.     Wolk Browsers should send their `Proof` header in GET requests and Wolk nodes must send `Proof` and `Proof-Type` headers in addition to the both.  
 Each Proof-type is described separately.
 
-
 Wolk nodes run data sharing and consensus protocols that Wolk API users do not need to concern themselves with but are critical for decentralized storage.
+
+## Request Options
+
+GET requests uniformly support an JSON RequestOptions structure to control request behavior, with the following attributes:
+ * blockNumber <int>
+ * maxContentLength <int>
+ * history <int>
+ * range <string>
+
+
 
 # Wolk Clients
 
@@ -81,9 +94,10 @@ Anyone can fork these browsers and extensions to develop additional Wolk Clients
 # Blockchain Methods
 
 The API uses the following core Blockchain types:
- * JSON Account (indexed by owner <string>)
- * JSON Block (indexed by blocknumber <int>)
- * JSON Transaction (indexed by txhash <string>)
+
+ * JSON Account (indexed by `owner <string>`)
+ * JSON Block (indexed by `blocknumber <int>`)
+ * JSON Transaction (indexed by `txhash <string>`)
 
 ## createAccount
 
@@ -91,7 +105,7 @@ The API uses the following core Blockchain types:
 
 * `owner <string>`
 * `account <JSON Account>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `txhash <string>`
 
@@ -122,7 +136,7 @@ wolk.createAccount("jack", {"rsaPublicKey": "..."}, function(err, txhash) {
 `getAccount(owner[, callback])`
 
 * `owner <string>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `txhash <string>`
 
@@ -134,7 +148,7 @@ Asynchronously gets specific account by the account owner, originally created by
 `getBlock(blockNumber[, callback])`
 
 * `blockNumber <int>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `block <JSON Block>`
 
@@ -163,7 +177,7 @@ wolk.getBlock(42, function(err, block) {
 `getLatestBlock([callback])`
 
 * `blockNumber <int>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `block <JSON Block>`
 
@@ -192,7 +206,7 @@ wolk.getLatestBlock(blockNumber, function(err, block) {
 `getTransaction(txhash[, callback])`
 
 * `blockNumber <int>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `tx <JSON Transaction>`
 
@@ -228,7 +242,7 @@ and NoSQL collections are JSON records which may be indexed.
 
 * `owner <string>`
 * `collection <string>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `txhash <string>`
 
@@ -259,7 +273,7 @@ In the next release, we will have index specifiable in `CreateCollection`, with 
 `listCollections(owner[, callback])`
 
 * `owner <string>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
@@ -290,7 +304,7 @@ wolk.listCollections("bruce", function(err, result) {
 
 * `owner <string>`
 * `collection <string>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `txhash <string>`
 
@@ -320,8 +334,8 @@ wolk.deleteCollection("bruce", "planets", function(err, result) {
 
 * `owner <string>`
 * `collection <string>`
-* `key <string>``
-* `callback <Function>``
+* `key <string>`
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
@@ -352,8 +366,8 @@ wolk.setKey("bruce", "planets", "pluto", "small", function(err, txhash) {
 
 * `owner <string>`
 * `collection <string>`
-* `key <string>``
-* `callback <Function>``
+* `key <string>`
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
@@ -381,7 +395,7 @@ wolk.getKey("bruce", "planets", "pluto", function (err, result) {
 
 * `owner <string>`
 * `collection <string>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
@@ -412,8 +426,8 @@ wolk.scanCollection("bruce", "planets", function (err, result) {
 
 * `owner <string>`
 * `collection <string>`
-* `key <string>``
-* `callback <Function>``
+* `key <string>`
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
@@ -451,20 +465,22 @@ The Wolk API uses the following data types in SQL Operations:
 * `owner <string>`
 * `database <string>`
 * `options <JSON RequestOptions>`
-* `callback <Function>``
+* `callback <Function>`
   * `err <Error>`
   * `result <string>`
 
 Creates a database owned by owner.
 
+# Qme1gTwdtFaUMoqwTNWX5SdYmNfiAj4N88qujbxmsX5z6u
+
 ```javascript
 // promise
 wolk.createDatabase("alina", "db03", {})
   .then(function(txhash) {
-    console.log(txhash)
+    console.log(txhash);
   })
   .catch(function(err) {
-    console.error(err)
+    console.error(err);
   })
 
 // callback
@@ -473,7 +489,7 @@ wolk.createDatabase("alina", "db03", {}, function(err, txhash) {
     throw(err)
   }
   console.log(txhash);
-}
+})
 ```
 
 ## listDatabases
@@ -835,8 +851,3 @@ wolk.readSQL("alina", "db03", sql_select, {}, function(err, result) {
   }
 }
 ```
-
-# Request Options
-
-Many requests support an JSON RequestOptions structure to control request behavior, with the following attributes:
- * TBD

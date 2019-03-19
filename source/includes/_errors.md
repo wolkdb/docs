@@ -1,5 +1,7 @@
 # Errors
 
+[This is undergoing revision now.]
+
 The Wolk API uses the following error codes:
 
 Error Code | Meaning
