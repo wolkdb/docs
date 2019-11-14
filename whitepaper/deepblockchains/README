@@ -1,0 +1,5 @@
+This is an old paper that Sourabh + Michael wrote when we were doing NoSQL chains in Plasma,
+with Ethereum giving provenance.
+
+The nested proof ideas (with proofs across multiple layers) are being used in NoSQLProof
+in our pure Layer 1 blockchain design
